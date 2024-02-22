@@ -1,0 +1,612 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
+		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
+		FB832C612B87540200E60C19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C602B87540200E60C19 /* ViewController.swift */; };
+		FB832C642B87540200E60C19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C622B87540200E60C19 /* Main.storyboard */; };
+		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
+		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
+		FB832C742B87540700E60C19 /* MonMaraicherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C732B87540700E60C19 /* MonMaraicherTests.swift */; };
+		FB832C7E2B87540700E60C19 /* MonMaraicherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */; };
+		FB832C802B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB832C702B87540600E60C19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB832C512B87540200E60C19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB832C582B87540200E60C19;
+			remoteInfo = MonMaraicher;
+		};
+		FB832C7A2B87540700E60C19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FB832C512B87540200E60C19 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FB832C582B87540200E60C19;
+			remoteInfo = MonMaraicher;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB832C5C2B87540200E60C19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FB832C5E2B87540200E60C19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FB832C602B87540200E60C19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FB832C632B87540200E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FB832C652B87540600E60C19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FB832C682B87540600E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB832C732B87540700E60C19 /* MonMaraicherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherTests.swift; sourceTree = "<group>"; };
+		FB832C792B87540700E60C19 /* MonMaraicherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITests.swift; sourceTree = "<group>"; };
+		FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FB832C562B87540200E60C19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C6C2B87540600E60C19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C762B87540700E60C19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FB832C502B87540200E60C19 = {
+			isa = PBXGroup;
+			children = (
+				FB832C5B2B87540200E60C19 /* MonMaraicher */,
+				FB832C722B87540700E60C19 /* MonMaraicherTests */,
+				FB832C7C2B87540700E60C19 /* MonMaraicherUITests */,
+				FB832C5A2B87540200E60C19 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FB832C5A2B87540200E60C19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FB832C592B87540200E60C19 /* MonMaraicher.app */,
+				FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */,
+				FB832C792B87540700E60C19 /* MonMaraicherUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FB832C5B2B87540200E60C19 /* MonMaraicher */ = {
+			isa = PBXGroup;
+			children = (
+				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
+				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
+				FB832C602B87540200E60C19 /* ViewController.swift */,
+				FB832C622B87540200E60C19 /* Main.storyboard */,
+				FB832C652B87540600E60C19 /* Assets.xcassets */,
+				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
+				FB832C6A2B87540600E60C19 /* Info.plist */,
+			);
+			path = MonMaraicher;
+			sourceTree = "<group>";
+		};
+		FB832C722B87540700E60C19 /* MonMaraicherTests */ = {
+			isa = PBXGroup;
+			children = (
+				FB832C732B87540700E60C19 /* MonMaraicherTests.swift */,
+			);
+			path = MonMaraicherTests;
+			sourceTree = "<group>";
+		};
+		FB832C7C2B87540700E60C19 /* MonMaraicherUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */,
+				FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */,
+			);
+			path = MonMaraicherUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FB832C582B87540200E60C19 /* MonMaraicher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB832C832B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicher" */;
+			buildPhases = (
+				FB832C552B87540200E60C19 /* Sources */,
+				FB832C562B87540200E60C19 /* Frameworks */,
+				FB832C572B87540200E60C19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MonMaraicher;
+			productName = MonMaraicher;
+			productReference = FB832C592B87540200E60C19 /* MonMaraicher.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FB832C6E2B87540600E60C19 /* MonMaraicherTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB832C862B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicherTests" */;
+			buildPhases = (
+				FB832C6B2B87540600E60C19 /* Sources */,
+				FB832C6C2B87540600E60C19 /* Frameworks */,
+				FB832C6D2B87540600E60C19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB832C712B87540600E60C19 /* PBXTargetDependency */,
+			);
+			name = MonMaraicherTests;
+			productName = MonMaraicherTests;
+			productReference = FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FB832C782B87540700E60C19 /* MonMaraicherUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB832C892B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicherUITests" */;
+			buildPhases = (
+				FB832C752B87540700E60C19 /* Sources */,
+				FB832C762B87540700E60C19 /* Frameworks */,
+				FB832C772B87540700E60C19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB832C7B2B87540700E60C19 /* PBXTargetDependency */,
+			);
+			name = MonMaraicherUITests;
+			productName = MonMaraicherUITests;
+			productReference = FB832C792B87540700E60C19 /* MonMaraicherUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FB832C512B87540200E60C19 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					FB832C582B87540200E60C19 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					FB832C6E2B87540600E60C19 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = FB832C582B87540200E60C19;
+					};
+					FB832C782B87540700E60C19 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = FB832C582B87540200E60C19;
+					};
+				};
+			};
+			buildConfigurationList = FB832C542B87540200E60C19 /* Build configuration list for PBXProject "MonMaraicher" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FB832C502B87540200E60C19;
+			productRefGroup = FB832C5A2B87540200E60C19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FB832C582B87540200E60C19 /* MonMaraicher */,
+				FB832C6E2B87540600E60C19 /* MonMaraicherTests */,
+				FB832C782B87540700E60C19 /* MonMaraicherUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB832C572B87540200E60C19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
+				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
+				FB832C642B87540200E60C19 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C6D2B87540600E60C19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C772B87540700E60C19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FB832C552B87540200E60C19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB832C612B87540200E60C19 /* ViewController.swift in Sources */,
+				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
+				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C6B2B87540600E60C19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB832C742B87540700E60C19 /* MonMaraicherTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FB832C752B87540700E60C19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB832C802B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift in Sources */,
+				FB832C7E2B87540700E60C19 /* MonMaraicherUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB832C712B87540600E60C19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB832C582B87540200E60C19 /* MonMaraicher */;
+			targetProxy = FB832C702B87540600E60C19 /* PBXContainerItemProxy */;
+		};
+		FB832C7B2B87540700E60C19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FB832C582B87540200E60C19 /* MonMaraicher */;
+			targetProxy = FB832C7A2B87540700E60C19 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FB832C622B87540200E60C19 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB832C632B87540200E60C19 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FB832C672B87540600E60C19 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB832C682B87540600E60C19 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FB832C812B87540700E60C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FB832C822B87540700E60C19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FB832C842B87540700E60C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FB832C852B87540700E60C19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicher;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FB832C872B87540700E60C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MonMaraicher.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MonMaraicher";
+			};
+			name = Debug;
+		};
+		FB832C882B87540700E60C19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicherTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MonMaraicher.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MonMaraicher";
+			};
+			name = Release;
+		};
+		FB832C8A2B87540700E60C19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicherUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MonMaraicher;
+			};
+			name = Debug;
+		};
+		FB832C8B2B87540700E60C19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8ZV67K9B93;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicherUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MonMaraicher;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FB832C542B87540200E60C19 /* Build configuration list for PBXProject "MonMaraicher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB832C812B87540700E60C19 /* Debug */,
+				FB832C822B87540700E60C19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB832C832B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB832C842B87540700E60C19 /* Debug */,
+				FB832C852B87540700E60C19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB832C862B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicherTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB832C872B87540700E60C19 /* Debug */,
+				FB832C882B87540700E60C19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB832C892B87540700E60C19 /* Build configuration list for PBXNativeTarget "MonMaraicherUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB832C8A2B87540700E60C19 /* Debug */,
+				FB832C8B2B87540700E60C19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FB832C512B87540200E60C19 /* Project object */;
+}
