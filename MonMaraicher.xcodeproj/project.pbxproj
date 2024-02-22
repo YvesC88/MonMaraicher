@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
+		FB31C8C52B87A76F00EDCD75 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C42B87A76F00EDCD75 /* MapViewModel.swift */; };
 		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		FB31C8C42B87A76F00EDCD75 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB832C5C2B87540200E60C19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB832C5E2B87540200E60C19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
 				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
+				FB31C8C42B87A76F00EDCD75 /* MapViewModel.swift */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
@@ -257,6 +260,7 @@
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
+				FB31C8C52B87A76F00EDCD75 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +360,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -413,7 +417,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -433,6 +437,7 @@
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -464,6 +469,7 @@
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
