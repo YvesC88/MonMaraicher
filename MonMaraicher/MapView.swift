@@ -10,16 +10,12 @@ import MapKit
 
 struct MapView: View {
     
-    @State private var mapViewModel = MapViewModel()
+    @StateObject var mapViewModel = MapViewModel()
     
     var body: some View {
         Map(coordinateRegion: $mapViewModel.region,
-            showsUserLocation: true,
-            userTrackingMode: .constant(.follow))
-        .ignoresSafeArea()
-        .onAppear {
-            mapViewModel.checkIfLocationServicesIsEnabled()
-        }
+            showsUserLocation: true)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

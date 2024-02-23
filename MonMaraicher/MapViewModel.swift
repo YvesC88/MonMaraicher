@@ -16,36 +16,32 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     
     @Published var region = MKCoordinateRegion(center: MapParams.startingLocation, span: MapParams.defaultSpan)
     
-    var locationManager: CLLocationManager?
-    
-    func checkIfLocationServicesIsEnabled() {
-            if CLLocationManager.locationServicesEnabled() {
-                locationManager = CLLocationManager()
-                locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-                locationManager?.delegate = self
-            } else {
-                print("Le service de localisation n'est pas actif")
-            }
-    }
-    
-    private func checkLocationAuthorization() {
-        guard let locationManager = locationManager else { return }
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
-        switch locationManager.authorizationStatus {
+        switch manager.authorizationStatus {
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
+            manager.requestWhenInUseAuthorization()
         case .restricted:
             print("Localisation restreinte")
         case .denied:
             print("Vous avez refusé de localiser votre position avec l'application")
-        case .authorizedAlways, .authorizedWhenInUse:
-            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapParams.defaultSpan)
-        @unknown default:
-            break
+        case .authorizedAlways:
+            manager.requestAlwaysAuthorization()
+        case .authorizedWhenInUse:
+            manager.requestLocation()
+        default:
+            ()
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization()
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+        print(error.localizedDescription)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locations.last.map { region = MKCoordinateRegion(center: $0.coordinate,
+                                                         span: MapParams.defaultSpan) }
+        manager.stopUpdatingLocation()
     }
 }
