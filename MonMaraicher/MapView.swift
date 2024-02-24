@@ -13,9 +13,22 @@ struct MapView: View {
     @StateObject var mapViewModel = MapViewModel()
     
     var body: some View {
-        Map(coordinateRegion: $mapViewModel.region,
-            showsUserLocation: true)
-        .edgesIgnoringSafeArea(.all)
+        Map(position: $mapViewModel.position) {
+            
+//            ForEach(placeList, id: \.id) { place in
+//                Marker(place.title, coordinate: place.coordinate)
+//            }
+            
+            UserAnnotation()
+            
+        }
+        .mapStyle(.standard(elevation: .realistic))
+        .mapControls {
+            MapUserLocationButton()
+        }
+        .onAppear {
+            CLLocationManager().requestWhenInUseAuthorization()
+        }
     }
 }
 
