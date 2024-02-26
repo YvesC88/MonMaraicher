@@ -15,9 +15,9 @@ struct MapView: View {
     var body: some View {
         Map(position: $mapViewModel.position) {
             
-//            ForEach(placeList, id: \.id) { place in
-//                Marker(place.title, coordinate: place.coordinate)
-//            }
+            ForEach(placeList, id: \.id) { place in
+                Marker(place.title, coordinate: place.coordinate)
+            }
             
             UserAnnotation()
             
