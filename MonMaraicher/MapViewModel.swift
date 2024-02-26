@@ -10,5 +10,15 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
     
-    @Published var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    
+    let allFarmerPlaces = FarmerPlace.all
+    
+    func onViewAppear() {
+        requestUserAuthorization()
+    }
+    
+    private func requestUserAuthorization() {
+        CLLocationManager().requestWhenInUseAuthorization()
+    }
 }

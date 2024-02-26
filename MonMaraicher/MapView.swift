@@ -10,13 +10,13 @@ import MapKit
 
 struct MapView: View {
     
-    @StateObject var mapViewModel = MapViewModel()
+    @StateObject private var viewModel = MapViewModel()
     
     var body: some View {
-        Map(position: $mapViewModel.position) {
+        Map(position: $viewModel.userPosition) {
             
-            ForEach(placeList, id: \.id) { place in
-                Marker(place.title, coordinate: place.coordinate)
+            ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
+                Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
             }
             
             UserAnnotation()
@@ -26,9 +26,7 @@ struct MapView: View {
         .mapControls {
             MapUserLocationButton()
         }
-        .onAppear {
-            CLLocationManager().requestWhenInUseAuthorization()
-        }
+        .onAppear(perform: viewModel.onViewAppear)
     }
 }
 
