@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB278D152B8D4AE200A625CA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB278D142B8D4AE200A625CA /* Location.swift */; };
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
 		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
@@ -15,6 +16,8 @@
 		FB832C742B87540700E60C19 /* MonMaraicherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C732B87540700E60C19 /* MonMaraicherTests.swift */; };
 		FB832C7E2B87540700E60C19 /* MonMaraicherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */; };
 		FB832C802B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */; };
+		FBB555BC2B89694100C52A80 /* FarmerPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB555BB2B89694100C52A80 /* FarmerPlace.swift */; };
+		FBB555BE2B896CD200C52A80 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB555BD2B896CD200C52A80 /* MapViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB278D142B8D4AE200A625CA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB832C5C2B87540200E60C19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +51,8 @@
 		FB832C792B87540700E60C19 /* MonMaraicherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITests.swift; sourceTree = "<group>"; };
 		FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FBB555BB2B89694100C52A80 /* FarmerPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerPlace.swift; sourceTree = "<group>"; };
+		FBB555BD2B896CD200C52A80 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB278D132B8D4ACE00A625CA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FBB555BB2B89694100C52A80 /* FarmerPlace.swift */,
+				FB278D142B8D4AE200A625CA /* Location.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FB832C502B87540200E60C19 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +115,8 @@
 				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
 				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
+				FBB555BD2B896CD200C52A80 /* MapViewModel.swift */,
+				FB278D132B8D4ACE00A625CA /* Model */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
@@ -255,8 +272,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
+				FBB555BE2B896CD200C52A80 /* MapViewModel.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
+				FB278D152B8D4AE200A625CA /* Location.swift in Sources */,
+				FBB555BC2B89694100C52A80 /* FarmerPlace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,7 +376,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -413,7 +433,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -433,11 +453,13 @@
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -447,6 +469,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -464,11 +487,13 @@
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonMaraicher/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -478,6 +503,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
