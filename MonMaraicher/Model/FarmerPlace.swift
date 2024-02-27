@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FarmerPlace: Identifiable {
+struct FarmerPlace: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let location: Location

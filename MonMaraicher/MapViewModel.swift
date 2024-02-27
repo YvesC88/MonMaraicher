@@ -12,6 +12,8 @@ final class MapViewModel: ObservableObject {
     
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
+    @Published var selectedFarmerPlace: FarmerPlace?
+    
     let allFarmerPlaces = FarmerPlace.all
     
     func onViewAppear() {
