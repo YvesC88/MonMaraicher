@@ -10,11 +10,9 @@ import MapKit
 
 struct MapView: View {
     
+    @StateObject private var viewModel = MapViewModel()
+    
     var body: some View {
-<<<<<<< Updated upstream
-        
-        Text("Hello world!")
-=======
         Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
             
             ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
@@ -29,7 +27,6 @@ struct MapView: View {
             MapUserLocationButton()
         }
         .onAppear(perform: viewModel.onViewAppear)
->>>>>>> Stashed changes
     }
 }
 
