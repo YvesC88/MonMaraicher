@@ -14,6 +14,8 @@ final class MapViewModel: ObservableObject {
     
     @Published var selectedFarmerPlace: FarmerPlace?
     
+    @Published var showDetails = false
+    
     let allFarmerPlaces = FarmerPlace.all
     
     func onViewAppear() {

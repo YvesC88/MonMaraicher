@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
-		FB7260472B8D61F4003A1A40 /* Model in Resources */ = {isa = PBXBuildFile; fileRef = FB7260462B8D61F4003A1A40 /* Model */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
+		FB72604B2B8D67D3003A1A40 /* FarmerPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604A2B8D67D3003A1A40 /* FarmerPlace.swift */; };
+		FB72604D2B8D67E5003A1A40 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604C2B8D67E5003A1A40 /* Location.swift */; };
+		FB72604F2B8DEE60003A1A40 /* DetailFarmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* DetailFarmerView.swift */; };
 		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
@@ -38,8 +40,10 @@
 
 /* Begin PBXFileReference section */
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		FB7260462B8D61F4003A1A40 /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		FB72604A2B8D67D3003A1A40 /* FarmerPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerPlace.swift; sourceTree = "<group>"; };
+		FB72604C2B8D67E5003A1A40 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		FB72604E2B8DEE60003A1A40 /* DetailFarmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFarmerView.swift; sourceTree = "<group>"; };
 		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB832C5C2B87540200E60C19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB832C5E2B87540200E60C19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,8 +108,10 @@
 				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
 				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
+				FB72604E2B8DEE60003A1A40 /* DetailFarmerView.swift */,
 				FB7260482B8D6232003A1A40 /* MapViewModel.swift */,
-				FB7260462B8D61F4003A1A40 /* Model */,
+				FB72604A2B8D67D3003A1A40 /* FarmerPlace.swift */,
+				FB72604C2B8D67E5003A1A40 /* Location.swift */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
@@ -234,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB7260472B8D61F4003A1A40 /* Model in Resources */,
 				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
 			);
@@ -262,8 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
+				FB72604F2B8DEE60003A1A40 /* DetailFarmerView.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
+				FB72604B2B8D67D3003A1A40 /* FarmerPlace.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
+				FB72604D2B8D67E5003A1A40 /* Location.swift in Sources */,
 				FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
