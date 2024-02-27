@@ -13,7 +13,7 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
     
     var body: some View {
-        Map(position: $viewModel.userPosition) {
+        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
             
             ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
                 Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
