@@ -115,5 +115,6 @@ extension FarmerDetailsView {
             Marker(farmer.name, systemImage: "carrot.fill", coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
                 .tint(.orange)
         }
+        .mapControlVisibility(.hidden)
     }
 }
