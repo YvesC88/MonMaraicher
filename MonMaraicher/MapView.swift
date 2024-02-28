@@ -16,20 +16,20 @@ struct MapView: View {
         Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
             
             ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
-                Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
+                Marker(place.name, systemImage: "carrot.fill", coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
                     .tag(place)
-                    .tint(.green)
+                    .tint(.orange)
             }
             
             UserAnnotation()
             
         }
-        .onChange(of: viewModel.selectedFarmerPlace, { oldValue, newValue in
-            viewModel.showDetails = newValue != nil
+        .onChange(of: viewModel.selectedFarmerPlace, { _, newSelectedFarmer in
+            viewModel.showDetails = newSelectedFarmer != nil
         })
         .sheet(isPresented: $viewModel.showDetails, content: {
-            DetailFarmerView(selectedFarmer: viewModel.selectedFarmerPlace, show: $viewModel.showDetails)
-                .presentationDetents([.height(200), .medium, .large])
+            FarmerDetailsView(farmer: viewModel.selectedFarmerPlace ?? FarmerPlace(name: "Unknow farmer", location: Location(latitude: 0, longitude: 0, locality: ""), image: []))
+                .presentationDetents([.medium, .large])
         })
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {
