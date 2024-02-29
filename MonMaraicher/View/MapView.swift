@@ -24,13 +24,11 @@ struct MapView: View {
             UserAnnotation()
             
         }
-        .onChange(of: viewModel.selectedFarmerPlace, { _, newSelectedFarmer in
-            viewModel.showDetails = newSelectedFarmer != nil
-        })
-        .sheet(isPresented: $viewModel.showDetails, content: {
-            FarmerDetailsView(farmer: viewModel.selectedFarmerPlace ?? FarmerPlace(name: "Unknow farmer", location: Location(latitude: 0, longitude: 0, locality: ""), image: []))
+        .sheet(item: $viewModel.selectedFarmerPlace) { farmer in
+            FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: farmer))
                 .presentationDetents([.medium, .large])
-        })
+                .presentationBackgroundInteraction(.enabled)
+        }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {
             MapUserLocationButton()

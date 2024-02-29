@@ -11,18 +11,18 @@ struct FarmerPlace: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let location: Location
-    let image: [String]
+    let imageNames: [String]
     
-    static let all = [FarmerPlace(name: "Chez William", location: FarmerPlace.applePark1, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.applePark2, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.applePark3, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.applePark4, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.applePark5, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Chez William", location: FarmerPlace.chezWilliam, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.bio, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.fred, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.maraicher, image: ["farmer1", "farmer2", "farmer3"]),
-                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.chot, image: ["farmer1", "farmer2", "farmer3"])
+    static let all = [FarmerPlace(name: "Chez William", location: FarmerPlace.applePark1, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.applePark2, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.applePark3, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.applePark4, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.applePark5, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Chez William", location: FarmerPlace.chezWilliam, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.bio, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.fred, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.maraicher, imageNames: ["farmer1", "farmer2", "farmer3"]),
+                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.chot, imageNames: ["farmer1", "farmer2", "farmer3"])
     ]
     
     private static let chezWilliam = Location(latitude: 43.59438738571344, longitude: 3.8856880631710875, locality: "Montpellier")
