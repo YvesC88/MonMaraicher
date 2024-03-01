@@ -12,7 +12,7 @@ struct FarmerPlace: Identifiable, Hashable {
     let name: String
     let location: Location
     let imageNames: [String]
-    
+
     static let all = [FarmerPlace(name: "Chez William", location: FarmerPlace.applePark1, imageNames: ["farmer1", "farmer2", "farmer3"]),
                       FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.applePark2, imageNames: ["farmer1", "farmer2", "farmer3"]),
                       FarmerPlace(name: "Fred producteur", location: FarmerPlace.applePark3, imageNames: ["farmer1", "farmer2", "farmer3"]),

@@ -9,15 +9,15 @@ import SwiftUI
 import MapKit
 
 struct FarmerDetailsView: View {
-    
+
     private let viewModel: FarmerDetailsViewModel
-    
+
     init(viewModel: FarmerDetailsViewModel) {
         self.viewModel = viewModel
     }
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
             ScrollView {
                 VStack(alignment: .leading) {
@@ -46,7 +46,7 @@ struct FarmerDetailsView: View {
 }
 
 private extension FarmerDetailsView {
-    
+
     private var imageSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center) {
@@ -62,7 +62,7 @@ private extension FarmerDetailsView {
             .padding(5)
         }
     }
-    
+
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
@@ -72,15 +72,17 @@ private extension FarmerDetailsView {
                 .foregroundStyle(.secondary)
         }
     }
-    
+
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Bienvenue à la ferme de William, où la nature prospère en harmonie. William cultive une grande variété de fruits et légumes avec amour et respect pour l'environnement.\nSans pesticides ni produits chimiques synthétiques, sa ferme est un havre de biodiversité où les méthodes agricoles durables préservent la terre pour les générations futures.")
+            Text("""
+Bienvenue à la ferme de William, où la nature prospère en harmonie. William cultive une grande variété de fruits et légumes avec amour et respect pour l'environnement.\nSans pesticides ni produits chimiques synthétiques, sa ferme est un havre de biodiversité où les méthodes agricoles durables préservent la terre pour les générations futures.
+""")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
     }
-    
+
     private var linkSection: some View {
         HStack {
             if let url = URL(string: "https://www.google.fr") {
@@ -90,7 +92,7 @@ private extension FarmerDetailsView {
             }
         }
     }
-    
+
     private var closeButton: some View {
         Button {
             dismiss()
@@ -104,7 +106,7 @@ private extension FarmerDetailsView {
                 .padding()
         }
     }
-    
+
     private var mapSection: some View {
         Map(position: .constant(.automatic)) {
             Marker(viewModel.title, systemImage: "carrot.fill", coordinate: viewModel.coordinate)
