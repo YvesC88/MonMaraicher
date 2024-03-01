@@ -8,48 +8,40 @@
 import SwiftUI
 import MapKit
 
-struct FarmerDetailsViewModel {
-    
-    let farmer: FarmerPlace
-    
-    var position: MapCameraPosition = .automatic
-    
-    init(farmer: FarmerPlace) {
-        self.farmer = farmer
-    }
-}
-
 struct FarmerDetailsView: View {
     
-    @State var viewModel: FarmerDetailsViewModel
+    private let viewModel: FarmerDetailsViewModel
+    
+    init(viewModel: FarmerDetailsViewModel) {
+        self.viewModel = viewModel
+    }
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                titleSection
+            ScrollView {
+                VStack(alignment: .leading) {
+                    titleSection
+                        .padding()
+                    Divider()
+                    imageSection
+                        .shadow(radius: 8)
+                    VStack(alignment: .leading, spacing: 16) {
+                        Divider()
+                        descriptionSection
+                        linkSection
+                        Divider()
+                        mapSection
+                            .aspectRatio(1.5, contentMode: .fit)
+                            .clipShape(.rect(cornerRadius: 16))
+                            .shadow(radius: 2)
+                            .allowsHitTesting(false)
+                    }
                     .padding()
-                Divider()
-                imageSection
-                    .shadow(radius: 8)
-                VStack(alignment: .leading, spacing: 16) {
-                    Divider()
-                    descriptionSection
-                    linkSection
-                    Divider()
-                    mapSection
-                        .aspectRatio(1.5, contentMode: .fit)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .shadow(radius: 2)
-                        .allowsHitTesting(false)
                 }
-                .padding()
             }
-        }
-        .ignoresSafeArea()
-        .overlay(closeButton, alignment: .topTrailing)
-        .background(.thinMaterial)
+            .overlay(closeButton, alignment: .topTrailing)
+            .background(.thinMaterial)
     }
 }
 
@@ -58,7 +50,7 @@ private extension FarmerDetailsView {
     private var imageSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center) {
-                ForEach(viewModel.farmer.imageNames, id: \.self) {
+                ForEach(viewModel.imageNames, id: \.self) {
                     Image($0)
                         .resizable()
                         .scaledToFit()
@@ -72,11 +64,11 @@ private extension FarmerDetailsView {
     }
     
     private var titleSection: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(viewModel.farmer.name)
+        VStack(alignment: .leading, spacing: 4) {
+            Text(viewModel.title)
                 .font(.title)
                 .bold()
-            Text(viewModel.farmer.location.locality)
+            Text(viewModel.city)
                 .foregroundStyle(.secondary)
         }
     }
@@ -114,8 +106,8 @@ private extension FarmerDetailsView {
     }
     
     private var mapSection: some View {
-        Map(position: $viewModel.position) {
-            Marker(viewModel.farmer.name, systemImage: "carrot.fill", coordinate: CLLocationCoordinate2D(latitude: viewModel.farmer.location.latitude, longitude: viewModel.farmer.location.longitude))
+        Map(position: .constant(.automatic)) {
+            Marker(viewModel.title, systemImage: "carrot.fill", coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
         .mapControlVisibility(.hidden)
@@ -126,11 +118,11 @@ private extension FarmerDetailsView {
     FarmerDetailsView(
         viewModel: FarmerDetailsViewModel(
             farmer: FarmerPlace(
-                name: "Maraîchers Bio de Grabels de Montpellier",
+                name: "Maraîchers Bio de Grabels",
                 location: Location(
-                    latitude: 34,
-                    longitude: 34,
-                    locality: "Montpellier"
+                    latitude: 43.59438738571344,
+                    longitude: 33.88568806317108754,
+                    city: "Montpellier"
                 ),
                 imageNames: [
                     "farmer1",

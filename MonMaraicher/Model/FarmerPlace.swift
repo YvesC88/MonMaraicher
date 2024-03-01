@@ -25,15 +25,15 @@ struct FarmerPlace: Identifiable, Hashable {
                       FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.chot, imageNames: ["farmer1", "farmer2", "farmer3"])
     ]
     
-    private static let chezWilliam = Location(latitude: 43.59438738571344, longitude: 3.8856880631710875, locality: "Montpellier")
-    private static let bio = Location(latitude: 43.654021390247834, longitude: 3.818078906825667, locality: "Grabels")
-    private static let fred = Location(latitude: 43.66331635156326, longitude: 3.9341394263737, locality: "Le Crès")
-    private static let maraicher = Location(latitude: 43.594984821459704, longitude: 3.900391797826057, locality: "Montpellier")
-    private static let chot = Location(latitude: 43.578405305924235, longitude: 3.8071850039225246, locality: "Lavérune")
+    private static let chezWilliam = Location(latitude: 43.59438738571344, longitude: 3.8856880631710875, city: "montpellier")
+    private static let bio = Location(latitude: 43.654021390247834, longitude: 3.818078906825667, city: "Grabels")
+    private static let fred = Location(latitude: 43.66331635156326, longitude: 3.9341394263737, city: "Le Crès")
+    private static let maraicher = Location(latitude: 43.594984821459704, longitude: 3.900391797826057, city: "Montpellier")
+    private static let chot = Location(latitude: 43.578405305924235, longitude: 3.8071850039225246, city: "Lavérune")
     
-    private static let applePark1 = Location(latitude: 37.33771487954408, longitude: -122.01871382213936, locality: "Montpellier")
-    private static let applePark2 = Location(latitude: 37.34320749025098, longitude: -122.00085869214455, locality: "Grabels")
-    private static let applePark3 = Location(latitude: 37.320788995175214, longitude: -122.02416356085007, locality: "Le Crès")
-    private static let applePark4 = Location(latitude: 37.32238963337884, longitude: -121.98463768108974, locality: "Montpellier")
-    private static let applePark5 = Location(latitude: 37.34986124022765, longitude: -122.01214762927336, locality: "Lavérune")
+    private static let applePark1 = Location(latitude: 37.33771487954408, longitude: -122.01871382213936, city: "Montpellier")
+    private static let applePark2 = Location(latitude: 37.34320749025098, longitude: -122.00085869214455, city: "Grabels")
+    private static let applePark3 = Location(latitude: 37.320788995175214, longitude: -122.02416356085007, city: "Le Crès")
+    private static let applePark4 = Location(latitude: 37.32238963337884, longitude: -121.98463768108974, city: "Montpellier")
+    private static let applePark5 = Location(latitude: 37.34986124022765, longitude: -122.01214762927336, city: "Lavérune")
 }
