@@ -8,12 +8,12 @@
 import MapKit
 
 struct FarmerDetailsViewModel {
-    
+
     let title: String
     let coordinate: CLLocationCoordinate2D
     let imageNames: [String]
     let city: String
-    
+
     init(farmer: FarmerPlace) {
         self.title = farmer.name
         self.coordinate = .init(latitude: farmer.location.latitude,
