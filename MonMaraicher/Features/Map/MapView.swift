@@ -13,10 +13,12 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
 
     var body: some View {
-        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
+        Map(position: .constant(.userLocation(fallback: .automatic)), selection: $viewModel.selectedFarmerPlace) {
 
             ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
-                Marker(place.name, systemImage: "carrot.fill", coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
+                Marker(place.title,
+                       systemImage: place.systemImageName,
+                       coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
                     .tag(place)
                     .tint(.orange)
             }

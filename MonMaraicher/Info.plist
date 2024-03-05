@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Veuillez accepter la localisation afin de vous fournir des lieux en fonction de votre position.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Votre position actuelle sera affichée sur la carte et sera utilisée pour vous fournir un itinéraire vers un lieu sélectionné.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

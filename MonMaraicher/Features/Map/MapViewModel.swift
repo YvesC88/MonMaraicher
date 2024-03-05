@@ -10,8 +10,6 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
 
-    @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
-
     @Published var selectedFarmerPlace: FarmerPlace?
 
     let allFarmerPlaces = FarmerPlace.all
@@ -22,5 +20,16 @@ final class MapViewModel: ObservableObject {
 
     private func requestUserAuthorization() {
         CLLocationManager().requestWhenInUseAuthorization()
+    }
+}
+
+extension FarmerPlace {
+
+    var title: String {
+        return name.capitalized
+    }
+
+    var systemImageName: String {
+        return "carrot.fill"
     }
 }

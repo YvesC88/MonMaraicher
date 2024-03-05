@@ -22,7 +22,8 @@ struct FarmerDetailsView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 titleSection
-                    .padding()
+                    .padding(20)
+                    .padding(.trailing)
                 Divider()
                 imageSection
                     .shadow(radius: 8)
@@ -36,12 +37,14 @@ struct FarmerDetailsView: View {
                         .clipShape(.rect(cornerRadius: 16))
                         .shadow(radius: 2)
                         .allowsHitTesting(false)
+                    addressSection
+                        .background(.thinMaterial)
+                        .clipShape(.rect(cornerRadius: 20))
                 }
                 .padding()
             }
         }
         .overlay(closeButton, alignment: .topTrailing)
-        .background(.thinMaterial)
     }
 }
 
@@ -49,7 +52,7 @@ private extension FarmerDetailsView {
 
     private var imageSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            LazyHStack {
                 ForEach(viewModel.imageNames, id: \.self) {
                     Image($0)
                         .resizable()
@@ -66,7 +69,7 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.title)
+                .font(.largeTitle)
                 .bold()
             Text(viewModel.city)
                 .foregroundStyle(.secondary)
@@ -114,17 +117,42 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
         }
         .mapControlVisibility(.hidden)
     }
+
+    private var directionButton: some View {
+        Button {
+            #warning("Apple Plan")
+        } label: {
+            Text("Y aller")
+        }
+        .font(.headline)
+    }
+
+    private var addressSection: some View {
+        HStack {
+            VStack {
+                Text(viewModel.address)
+                    .font(.callout)
+                    .padding()
+            }
+            Spacer()
+            directionButton
+                .frame(width: 80, height: 35)
+                .background()
+                .clipShape(.capsule)
+                .padding()
+        }
+    }
 }
 
 #Preview {
     FarmerDetailsView(
         viewModel: FarmerDetailsViewModel(
             farmer: FarmerPlace(
-                name: "Mon Maraîcher",
+                name: "maraîcher bio de grabels",
                 location: Location(
                     latitude: 43.65,
                     longitude: 3.9,
-                    city: "Montpellier"
+                    address: Address(streetNumber: 775, streetName: "avenue du maréchal leclerc", zip: 34000, city: "montpellier")
                 ),
                 imageNames: [
                     "farmer6",
