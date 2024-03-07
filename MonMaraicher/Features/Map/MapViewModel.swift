@@ -12,6 +12,8 @@ final class MapViewModel: ObservableObject {
 
     @Published var selectedFarmerPlace: FarmerPlace?
 
+    @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+
     let allFarmerPlaces = FarmerPlace.all
 
     func onViewAppear() {
@@ -20,6 +22,7 @@ final class MapViewModel: ObservableObject {
 
     private func requestUserAuthorization() {
         CLLocationManager().requestWhenInUseAuthorization()
+        CLLocationManager().desiredAccuracy = kCLLocationAccuracyBest
     }
 }
 

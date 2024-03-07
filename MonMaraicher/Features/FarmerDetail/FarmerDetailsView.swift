@@ -22,24 +22,15 @@ struct FarmerDetailsView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 titleSection
-                    .padding(20)
-                    .padding(.trailing)
                 Divider()
                 imageSection
-                    .shadow(radius: 8)
                 VStack(alignment: .leading, spacing: 16) {
                     Divider()
                     descriptionSection
                     linkSection
                     Divider()
                     mapSection
-                        .aspectRatio(1.5, contentMode: .fit)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .shadow(radius: 2)
-                        .allowsHitTesting(false)
                     addressSection
-                        .background(.thinMaterial)
-                        .clipShape(.rect(cornerRadius: 20))
                 }
                 .padding()
             }
@@ -57,13 +48,13 @@ private extension FarmerDetailsView {
                     Image($0)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 180)
-                        .frame(height: 230)
+                        .frame(width: 180, height: 230)
                         .clipShape(.rect(cornerRadius: 16))
                 }
             }
-            .padding()
+            .padding(8)
         }
+        .shadow(radius: 8)
     }
 
     private var titleSection: some View {
@@ -74,6 +65,8 @@ private extension FarmerDetailsView {
             Text(viewModel.city)
                 .foregroundStyle(.secondary)
         }
+        .padding(20)
+        .padding(.trailing)
     }
 
     private var descriptionSection: some View {
@@ -111,16 +104,20 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
     }
 
     private var mapSection: some View {
-        Map(position: .constant(.automatic), bounds: .init(minimumDistance: 300)) {
-            Marker(viewModel.title, systemImage: "carrot.fill", coordinate: viewModel.coordinate)
+        Map(position: .constant(.automatic), bounds: .init(minimumDistance: 1000)) {
+            Marker(viewModel.title, systemImage: viewModel.systemImageName, coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
+        .aspectRatio(1.5, contentMode: .fit)
+        .clipShape(.rect(cornerRadius: 16))
+        .shadow(radius: 2)
+        .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
 
     private var directionButton: some View {
         Button {
-            #warning("Apple Plan")
+            #warning("Show Apple Plan")
         } label: {
             Text("Y aller")
         }
@@ -129,11 +126,9 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
 
     private var addressSection: some View {
         HStack {
-            VStack {
-                Text(viewModel.address)
-                    .font(.callout)
-                    .padding()
-            }
+            Text(viewModel.address)
+                .font(.callout)
+                .padding()
             Spacer()
             directionButton
                 .frame(width: 80, height: 35)
@@ -141,6 +136,8 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
                 .clipShape(.capsule)
                 .padding()
         }
+        .background(.thinMaterial)
+        .clipShape(.rect(cornerRadius: 20))
     }
 }
 
@@ -152,7 +149,7 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
                 location: Location(
                     latitude: 43.65,
                     longitude: 3.9,
-                    address: Address(streetNumber: 775, streetName: "avenue du maréchal leclerc", zip: 34000, city: "montpellier")
+                    address: Address(streetNumber: 775, streetName: "avenue du maréchal leclerc", zipCode: 34000, city: "montpellier")
                 ),
                 imageNames: [
                     "farmer6",

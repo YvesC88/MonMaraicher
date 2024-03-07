@@ -30,7 +30,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: 3.8856880631710875,
         address: Address(streetNumber: 775,
                          streetName: "avenue du maréchal leclerc",
-                         zip: 34000,
+                         zipCode: 34000,
                          city: "montpellier")
     )
     private static let bio = Location(
@@ -38,7 +38,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: 3.818078906825667,
         address: Address(streetNumber: nil,
                          streetName: "chemin du redonnel",
-                         zip: 34790,
+                         zipCode: 34790,
                          city: "grabels")
     )
     private static let fred = Location(
@@ -46,7 +46,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: 3.9341394263737,
         address: Address(streetNumber: nil,
                          streetName: "D65",
-                         zip: 34920,
+                         zipCode: 34920,
                          city: "le crès")
     )
     private static let maraicher = Location(
@@ -54,7 +54,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: 3.900391797826057,
         address: Address(streetNumber: nil,
                          streetName: "rue de la rauze",
-                         zip: 34070,
+                         zipCode: 34070,
                          city: "montpellier")
     )
     private static let chot = Location(
@@ -62,7 +62,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: 3.8071850039225246,
         address: Address(streetNumber: nil,
                          streetName: "D5E3",
-                         zip: 34880,
+                         zipCode: 34880,
                          city: "lavérune")
     )
 
@@ -71,7 +71,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: -122.01871382213936,
         address: Address(streetNumber: 775,
                          streetName: "avenue du maréchal leclerc",
-                         zip: 34000,
+                         zipCode: 34000,
                          city: "montpellier")
     )
     private static let applePark2 = Location(
@@ -79,7 +79,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: -122.00085869214455,
         address: Address(streetNumber: nil,
                          streetName: "chemin du redonnel",
-                         zip: 34790,
+                         zipCode: 34790,
                          city: "grabels")
     )
     private static let applePark3 = Location(
@@ -87,7 +87,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: -122.02416356085007,
         address: Address(streetNumber: nil,
                          streetName: "D65",
-                         zip: 34920,
+                         zipCode: 34920,
                          city: "le crès")
     )
     private static let applePark4 = Location(
@@ -95,7 +95,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: -121.98463768108974,
         address: Address(streetNumber: 139,
                          streetName: "rue de la rauze",
-                         zip: 34070,
+                         zipCode: 34070,
                          city: "montpellier")
     )
     private static let applePark5 = Location(
@@ -103,7 +103,7 @@ struct FarmerPlace: Identifiable, Hashable {
         longitude: -122.01214762927336,
         address: Address(streetNumber: nil,
                          streetName: "D5E3",
-                         zip: 34880,
+                         zipCode: 34880,
                          city: "lavérune")
     )
 }

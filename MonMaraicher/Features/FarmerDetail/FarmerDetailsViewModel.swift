@@ -12,6 +12,7 @@ struct FarmerDetailsViewModel {
     let title: String
     let coordinate: CLLocationCoordinate2D
     let imageNames: [String]
+    let systemImageName: String
     let address: String
     let city: String
 
@@ -22,10 +23,11 @@ struct FarmerDetailsViewModel {
         self.imageNames = farmer.imageNames
         self.address = Self.formatAddress(farmer.location.address).capitalized
         self.city = farmer.location.address.city.capitalized
+        self.systemImageName = "carrot.fill"
     }
 
     private static func formatAddress(_ address: Address) -> String {
-        let endAddress = "\(address.streetName)\n\(address.zip) \(address.city)"
+        let endAddress = "\(address.streetName)\n\(address.zipCode) \(address.city)"
         if let streetNumber = address.streetNumber {
             return "\(streetNumber) " + endAddress
         } else {

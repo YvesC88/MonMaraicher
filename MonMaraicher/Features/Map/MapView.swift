@@ -13,7 +13,7 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
 
     var body: some View {
-        Map(position: .constant(.userLocation(fallback: .automatic)), selection: $viewModel.selectedFarmerPlace) {
+        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
 
             ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
                 Marker(place.title,

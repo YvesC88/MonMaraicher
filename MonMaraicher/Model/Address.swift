@@ -10,6 +10,6 @@ import Foundation
 struct Address: Hashable {
     let streetNumber: Int?
     let streetName: String
-    let zip: Int
+    let zipCode: Int
     let city: String
 }
