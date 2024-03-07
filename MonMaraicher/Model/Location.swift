@@ -10,5 +10,5 @@ import Foundation
 struct Location: Hashable {
     let latitude: Double
     let longitude: Double
-    let city: String
+    let address: Address
 }

@@ -13,27 +13,97 @@ struct FarmerPlace: Identifiable, Hashable {
     let location: Location
     let imageNames: [String]
 
-    static let all = [FarmerPlace(name: "Chez William", location: FarmerPlace.applePark1, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.applePark2, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.applePark3, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.applePark4, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.applePark5, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Chez William", location: FarmerPlace.chezWilliam, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Maraîchers Bio de Grabels", location: FarmerPlace.bio, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Fred producteur", location: FarmerPlace.fred, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "Mon Maraîcher", location: FarmerPlace.maraicher, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
-                      FarmerPlace(name: "La ferme du Chot", location: FarmerPlace.chot, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"])
+    static let all = [FarmerPlace(name: "chez william", location: FarmerPlace.applePark1, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "maraîchers bio de grabels", location: FarmerPlace.applePark2, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "fred producteur", location: FarmerPlace.applePark3, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "mon maraîcher", location: FarmerPlace.applePark4, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "la ferme du chot", location: FarmerPlace.applePark5, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "chez william", location: FarmerPlace.chezWilliam, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "maraîchers bio de grabels", location: FarmerPlace.bio, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "fred producteur", location: FarmerPlace.fred, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "mon maraîcher", location: FarmerPlace.maraicher, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"]),
+                      FarmerPlace(name: "la ferme du chot", location: FarmerPlace.chot, imageNames: ["farmer1", "farmer2", "farmer3", "farmer4", "farmer5", "farmer6"])
     ]
 
-    private static let chezWilliam = Location(latitude: 43.59438738571344, longitude: 3.8856880631710875, city: "Montpellier")
-    private static let bio = Location(latitude: 43.654021390247834, longitude: 3.818078906825667, city: "Grabels")
-    private static let fred = Location(latitude: 43.66331635156326, longitude: 3.9341394263737, city: "Le Crès")
-    private static let maraicher = Location(latitude: 43.594984821459704, longitude: 3.900391797826057, city: "Montpellier")
-    private static let chot = Location(latitude: 43.578405305924235, longitude: 3.8071850039225246, city: "Lavérune")
+    private static let chezWilliam = Location(
+        latitude: 43.59438738571344,
+        longitude: 3.8856880631710875,
+        address: Address(streetNumber: 775,
+                         streetName: "avenue du maréchal leclerc",
+                         zipCode: 34000,
+                         city: "montpellier")
+    )
+    private static let bio = Location(
+        latitude: 43.654021390247834,
+        longitude: 3.818078906825667,
+        address: Address(streetNumber: nil,
+                         streetName: "chemin du redonnel",
+                         zipCode: 34790,
+                         city: "grabels")
+    )
+    private static let fred = Location(
+        latitude: 43.66331635156326,
+        longitude: 3.9341394263737,
+        address: Address(streetNumber: nil,
+                         streetName: "D65",
+                         zipCode: 34920,
+                         city: "le crès")
+    )
+    private static let maraicher = Location(
+        latitude: 43.594984821459704,
+        longitude: 3.900391797826057,
+        address: Address(streetNumber: nil,
+                         streetName: "rue de la rauze",
+                         zipCode: 34070,
+                         city: "montpellier")
+    )
+    private static let chot = Location(
+        latitude: 43.578405305924235,
+        longitude: 3.8071850039225246,
+        address: Address(streetNumber: nil,
+                         streetName: "D5E3",
+                         zipCode: 34880,
+                         city: "lavérune")
+    )
 
-    private static let applePark1 = Location(latitude: 37.33771487954408, longitude: -122.01871382213936, city: "Montpellier")
-    private static let applePark2 = Location(latitude: 37.34320749025098, longitude: -122.00085869214455, city: "Grabels")
-    private static let applePark3 = Location(latitude: 37.320788995175214, longitude: -122.02416356085007, city: "Le Crès")
-    private static let applePark4 = Location(latitude: 37.32238963337884, longitude: -121.98463768108974, city: "Montpellier")
-    private static let applePark5 = Location(latitude: 37.34986124022765, longitude: -122.01214762927336, city: "Lavérune")
+    private static let applePark1 = Location(
+        latitude: 37.33771487954408,
+        longitude: -122.01871382213936,
+        address: Address(streetNumber: 775,
+                         streetName: "avenue du maréchal leclerc",
+                         zipCode: 34000,
+                         city: "montpellier")
+    )
+    private static let applePark2 = Location(
+        latitude: 37.34320749025098,
+        longitude: -122.00085869214455,
+        address: Address(streetNumber: nil,
+                         streetName: "chemin du redonnel",
+                         zipCode: 34790,
+                         city: "grabels")
+    )
+    private static let applePark3 = Location(
+        latitude: 37.320788995175214,
+        longitude: -122.02416356085007,
+        address: Address(streetNumber: nil,
+                         streetName: "D65",
+                         zipCode: 34920,
+                         city: "le crès")
+    )
+    private static let applePark4 = Location(
+        latitude: 37.32238963337884,
+        longitude: -121.98463768108974,
+        address: Address(streetNumber: 139,
+                         streetName: "rue de la rauze",
+                         zipCode: 34070,
+                         city: "montpellier")
+    )
+    private static let applePark5 = Location(
+        latitude: 37.34986124022765,
+        longitude: -122.01214762927336,
+        address: Address(streetNumber: nil,
+                         streetName: "D5E3",
+                         zipCode: 34880,
+                         city: "lavérune")
+    )
 }

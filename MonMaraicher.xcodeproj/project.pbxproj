@@ -20,6 +20,7 @@
 		FB832C742B87540700E60C19 /* MonMaraicherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C732B87540700E60C19 /* MonMaraicherTests.swift */; };
 		FB832C7E2B87540700E60C19 /* MonMaraicherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */; };
 		FB832C802B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */; };
+		FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBCBA2C2B97C89600FDB64F /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		FB832C792B87540700E60C19 /* MonMaraicherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB832C7D2B87540700E60C19 /* MonMaraicherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITests.swift; sourceTree = "<group>"; };
 		FB832C7F2B87540700E60C19 /* MonMaraicherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FBBCBA2C2B97C89600FDB64F /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			children = (
 				FB72604A2B8D67D3003A1A40 /* FarmerPlace.swift */,
 				FB72604C2B8D67E5003A1A40 /* Location.swift */,
+				FBBCBA2C2B97C89600FDB64F /* Address.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FB72604B2B8D67D3003A1A40 /* FarmerPlace.swift in Sources */,
+				FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
 				FB72604D2B8D67E5003A1A40 /* Location.swift in Sources */,
 				FB7CAA682B90EB920093540E /* FarmerDetailsViewModel.swift in Sources */,
