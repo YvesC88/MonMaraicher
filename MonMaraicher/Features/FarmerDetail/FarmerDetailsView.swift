@@ -44,8 +44,8 @@ private extension FarmerDetailsView {
     private var imageSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack {
-                ForEach(viewModel.imageNames, id: \.self) {
-                    Image($0)
+                ForEach(viewModel.imageNames, id: \.self) { imageName in
+                    Image(imageName)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 180, height: 230)
@@ -117,9 +117,9 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
 
     private var directionButton: some View {
         Button {
-            #warning("Show Apple Plan")
+            viewModel.onItineraryButtonTapped()
         } label: {
-            Text("Y aller")
+            Text(viewModel.directionButtonTitle)
         }
         .font(.headline)
     }
