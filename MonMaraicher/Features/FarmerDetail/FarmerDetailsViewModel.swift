@@ -13,6 +13,7 @@ struct FarmerDetailsViewModel {
     let coordinate: CLLocationCoordinate2D
     let imageNames: [String]
     let systemImageName: String
+    let directionButtonTitle: String
     let address: String
     let city: String
 
@@ -24,6 +25,7 @@ struct FarmerDetailsViewModel {
         self.address = Self.formatAddress(farmer.location.address).capitalized
         self.city = farmer.location.address.city.capitalized
         self.systemImageName = "carrot.fill"
+        self.directionButtonTitle = "Y aller"
     }
 
     private static func formatAddress(_ address: Address) -> String {
@@ -33,5 +35,12 @@ struct FarmerDetailsViewModel {
         } else {
             return endAddress
         }
+    }
+
+    func onItineraryButtonTapped() {
+        let placemark = MKPlacemark(coordinate: self.coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = self.title.capitalized
+        mapItem.openInMaps()
     }
 }
