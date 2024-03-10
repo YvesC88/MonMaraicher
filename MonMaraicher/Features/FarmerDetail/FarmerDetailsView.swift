@@ -105,7 +105,7 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
 
     private var mapSection: some View {
         Map(position: .constant(.automatic), bounds: .init(minimumDistance: 1000)) {
-            Marker(viewModel.title, systemImage: viewModel.systemImageName, coordinate: viewModel.coordinate)
+            Marker(viewModel.title, systemImage: viewModel.markerSystemImageName, coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
         .aspectRatio(1.5, contentMode: .fit)
