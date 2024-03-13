@@ -10,18 +10,10 @@ import XCTest
 
 final class FarmerPlaceTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testTitleShouldReturnFarmerPlaceNameCapitalized() {
 
         // Given
-        let farmerPlace = FarmerPlace(name: "chez william", location: Location(latitude: 0, longitude: 0, address: Address(streetNumber: 0, streetName: "", zipCode: 0, city: "")), imageNames: [])
+        let farmerPlace = Farmer(id: 0, name: "chez william", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: nil, streetName: "", zipCode: 0, city: "")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
 
         // When
         let expectedTitle = "Chez William"

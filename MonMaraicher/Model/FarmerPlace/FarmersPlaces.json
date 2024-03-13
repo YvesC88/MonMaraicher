@@ -1,0 +1,119 @@
+{
+    "farmers": [
+        {
+            "id": 1,
+            "name": "chez william",
+            "location": {
+                "latitude": 43.59438738571344,
+                "longitude": 3.8856880631710875,
+                "address":
+                {
+                    "street_number": 775,
+                    "street_name": "avenue du maréchal leclerc",
+                    "zip_code": 34000,
+                    "city": "montpellier"
+                }
+            },
+            "images": {
+                "farmer1": "farmer1",
+                "farmer2": "farmer2",
+                "farmer3": "farmer3",
+                "farmer4": "farmer4",
+                "farmer5": "farmer5",
+                "farmer6": "farmer6"
+            }
+        },
+        {
+            "id": 2,
+            "name": "maraîchers bio de grabels",
+            "location": {
+                "latitude": 43.654021390247834,
+                "longitude": 3.818078906825667,
+                "address":
+                {
+                    "street_number": null,
+                    "street_name": "chemin du redonnel",
+                    "zip_code": 34790,
+                    "city": "grabels"
+                }
+            },
+            "images": {
+                "farmer1": "farmer1",
+                "farmer2": "farmer2",
+                "farmer3": "farmer3",
+                "farmer4": "farmer4",
+                "farmer5": "farmer5",
+                "farmer6": "farmer6"
+            }
+        },
+        {
+            "id": 3,
+            "name": "fred producteur",
+            "location": {
+                "latitude": 43.66331635156326,
+                "longitude": 3.9341394263737,
+                "address":
+                {
+                    "street_number": null,
+                    "street_name": "D65",
+                    "zip_code": 34920,
+                    "city": "le crès"
+                }
+            },
+            "images": {
+                "farmer1": "farmer1",
+                "farmer2": "farmer2",
+                "farmer3": "farmer3",
+                "farmer4": "farmer4",
+                "farmer5": "farmer5",
+                "farmer6": "farmer6"
+            }
+        },
+        {
+            "id": 4,
+            "name": "mon maraîcher",
+            "location": {
+                "latitude": 43.594984821459704,
+                "longitude": 3.900391797826057,
+                "address":
+                {
+                    "street_number": null,
+                    "street_name": "rue de la rauze",
+                    "zip_code": 34070,
+                    "city": "montpellier"
+                }
+            },
+            "images": {
+                "farmer1": "farmer1",
+                "farmer2": "farmer2",
+                "farmer3": "farmer3",
+                "farmer4": "farmer4",
+                "farmer5": "farmer5",
+                "farmer6": "farmer6"
+            }
+        },
+        {
+            "id": 5,
+            "name": "la ferme du chot",
+            "location": {
+                "latitude": 43.578405305924235,
+                "longitude": 3.8071850039225246,
+                "address":
+                {
+                    "street_number": null,
+                    "street_name": "D5E3",
+                    "zip_code": 34880,
+                    "city": "lavérune"
+                }
+            },
+            "images": {
+                "farmer1": "farmer1",
+                "farmer2": "farmer2",
+                "farmer3": "farmer3",
+                "farmer4": "farmer4",
+                "farmer5": "farmer5",
+                "farmer6": "farmer6"
+            }
+        }
+    ]
+}

@@ -17,11 +17,16 @@ struct FarmerDetailsViewModel {
     let address: String
     let city: String
 
-    init(farmer: FarmerPlace) {
+    init(farmer: Farmer) {
         self.title = farmer.name.capitalized
         self.coordinate = .init(latitude: farmer.location.latitude,
                                 longitude: farmer.location.longitude)
-        self.imageNames = farmer.imageNames
+        self.imageNames = [farmer.images.farmer1,
+                           farmer.images.farmer2,
+                           farmer.images.farmer3,
+                           farmer.images.farmer4,
+                           farmer.images.farmer5,
+                           farmer.images.farmer6]
         self.address = Self.formatAddress(farmer.location.address).capitalized
         self.city = farmer.location.address.city.capitalized
         self.markerSystemImageName = "carrot.fill"

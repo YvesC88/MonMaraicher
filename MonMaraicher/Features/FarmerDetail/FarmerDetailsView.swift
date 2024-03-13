@@ -142,24 +142,5 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
 }
 
 #Preview {
-    FarmerDetailsView(
-        viewModel: FarmerDetailsViewModel(
-            farmer: FarmerPlace(
-                name: "maraîcher bio de grabels",
-                location: Location(
-                    latitude: 43.65,
-                    longitude: 3.9,
-                    address: Address(streetNumber: 775, streetName: "avenue du maréchal leclerc", zipCode: 34000, city: "montpellier")
-                ),
-                imageNames: [
-                    "farmer6",
-                    "farmer4",
-                    "farmer1",
-                    "farmer2",
-                    "farmer5",
-                    "farmer3"
-                ]
-            )
-        )
-    )
+    FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: Farmer(id: 1, name: "chez william", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: 12, streetName: "", zipCode: 0, city: "")), images: .init(farmer1: "farmer1", farmer2: "farmer2", farmer3: "farmer3", farmer4: "farmer4", farmer5: "farmer5", farmer6: "farmer6"))))
 }
