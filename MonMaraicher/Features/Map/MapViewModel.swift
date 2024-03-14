@@ -30,8 +30,8 @@ final class MapViewModel: ObservableObject {
         do {
             if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
                let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                let farmers = try decoder.decode(Farmers.self, from: farmerJson)
-                allFarmers = farmers.farmers
+                let farmers = try decoder.decode([Farmer].self, from: farmerJson)
+                self.allFarmers = farmers
             }
         } catch {
             print("Error decoding: \(error)")

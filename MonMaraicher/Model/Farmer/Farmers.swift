@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Farmers: Decodable {
-    let farmers: [Farmer]
-}
-
 struct Farmer: Decodable, Identifiable, Hashable {
     let id: Int
     let name: String
