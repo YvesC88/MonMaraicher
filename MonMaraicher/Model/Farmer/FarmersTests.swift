@@ -8,7 +8,7 @@
 import XCTest
 @testable import MonMaraicher
 
-final class FarmerPlaceTests: XCTestCase {
+final class FarmersTests: XCTestCase {
 
     func testTitleShouldReturnFarmerPlaceNameCapitalized() {
 

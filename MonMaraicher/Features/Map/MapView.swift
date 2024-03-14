@@ -13,20 +13,20 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel()
 
     var body: some View {
-        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmerPlace) {
+        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmer) {
 
-            ForEach(viewModel.allFarmerPlaces, id: \.id) { place in
-                Marker(place.title,
-                       systemImage: place.systemImageName,
-                       coordinate: CLLocationCoordinate2D(latitude: place.location.latitude, longitude: place.location.longitude))
-                    .tag(place)
+            ForEach(viewModel.allFarmers, id: \.id) { farmer in
+                Marker(farmer.title,
+                       systemImage: farmer.systemImageName,
+                       coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
+                    .tag(farmer)
                     .tint(.orange)
             }
 
             UserAnnotation()
 
         }
-        .sheet(item: $viewModel.selectedFarmerPlace) { farmer in
+        .sheet(item: $viewModel.selectedFarmer) { farmer in
             FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: farmer))
                 .presentationDetents([.medium, .large])
         }

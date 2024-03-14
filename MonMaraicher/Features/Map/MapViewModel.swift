@@ -10,9 +10,9 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedFarmerPlace: Farmer?
+    @Published var selectedFarmer: Farmer?
 
-    @Published var allFarmerPlaces: [Farmer] = []
+    @Published var allFarmers: [Farmer] = []
 
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
@@ -28,10 +28,10 @@ final class MapViewModel: ObservableObject {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
-            if let bundlePath = Bundle.main.path(forResource: "FarmersPlaces", ofType: "json"),
+            if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
                let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                let farmers = try decoder.decode(FarmersPlaces.self, from: farmerJson)
-                allFarmerPlaces = farmers.farmers
+                let farmers = try decoder.decode(Farmers.self, from: farmerJson)
+                allFarmers = farmers.farmers
             }
         } catch {
             print("Error decoding: \(error)")

@@ -8,7 +8,7 @@
 import XCTest
 @testable import MonMaraicher
 
-final class FarmerDetailsTests: XCTestCase {
+final class FarmerDetailsViewModelTests: XCTestCase {
 
     func testFarmerCityShouldReturnCityCapitalized() {
         // Given

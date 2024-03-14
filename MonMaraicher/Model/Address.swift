@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Address: Codable, Hashable {
+struct Address: Decodable, Hashable {
     let streetNumber: Int?
     let streetName: String
     let zipCode: Int
