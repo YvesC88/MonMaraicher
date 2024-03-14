@@ -11,7 +11,7 @@ struct FarmerDetailsViewModel {
 
     let title: String
     let coordinate: CLLocationCoordinate2D
-    let imageNames: [String]
+    let farmerImages: [String]
     let markerSystemImageName: String
     let directionButtonTitle: String
     let address: String
@@ -21,7 +21,7 @@ struct FarmerDetailsViewModel {
         self.title = farmer.name.capitalized
         self.coordinate = .init(latitude: farmer.location.latitude,
                                 longitude: farmer.location.longitude)
-        self.imageNames = [farmer.images.farmer1,
+        self.farmerImages = [farmer.images.farmer1,
                            farmer.images.farmer2,
                            farmer.images.farmer3,
                            farmer.images.farmer4,
