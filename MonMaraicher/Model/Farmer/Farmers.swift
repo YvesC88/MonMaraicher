@@ -15,5 +15,10 @@ struct Farmer: Decodable, Identifiable, Hashable {
 }
 
 struct FarmerImages: Decodable, Hashable {
-    let farmer1, farmer2, farmer3, farmer4, farmer5, farmer6: String
+    let farmer1: String
+    let farmer2: String
+    let farmer3: String
+    let farmer4: String
+    let farmer5: String
+    let farmer6: String
 }
