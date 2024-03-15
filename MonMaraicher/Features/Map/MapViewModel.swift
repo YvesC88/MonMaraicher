@@ -16,9 +16,10 @@ final class MapViewModel: ObservableObject {
 
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
-    private let farmerService = FarmerService()
+    private let farmerService: FarmerService
 
-    init() {
+    init(farmerServive: FarmerService) {
+        self.farmerService = farmerServive
         loadFarmers()
     }
 
