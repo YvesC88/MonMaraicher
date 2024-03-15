@@ -17,25 +17,17 @@ final class MapViewModel: ObservableObject {
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     init() {
-        readJsonFarmers()
+        getFarmers()
     }
 
     func onViewAppear() {
         requestUserAuthorization()
     }
 
-    private func readJsonFarmers() {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
-               let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                let farmers = try decoder.decode([Farmer].self, from: farmerJson)
-                self.allFarmers = farmers
-            }
-        } catch {
-            print("Error decoding: \(error)")
-        }
+    private func getFarmers() {
+        let mapViewService = MapViewService()
+        mapViewService.loadFarmers()
+        allFarmers = mapViewService.allFarmers
     }
 
     private func requestUserAuthorization() {

@@ -20,6 +20,7 @@
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
+		FBB6B8A12BA481E300D9D3F6 /* MapViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* MapViewService.swift */; };
 		FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBCBA2C2B97C89600FDB64F /* Address.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		FB832C682B87540600E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB6B8A02BA481E300D9D3F6 /* MapViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewService.swift; sourceTree = "<group>"; };
 		FBBCBA2C2B97C89600FDB64F /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +107,7 @@
 			children = (
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
 				FB7260482B8D6232003A1A40 /* MapViewModel.swift */,
+				FBB6B8A02BA481E300D9D3F6 /* MapViewService.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
+				FBB6B8A12BA481E300D9D3F6 /* MapViewService.swift in Sources */,
 				FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */,
 				FB29A3CC2BA1F19400158776 /* Farmers.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
