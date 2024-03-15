@@ -16,18 +16,20 @@ final class MapViewModel: ObservableObject {
 
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
+    private let farmerService = FarmerService()
+
     init() {
-        getFarmers()
+        loadFarmers()
     }
 
     func onViewAppear() {
         requestUserAuthorization()
     }
 
-    private func getFarmers() {
-        let mapViewService = MapViewService()
-        mapViewService.loadFarmers()
-        allFarmers = mapViewService.allFarmers
+    private func loadFarmers() {
+        DispatchQueue.main.async {
+            self.allFarmers = self.farmerService.loadFarmers()
+        }
     }
 
     private func requestUserAuthorization() {
