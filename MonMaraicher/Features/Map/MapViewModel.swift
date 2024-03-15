@@ -10,14 +10,32 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedFarmerPlace: FarmerPlace?
+    @Published var selectedFarmer: Farmer?
+
+    @Published var allFarmers: [Farmer] = []
 
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
-    let allFarmerPlaces = FarmerPlace.all
+    init() {
+        readJsonFarmers()
+    }
 
     func onViewAppear() {
         requestUserAuthorization()
+    }
+
+    private func readJsonFarmers() {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        do {
+            if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
+               let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                let farmers = try decoder.decode([Farmer].self, from: farmerJson)
+                self.allFarmers = farmers
+            }
+        } catch {
+            print("Error decoding: \(error)")
+        }
     }
 
     private func requestUserAuthorization() {
@@ -26,7 +44,7 @@ final class MapViewModel: ObservableObject {
     }
 }
 
-extension FarmerPlace {
+extension Farmer {
 
     var title: String {
         return name.capitalized
