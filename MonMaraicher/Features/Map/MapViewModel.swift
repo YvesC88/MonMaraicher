@@ -20,6 +20,7 @@ final class MapViewModel: ObservableObject {
 
     init(farmerServive: FarmerService) {
         self.farmerService = farmerServive
+        // TODO: create a units tests for loadFarmers on another PR
         loadFarmers()
     }
 
