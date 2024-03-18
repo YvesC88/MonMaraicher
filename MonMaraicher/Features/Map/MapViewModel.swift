@@ -33,7 +33,7 @@ final class MapViewModel: ObservableObject {
             do {
                 self.allFarmers = try self.farmerService.loadFarmers()
             } catch {
-                print("Error decoding: \(FarmerService.Error.decodingError)")
+                print("Error when loading farmers: \(error)")
             }
         }
     }
