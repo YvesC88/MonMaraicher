@@ -9,11 +9,11 @@ import Foundation
 
 final class FarmerService {
 
-    func loadFarmers() throws -> [Farmer] {
+    func loadFarmers(forName ressourceName: String) throws -> [Farmer] {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
-            guard let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
+            guard let bundlePath = Bundle.main.path(forResource: ressourceName, ofType: "json"),
                   let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) else {
                 throw Error.invalidJsonFile
             }
