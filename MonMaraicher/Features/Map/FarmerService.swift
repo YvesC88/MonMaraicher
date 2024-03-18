@@ -7,21 +7,27 @@
 
 import Foundation
 
+enum LoadFarmerError: Error {
+    case invalidJsonFile
+    case errorDecoding
+}
+
 final class FarmerService {
 
-    func loadFarmers() -> [Farmer] {
+    func loadFarmers(handlerError: (Result<[Farmer], LoadFarmerError>) -> Void) {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
-            if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
-               let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                let farmers = try decoder.decode([Farmer].self, from: farmerJson)
-                return farmers
+            guard let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
+                  let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) else {
+                handlerError(.failure(.invalidJsonFile))
+                return
             }
+            let farmers = try decoder.decode([Farmer].self, from: farmerJson)
+            handlerError(.success(farmers))
         } catch {
-            // TODO: in another pull request to display error for user /feature/displayError
-            print("Error decoding: \(error)")
+            handlerError(.failure(.errorDecoding))
+            return
         }
-        return []
     }
 }

@@ -29,8 +29,13 @@ final class MapViewModel: ObservableObject {
     }
 
     private func loadFarmers() {
-        DispatchQueue.main.async {
-            self.allFarmers = self.farmerService.loadFarmers()
+        farmerService.loadFarmers { result in
+            switch result {
+            case .success(let farmers):
+                self.allFarmers = farmers
+            case .failure:
+                print(LoadFarmerError.errorDecoding)
+            }
         }
     }
 
