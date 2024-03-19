@@ -16,25 +16,21 @@ final class MapViewModel: ObservableObject {
 
     @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
-    init() {
-        readJsonFarmers()
+    private let farmerService: FarmerService
+
+    init(farmerServive: FarmerService) {
+        self.farmerService = farmerServive
+        // TODO: create a units tests for loadFarmers on another PR
+        loadFarmers()
     }
 
     func onViewAppear() {
         requestUserAuthorization()
     }
 
-    private func readJsonFarmers() {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        do {
-            if let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json"),
-               let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) {
-                let farmers = try decoder.decode([Farmer].self, from: farmerJson)
-                self.allFarmers = farmers
-            }
-        } catch {
-            print("Error decoding: \(error)")
+    private func loadFarmers() {
+        DispatchQueue.main.async {
+            self.allFarmers = self.farmerService.loadFarmers()
         }
     }
 

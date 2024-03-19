@@ -10,7 +10,7 @@ import MapKit
 
 struct MapView: View {
 
-    @StateObject private var viewModel = MapViewModel()
+    @StateObject private var viewModel = MapViewModel(farmerServive: FarmerService())
 
     var body: some View {
         Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmer) {
