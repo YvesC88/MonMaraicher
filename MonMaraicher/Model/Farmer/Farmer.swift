@@ -1,5 +1,5 @@
 //
-//  FarmersPlaces.swift
+//  Farmer.swift
 //  MonMaraicher
 //
 //  Created by Yves Charpentier on 13/03/2024.
