@@ -10,14 +10,18 @@ import XCTest
 
 final class FarmerServiceTests: XCTestCase {
 
-    let farmerService = FarmerService()
+    func testloadFarmersShouldReturnError() {
+        // Given
+        let farmerService = FarmerService()
 
-    func testloadFarmersShouldReturnNoFarmers() {
         // Then
         XCTAssertThrowsError(try farmerService.loadFarmers(forName: "farmers"))
     }
 
-    func testloadFarmersShouldReturnFarmers() {
+    func testloadFarmersShouldReturnNoError() {
+        // Given
+        let farmerService = FarmerService()
+
         // Then
         XCTAssertNoThrow(try farmerService.loadFarmers(forName: "Farmers"))
     }
