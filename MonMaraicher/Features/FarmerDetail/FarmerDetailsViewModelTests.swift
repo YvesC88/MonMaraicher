@@ -12,11 +12,11 @@ final class FarmerDetailsViewModelTests: XCTestCase {
 
     func testFarmerCityShouldReturnCityCapitalized() {
         // Given
-        let farmer = Farmer(id: 0, name: "", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: nil, streetName: "", zipCode: 0, city: "montpellier")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
-        let farmerDetail = FarmerDetailsViewModel(farmer: farmer)
+        let mockFarmerCity = Farmer.mockFarmer(city: "paris")
+        let farmerDetail = FarmerDetailsViewModel(farmer: mockFarmerCity)
 
         // When
-        let expectedCity = "Montpellier"
+        let expectedCity = "Paris"
 
         // Then
         XCTAssertEqual(farmerDetail.city, expectedCity)
@@ -24,8 +24,8 @@ final class FarmerDetailsViewModelTests: XCTestCase {
 
     func testFarmerAddressShouldReturnFormattedAddressWithoutStreetNumber() {
         // Given
-        let farmer = Farmer(id: 0, name: "", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: nil, streetName: "rue de la paix", zipCode: 75000, city: "paris")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
-        let farmerDetail = FarmerDetailsViewModel(farmer: farmer)
+        let mockFarmerAddress = Farmer.mockFarmer(streetName: "rue de la paix", zipCode: 75000, city: "paris")
+        let farmerDetail = FarmerDetailsViewModel(farmer: mockFarmerAddress)
 
         // When
         let expectedFormattedAddress = "Rue De La Paix\n75000 Paris"
@@ -36,8 +36,8 @@ final class FarmerDetailsViewModelTests: XCTestCase {
 
     func testFarmerAddressShouldReturnFormattedAddressWithStreetNumber() {
         // Given
-        let farmer = Farmer(id: 0, name: "", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: 5, streetName: "rue de la paix", zipCode: 75000, city: "paris")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
-        let farmerDetail = FarmerDetailsViewModel(farmer: farmer)
+        let mockFarmerAddress = Farmer.mockFarmer(streetNumber: 5, streetName: "rue de la paix", zipCode: 75000, city: "paris")
+        let farmerDetail = FarmerDetailsViewModel(farmer: mockFarmerAddress)
 
         // When
         let expectedFormattedAddress = "5 Rue De La Paix\n75000 Paris"
@@ -48,13 +48,20 @@ final class FarmerDetailsViewModelTests: XCTestCase {
 
     func testMarkerSystemImageNameShouldReturnCorrectValue() {
         // Given
-        let farmer = Farmer(id: 0, name: "", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: nil, streetName: "rue de la paix", zipCode: 75000, city: "paris")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
-        let farmerDetail = FarmerDetailsViewModel(farmer: farmer)
+        let mockFarmer = Farmer.mockFarmer()
+        let farmerDetail = FarmerDetailsViewModel(farmer: mockFarmer)
 
         // When
         let expectedMarkerSystemImageName = "carrot.fill"
 
         // Then
         XCTAssertEqual(farmerDetail.markerSystemImageName, expectedMarkerSystemImageName)
+    }
+}
+
+extension Farmer {
+
+    static func mockFarmer(id: Int = 0, name: String = "", streetNumber: Int? = nil, streetName: String = "", zipCode: Int = 0, city: String = "") -> Farmer {
+        return Farmer(id: id, name: name, location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: streetNumber, streetName: streetName, zipCode: zipCode, city: city)), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
     }
 }
