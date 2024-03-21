@@ -14,13 +14,12 @@ final class MapViewModel: ObservableObject {
 
     @Published var allFarmers: [Farmer] = []
 
-    @Published var userPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     private let farmerService: FarmerService
 
-    init(farmerServive: FarmerService) {
-        self.farmerService = farmerServive
-        // TODO: create a units tests for loadFarmers on another PR
+    init(farmerService: FarmerService) {
+        self.farmerService = farmerService
         loadFarmers()
     }
 
@@ -31,7 +30,7 @@ final class MapViewModel: ObservableObject {
     private func loadFarmers() {
         DispatchQueue.main.async {
             do {
-                self.allFarmers = try self.farmerService.loadFarmers()
+                self.allFarmers = try self.farmerService.loadFarmers(forName: "Farmers")
             } catch {
                 print("Error when loading farmers: \(error)")
             }
@@ -41,6 +40,28 @@ final class MapViewModel: ObservableObject {
     private func requestUserAuthorization() {
         CLLocationManager().requestWhenInUseAuthorization()
         CLLocationManager().desiredAccuracy = kCLLocationAccuracyBest
+    }
+
+    func onButtonTapped() {
+        if let nearbyFarmer = findNearbyFarmer() {
+            mapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude, longitude: nearbyFarmer.location.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        } else {
+            // TODO: request to the user to invite them to accept the location
+        }
+    }
+
+    private func findNearbyFarmer() -> Farmer? {
+        var nearbyDistance = Double.infinity
+        if let userPosition = CLLocationManager().location {
+            for farmer in allFarmers {
+                let distance = userPosition.distance(from: CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
+                if distance < nearbyDistance {
+                    nearbyDistance = distance
+                    selectedFarmer = farmer
+                }
+            }
+        }
+        return selectedFarmer
     }
 }
 
