@@ -51,7 +51,7 @@ extension MapView {
         Button {
             viewModel.onButtonTapped()
         } label: {
-            Text("Maraîcher à proximité")
+            Text(viewModel.nearbyButtontitle)
                 .font(.subheadline)
                 .padding(16)
                 .background(.thinMaterial)

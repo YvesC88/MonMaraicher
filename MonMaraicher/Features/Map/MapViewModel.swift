@@ -18,8 +18,11 @@ final class MapViewModel: ObservableObject {
 
     private let farmerService: FarmerService
 
+    let nearbyButtontitle: String
+
     init(farmerService: FarmerService) {
         self.farmerService = farmerService
+        self.nearbyButtontitle = "Maraîcher à proximité"
         loadFarmers()
     }
 
