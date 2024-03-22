@@ -19,8 +19,8 @@ struct MapView: View {
                 Marker(farmer.title,
                        systemImage: farmer.systemImageName,
                        coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
-                    .tag(farmer)
-                    .tint(.orange)
+                .tag(farmer)
+                .tint(.orange)
             }
 
             UserAnnotation()
@@ -35,29 +35,28 @@ struct MapView: View {
             MapUserLocationButton()
         }
         .onAppear(perform: viewModel.onViewAppear)
-        .overlay(alignment: .bottomTrailing) {
+        .overlay(alignment: .bottom) {
             nearbyFarmerButton
         }
     }
-}
-
-#Preview {
-    MapView()
 }
 
 extension MapView {
 
     private var nearbyFarmerButton: some View {
         Button {
-            viewModel.onButtonTapped()
+            viewModel.onNearbyFarmerButtonTapped()
         } label: {
-            Text(viewModel.nearbyButtontitle)
-                .font(.subheadline)
-                .padding(16)
-                .background(.thinMaterial)
-                .clipShape(.rect(cornerRadius: 16))
-                .shadow(radius: 8)
+            Label(viewModel.nearbyButtonTitle, systemImage: viewModel.systemImageName)
+                .foregroundStyle(.white)
+                .padding(12)
+                .background(RoundedRectangle(cornerRadius: 16))
                 .padding()
+                .shadow(radius: 2)
         }
     }
+}
+
+#Preview {
+    MapView()
 }
