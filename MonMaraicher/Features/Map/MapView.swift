@@ -47,13 +47,15 @@ extension MapView {
         Button {
             viewModel.onNearbyFarmerButtonTapped()
         } label: {
-            Label(viewModel.nearbyButtonTitle, systemImage: viewModel.systemImageName)
-                .foregroundStyle(.white)
-                .padding(12)
-                .background(RoundedRectangle(cornerRadius: 16))
-                .padding()
-                .shadow(radius: 2)
+            Image(systemName: viewModel.imageSystemNameSearchButton)
+                .font(.title)
+                .padding(16)
+                .foregroundStyle(.blue)
+                .background(Circle()
+                    .fill(.thinMaterial))
         }
+        .padding(32)
+        .shadow(radius: 8)
     }
 }
 

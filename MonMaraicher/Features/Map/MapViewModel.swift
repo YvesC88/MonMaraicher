@@ -18,8 +18,11 @@ final class MapViewModel: ObservableObject {
 
     private let farmerService: FarmerService
 
+    let imageSystemNameSearchButton: String
+
     init(farmerService: FarmerService) {
         self.farmerService = farmerService
+        self.imageSystemNameSearchButton = "magnifyingglass"
         loadFarmers()
     }
 
@@ -44,49 +47,47 @@ final class MapViewModel: ObservableObject {
 
     func onNearbyFarmerButtonTapped() {
         do {
-            if let nearbyFarmer = try searchNearbyFarmer() {
-                let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
-                                                                    longitude: nearbyFarmer.location.longitude)
-                let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
-                                                            span: self.nearbyFarmerSpan)
-                mapCameraPosition = .region(nearbyFarmerRegion)
-            }
-        } catch {
+            let nearbyFarmer = try searchingFarmer()
+            let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
+                                                                longitude: nearbyFarmer.location.longitude)
+            let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
+                                                        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            mapCameraPosition = .region(nearbyFarmerRegion)
+        } catch SearchingFarmer.noFarmerFound {
             print("Aucun maraîcher trouvé à proximité")
+        } catch UserLocation.noLocation {
+            // TODO: request to go to settings
+            print("Veuillez accepté la localisation")
+        } catch {
+            print("Une erreur est survenue lors de la recherche d'un maraîcher")
         }
     }
 
-    private func searchNearbyFarmer() throws -> Farmer? {
+    func searchingFarmer() throws -> Farmer {
         var maxSearchDistance = 10_000.0
         var nearbyFarmer: Farmer?
-        guard let userLocation = CLLocationManager().location else { return nil }
+        guard let userLocation = CLLocationManager().location else { throw UserLocation.noLocation }
         for farmer in allFarmers {
-            let distance = userLocation.distance(from: .init(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
+            let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
+            let distance = userLocation.distance(from: farmerLocation)
             if distance < maxSearchDistance {
                 maxSearchDistance = distance
                 nearbyFarmer = farmer
             }
         }
+        guard let nearbyFarmer = nearbyFarmer else { throw SearchingFarmer.noFarmerFound }
         return nearbyFarmer
     }
 }
 
 extension MapViewModel {
 
-    enum Error: Swift.Error {
-        case noFarmer
+    enum SearchingFarmer: Error {
+        case noFarmerFound
     }
 
-    var nearbyButtonTitle: String {
-        return "Maraîcher à proximité"
-    }
-
-    var systemImageName: String {
-        return "location.fill"
-    }
-
-    var nearbyFarmerSpan: MKCoordinateSpan {
-        return .init(latitudeDelta: 0.01, longitudeDelta: 0.01)
+    enum UserLocation: Error {
+        case noLocation
     }
 }
 
