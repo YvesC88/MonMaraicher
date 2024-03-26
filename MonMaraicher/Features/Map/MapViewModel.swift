@@ -45,49 +45,48 @@ final class MapViewModel: ObservableObject {
         CLLocationManager().desiredAccuracy = kCLLocationAccuracyBest
     }
 
+    // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
         do {
-            let nearbyFarmer = try searchingFarmer()
+            let nearbyFarmer = try findNearbyFarmer()
             let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
                                                                 longitude: nearbyFarmer.location.longitude)
             let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
                                                         span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
             mapCameraPosition = .region(nearbyFarmerRegion)
-        } catch SearchingFarmer.noFarmerFound {
+        } catch SearchingFarmerError.noFarmerFound {
             print("Aucun maraîcher trouvé à proximité")
-        } catch UserLocation.noLocation {
-            // TODO: request to go to settings
-            print("Veuillez accepté la localisation")
+        } catch SearchingFarmerError.userLocationNoFound {
+            // TODO: Request to the user to go to the settings
+            print("Veuillez accepter la localisation")
         } catch {
             print("Une erreur est survenue lors de la recherche d'un maraîcher")
         }
     }
 
-    func searchingFarmer() throws -> Farmer {
-        var maxSearchDistance = 10_000.0
+    // TODO: Write unit tests for this method
+    func findNearbyFarmer() throws -> Farmer {
+        var searchScopeInMeters = 10_000.0
         var nearbyFarmer: Farmer?
-        guard let userLocation = CLLocationManager().location else { throw UserLocation.noLocation }
+        guard let userLocation = CLLocationManager().location else { throw SearchingFarmerError.userLocationNoFound }
         for farmer in allFarmers {
             let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
             let distance = userLocation.distance(from: farmerLocation)
-            if distance < maxSearchDistance {
-                maxSearchDistance = distance
+            if distance < searchScopeInMeters {
+                searchScopeInMeters = distance
                 nearbyFarmer = farmer
             }
         }
-        guard let nearbyFarmer = nearbyFarmer else { throw SearchingFarmer.noFarmerFound }
+        guard let nearbyFarmer = nearbyFarmer else { throw SearchingFarmerError.noFarmerFound }
         return nearbyFarmer
     }
 }
 
 extension MapViewModel {
 
-    enum SearchingFarmer: Error {
+    enum SearchingFarmerError: LocalizedError {
         case noFarmerFound
-    }
-
-    enum UserLocation: Error {
-        case noLocation
+        case userLocationNoFound
     }
 }
 
