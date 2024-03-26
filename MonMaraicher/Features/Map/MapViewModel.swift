@@ -9,18 +9,17 @@ import MapKit
 import SwiftUI
 
 final class MapViewModel: ObservableObject {
-
     @Published var selectedFarmer: Farmer?
-
     @Published var allFarmers: [Farmer] = []
-
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
-    private let farmerService: FarmerService
+    private let locationMangager: CLLocationManager = .init()
+    private var lastUserLocation: CLLocation? { locationMangager.location }
+    private let farmerService: FarmerServiceProtocol
 
     let imageSystemNameSearchButton: String
 
-    init(farmerService: FarmerService) {
+    init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         loadFarmers()
@@ -41,43 +40,39 @@ final class MapViewModel: ObservableObject {
     }
 
     private func requestUserAuthorization() {
-        CLLocationManager().requestWhenInUseAuthorization()
-        CLLocationManager().desiredAccuracy = kCLLocationAccuracyBest
+        locationMangager.requestWhenInUseAuthorization()
+        locationMangager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
-        do {
-            let nearbyFarmer = try findNearbyFarmer()
+        guard let lastUserLocation else {
+            return // handle error if needed: Dire au user que la location est required: "Active la loc"
+        }
+        if let nearbyFarmer = findNearbyFarmer(from: lastUserLocation) {
             let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
                                                                 longitude: nearbyFarmer.location.longitude)
             let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
                                                         span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
             mapCameraPosition = .region(nearbyFarmerRegion)
-        } catch SearchingFarmerError.noFarmerFound {
-            print("Aucun maraîcher trouvé à proximité")
-        } catch SearchingFarmerError.userLocationNoFound {
-            // TODO: Request to the user to go to the settings
-            print("Veuillez accepter la localisation")
-        } catch {
-            print("Une erreur est survenue lors de la recherche d'un maraîcher")
+        } else {
+            // Display pas de farmer trouve
         }
     }
 
     // TODO: Write unit tests for this method
-    func findNearbyFarmer() throws -> Farmer {
+    private func findNearbyFarmer(from location: CLLocation) -> Farmer? {
         var searchScopeInMeters = 10_000.0
         var nearbyFarmer: Farmer?
-        guard let userLocation = CLLocationManager().location else { throw SearchingFarmerError.userLocationNoFound }
+
         for farmer in allFarmers {
             let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
-            let distance = userLocation.distance(from: farmerLocation)
+            let distance = location.distance(from: farmerLocation)
             if distance < searchScopeInMeters {
                 searchScopeInMeters = distance
                 nearbyFarmer = farmer
             }
         }
-        guard let nearbyFarmer = nearbyFarmer else { throw SearchingFarmerError.noFarmerFound }
         return nearbyFarmer
     }
 }

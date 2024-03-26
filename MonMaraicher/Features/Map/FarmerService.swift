@@ -7,7 +7,11 @@
 
 import Foundation
 
-final class FarmerService {
+protocol FarmerServiceProtocol {
+    func loadFarmers(forName ressourceName: String) throws -> [Farmer]
+}
+
+final class FarmerService: FarmerServiceProtocol {
 
     func loadFarmers(forName ressourceName: String) throws -> [Farmer] {
         let decoder = JSONDecoder()
@@ -30,5 +34,14 @@ extension FarmerService {
     enum Error: Swift.Error {
         case invalidJsonFile
         case decodingError
+    }
+}
+
+struct FarmerServiceMock: FarmerServiceProtocol {
+
+    func loadFarmers(forName ressourceName: String) throws -> [Farmer] {
+        return [
+            
+        ]
     }
 }
