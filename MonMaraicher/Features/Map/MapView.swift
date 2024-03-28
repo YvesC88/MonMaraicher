@@ -13,14 +13,14 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel(farmerService: FarmerService())
 
     var body: some View {
-        Map(position: $viewModel.userPosition, selection: $viewModel.selectedFarmer) {
+        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedFarmer) {
 
             ForEach(viewModel.allFarmers, id: \.id) { farmer in
                 Marker(farmer.title,
                        systemImage: farmer.systemImageName,
                        coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
-                    .tag(farmer)
-                    .tint(.orange)
+                .tag(farmer)
+                .tint(.orange)
             }
 
             UserAnnotation()
@@ -35,6 +35,27 @@ struct MapView: View {
             MapUserLocationButton()
         }
         .onAppear(perform: viewModel.onViewAppear)
+        .overlay(alignment: .bottom) {
+            nearbyFarmerButton
+        }
+    }
+}
+
+extension MapView {
+
+    private var nearbyFarmerButton: some View {
+        Button {
+            viewModel.onNearbyFarmerButtonTapped()
+        } label: {
+            Image(systemName: viewModel.imageSystemNameSearchButton)
+                .font(.title)
+                .padding(16)
+                .foregroundStyle(.blue)
+                .background(Circle()
+                    .fill(.thinMaterial))
+        }
+        .padding(32)
+        .shadow(radius: 8)
     }
 }
 

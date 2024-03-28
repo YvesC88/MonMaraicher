@@ -29,7 +29,7 @@ struct FarmerDetailsViewModel {
                            farmer.images.farmer6]
         self.address = Self.formatAddress(farmer.location.address).capitalized
         self.city = farmer.location.address.city.capitalized
-        self.markerSystemImageName = "carrot.fill"
+        self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
     }
 

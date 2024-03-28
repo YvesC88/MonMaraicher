@@ -51,7 +51,7 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let farmerDetail = FarmerDetailsViewModel(farmer: .makeMock())
 
         // When
-        let expectedMarkerSystemImageName = "carrot.fill"
+        let expectedMarkerSystemImageName = "laurel.leading"
 
         // Then
         XCTAssertEqual(farmerDetail.markerSystemImageName, expectedMarkerSystemImageName)

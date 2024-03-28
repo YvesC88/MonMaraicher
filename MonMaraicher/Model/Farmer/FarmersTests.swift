@@ -13,13 +13,24 @@ final class FarmersTests: XCTestCase {
     func testTitleShouldReturnFarmerPlaceNameCapitalized() {
 
         // Given
-        let farmerPlace = Farmer(id: 0, name: "chez william", location: .init(latitude: 0, longitude: 0, address: .init(streetNumber: nil, streetName: "", zipCode: 0, city: "")), images: .init(farmer1: "", farmer2: "", farmer3: "", farmer4: "", farmer5: "", farmer6: ""))
+        let farmer = Farmer.makeMock(name: "chez william")
 
         // When
         let expectedTitle = "Chez William"
 
         // Then
-        XCTAssertEqual(farmerPlace.title, expectedTitle)
+        XCTAssertEqual(farmer.title, expectedTitle)
+    }
+
+    func testSystemImageNameShouldReturnCorrectlyValue() {
+        // Given
+        let farmer = Farmer.makeMock()
+
+        // When
+        let expectedSystemImageName = "laurel.leading"
+
+        // Then
+        XCTAssertEqual(farmer.systemImageName, expectedSystemImageName)
     }
 
 }
