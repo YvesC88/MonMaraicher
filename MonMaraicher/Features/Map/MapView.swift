@@ -54,6 +54,8 @@ extension MapView {
                 .background(Circle()
                     .fill(.thinMaterial))
         }
+        .alert(viewModel.titleError, isPresented: $viewModel.isErrorSearchFarmerPresented, actions: {
+        })
         .padding(32)
         .shadow(radius: 8)
     }
