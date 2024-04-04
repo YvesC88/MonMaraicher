@@ -13,6 +13,8 @@ final class MapViewModel: ObservableObject {
     @Published var selectedFarmer: Farmer?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    @Published var isErrorSearchFarmerPresented = false
+    @Published var titleError = ""
 
     private let locationManager = CLLocationManager()
     private let farmerService: FarmerService
@@ -48,7 +50,9 @@ final class MapViewModel: ObservableObject {
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
         guard let currentUserLocation else {
-            return print("Veuillez activer la localisation")
+            isErrorSearchFarmerPresented = true
+            titleError = "Veuillez accepter la localisation"
+            return
         }
         do {
             if let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) {
@@ -58,7 +62,8 @@ final class MapViewModel: ObservableObject {
                                                             span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 mapCameraPosition = .region(nearbyFarmerRegion)
             } else {
-                print("Aucun maraîcher trouvé à proximité")
+                isErrorSearchFarmerPresented = true
+                titleError = "Aucun maraîcher trouvé à proximité"
             }
         }
     }
