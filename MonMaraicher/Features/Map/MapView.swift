@@ -51,13 +51,42 @@ extension MapView {
                 .font(.title)
                 .padding(16)
                 .foregroundStyle(.blue)
-                .background(Circle()
-                    .fill(.thinMaterial))
+                .background(Circle().fill(.thinMaterial))
         }
-        .alert(viewModel.titleError, isPresented: $viewModel.isErrorSearchFarmerPresented, actions: {
-        })
         .padding(32)
         .shadow(radius: 8)
+        .alert(viewModel.alertTitle, isPresented: $viewModel.isSearchFarmerErrorPresented, actions: {
+            tappedButtonActions
+        }, message: {
+            Text(viewModel.alertMessage)
+        })
+        // Alert display if user want change distance
+        .alert(viewModel.alertChangeTitle, isPresented: $viewModel.isEditingDistance, actions: {
+            distanceChangeActions
+        }, message: {
+            Text(viewModel.alertChangeMessage)
+        })
+    }
+
+    private var tappedButtonActions: some View {
+        VStack {
+            Button(viewModel.alertButtonTitle) {
+                viewModel.isEditingDistance = true
+            }
+            Button("OK") {
+                viewModel.isSearchFarmerErrorPresented = false
+            }
+        }
+    }
+
+    private var distanceChangeActions: some View {
+        VStack {
+            TextField("Nouvelle distance en km", value: $viewModel.searchScope, format: .number)
+                .keyboardType(.numberPad)
+            Button(viewModel.alertChangeButtonTitle) {
+                viewModel.isEditingDistance = false
+            }
+        }
     }
 }
 
