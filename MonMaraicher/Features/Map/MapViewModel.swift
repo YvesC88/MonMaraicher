@@ -11,16 +11,13 @@ import SwiftUI
 enum NearbyButtonTapped {
     case noFarmer
     case noLocation
-    case change
 
     var title: String {
         switch self {
         case .noFarmer:
-            return "Aucun maraîcher dans un rayon de "
+            return "Aucun maraîcher trouvé dans un rayon de "
         case .noLocation:
             return "Localisation impossible"
-        case .change:
-            return "Modification du périmètre de recherche"
         }
     }
 
@@ -29,20 +26,16 @@ enum NearbyButtonTapped {
         case .noFarmer:
             return "Vous pouvez modifier le périmètre de recherche"
         case .noLocation:
-            return "Allez dans Réglages > Mon Maraîcher > Position > Autoriser l'accès à votre position"
-        case .change:
-            return "Entrez une nouvelle valeur"
+            return "Veuillez accepter la localisation dans les réglages"
         }
     }
 
     var buttonTitle: String {
         switch self {
         case .noFarmer:
-            return "Modifier"
+            return "OK"
         case .noLocation:
             return "Réglages"
-        case .change:
-            return "Valider"
         }
     }
 }
@@ -52,16 +45,12 @@ final class MapViewModel: ObservableObject {
     @Published var selectedFarmer: Farmer?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
-    @Published var isSearchFarmerErrorPresented = false
-    @Published var isEditingDistance = false
+    @Published var isNoFarmerAlertPresented = false
+    @Published var isNoLocationAlertPresented = false
 
     @Published var alertTitle = ""
     @Published var alertMessage = ""
     @Published var alertButtonTitle = ""
-
-    @Published var alertChangeTitle = ""
-    @Published var alertChangeMessage = ""
-    @Published var alertChangeButtonTitle = ""
 
     @Published var searchScope = 0.0
 
@@ -99,7 +88,7 @@ final class MapViewModel: ObservableObject {
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
         guard let currentUserLocation else {
-            isSearchFarmerErrorPresented = true
+            isNoLocationAlertPresented = true
             alertTitle = NearbyButtonTapped.noLocation.title
             alertMessage = NearbyButtonTapped.noLocation.message
             alertButtonTitle = NearbyButtonTapped.noLocation.buttonTitle
@@ -113,16 +102,17 @@ final class MapViewModel: ObservableObject {
                                                             span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
                 mapCameraPosition = .region(nearbyFarmerRegion)
             } else {
-                isSearchFarmerErrorPresented = true
+                isNoFarmerAlertPresented = true
                 alertTitle = NearbyButtonTapped.noFarmer.title + formatDistance(distance: searchScope)
                 alertMessage = NearbyButtonTapped.noFarmer.message
                 alertButtonTitle = NearbyButtonTapped.noFarmer.buttonTitle
-
-                alertChangeTitle = NearbyButtonTapped.change.title
-                alertChangeMessage = NearbyButtonTapped.change.message
-                alertChangeButtonTitle = NearbyButtonTapped.change.buttonTitle
             }
         }
+    }
+
+    func onNearbyFarmerTappedAndNoLocation() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(settingsURL)
     }
 
     private func findNearbyFarmer(from location: CLLocation) -> Farmer? {

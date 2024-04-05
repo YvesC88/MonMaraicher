@@ -55,36 +55,35 @@ extension MapView {
         }
         .padding(32)
         .shadow(radius: 8)
-        .alert(viewModel.alertTitle, isPresented: $viewModel.isSearchFarmerErrorPresented, actions: {
-            tappedButtonActions
+        .alert(viewModel.alertTitle, isPresented: $viewModel.isNoFarmerAlertPresented, actions: {
+            noFarmerActions
         }, message: {
             Text(viewModel.alertMessage)
         })
-        // Alert display if user want change distance
-        .alert(viewModel.alertChangeTitle, isPresented: $viewModel.isEditingDistance, actions: {
-            distanceChangeActions
+        .alert(viewModel.alertTitle, isPresented: $viewModel.isNoLocationAlertPresented, actions: {
+            noLocationActions
         }, message: {
-            Text(viewModel.alertChangeMessage)
+            Text(viewModel.alertMessage)
         })
     }
 
-    private var tappedButtonActions: some View {
+    private var noFarmerActions: some View {
         VStack {
+            TextField("Nouvelle distance en km", value: $viewModel.searchScope, format: .number)
+                .keyboardType(.numberPad)
             Button(viewModel.alertButtonTitle) {
-                viewModel.isEditingDistance = true
-            }
-            Button("OK") {
-                viewModel.isSearchFarmerErrorPresented = false
+                viewModel.isNoFarmerAlertPresented = false
             }
         }
     }
 
-    private var distanceChangeActions: some View {
+    private var noLocationActions: some View {
         VStack {
-            TextField("Nouvelle distance en km", value: $viewModel.searchScope, format: .number)
-                .keyboardType(.numberPad)
-            Button(viewModel.alertChangeButtonTitle) {
-                viewModel.isEditingDistance = false
+            Button(viewModel.alertButtonTitle) {
+                viewModel.onNearbyFarmerTappedAndNoLocation()
+            }
+            Button("Annuler", role: .cancel) {
+                viewModel.isNoLocationAlertPresented = false
             }
         }
     }
