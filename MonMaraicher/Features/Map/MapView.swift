@@ -38,6 +38,24 @@ struct MapView: View {
         .overlay(alignment: .bottom) {
             nearbyFarmerButton
         }
+        .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
+            if viewModel.hasTextField {
+                TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
+                    .keyboardType(.numberPad)
+                Button(alert.confirmButtonTitle) {
+                    viewModel.isAlertPresented = false
+                }
+            } else {
+                Button(alert.confirmButtonTitle) {
+                    viewModel.openSettings()
+                }
+                Button(alert.cancelButtonTitle ?? "", role: .cancel) {
+                    viewModel.isAlertPresented = false
+                }
+            }
+        } message: { alert in
+            Text(alert.message)
+        }
     }
 }
 
@@ -55,37 +73,6 @@ extension MapView {
         }
         .padding(32)
         .shadow(radius: 8)
-        .alert(viewModel.alertTitle, isPresented: $viewModel.isNoFarmerAlertPresented, actions: {
-            noFarmerActions
-        }, message: {
-            Text(viewModel.alertMessage)
-        })
-        .alert(viewModel.alertTitle, isPresented: $viewModel.isNoLocationAlertPresented, actions: {
-            noLocationActions
-        }, message: {
-            Text(viewModel.alertMessage)
-        })
-    }
-
-    private var noFarmerActions: some View {
-        VStack {
-            TextField("Nouvelle distance en km", value: $viewModel.searchScope, format: .number)
-                .keyboardType(.numberPad)
-            Button(viewModel.alertButtonTitle) {
-                viewModel.isNoFarmerAlertPresented = false
-            }
-        }
-    }
-
-    private var noLocationActions: some View {
-        VStack {
-            Button(viewModel.alertButtonTitle) {
-                viewModel.onNearbyFarmerTappedAndNoLocation()
-            }
-            Button("Annuler", role: .cancel) {
-                viewModel.isNoLocationAlertPresented = false
-            }
-        }
     }
 }
 
