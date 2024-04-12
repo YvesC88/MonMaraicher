@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import Combine
 import SwiftUI
 
 final class MapViewModel: ObservableObject {
@@ -13,12 +14,20 @@ final class MapViewModel: ObservableObject {
     @Published var selectedFarmer: Farmer?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
-    @Published var isErrorSearchFarmerPresented = false
-    @Published var titleError = ""
+
+    @Published var nearbyButtonAlert: NearbyButtonAlert?
+    @Published var isAlertPresented = false
+    @Published var hasTextField = false
+
+    @Published var searchScope = 0.0
 
     private let locationManager = CLLocationManager()
-    private let farmerService: FarmerService
     private var currentUserLocation: CLLocation? { locationManager.location }
+    private let measurementFormatter = MeasurementFormatter()
+    private var formattedDistance: String {
+        measurementFormatter.string(from: Measurement(value: searchScope, unit: UnitLength.kilometers))
+    }
+    private let farmerService: FarmerService
 
     let imageSystemNameSearchButton: String
 
@@ -26,6 +35,13 @@ final class MapViewModel: ObservableObject {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         loadFarmers()
+
+        $nearbyButtonAlert
+            .map { alertType in
+                alertType != nil
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$isAlertPresented)
     }
 
     func onViewAppear() {
@@ -50,36 +66,48 @@ final class MapViewModel: ObservableObject {
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
         guard let currentUserLocation else {
-            isErrorSearchFarmerPresented = true
-            titleError = "Veuillez accepter la localisation"
+            isAlertPresented = true
+            hasTextField = false
+            nearbyButtonAlert = .noLocation
             return
         }
-        do {
-            if let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) {
-                let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
-                                                                    longitude: nearbyFarmer.location.longitude)
-                let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
-                                                            span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
-                mapCameraPosition = .region(nearbyFarmerRegion)
-            } else {
-                isErrorSearchFarmerPresented = true
-                titleError = "Aucun maraîcher trouvé à proximité"
-            }
+        guard let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) else {
+            isAlertPresented = true
+            hasTextField = true
+            nearbyButtonAlert = .noFarmer(formattedDistance)
+            return
         }
+        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
+                                                            longitude: nearbyFarmer.location.longitude)
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
+                                                    span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapCameraPosition = .region(nearbyFarmerRegion)
+    }
+
+    func openSettings() {
+        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(settingsURL)
     }
 
     private func findNearbyFarmer(from location: CLLocation) -> Farmer? {
-        var searchScopeInMeters = 10_000.0
+        var searchScopeInKms = searchScope.inKilometers
         var nearbyFarmer: Farmer?
         for farmer in allFarmers {
             let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
             let distance = location.distance(from: farmerLocation)
-            if distance < searchScopeInMeters {
-                searchScopeInMeters = distance
+            if distance < searchScopeInKms {
+                searchScopeInKms = distance
                 nearbyFarmer = farmer
             }
         }
         return nearbyFarmer
+    }
+}
+
+extension Double {
+
+    var inKilometers: Double {
+        return self * 1000
     }
 }
 
@@ -91,5 +119,58 @@ extension Farmer {
 
     var systemImageName: String {
         return "laurel.leading"
+    }
+}
+
+extension MapViewModel {
+
+    enum NearbyButtonAlert: LocalizedError {
+        case noFarmer(String)
+        case noLocation
+
+        var errorDescription: String? {
+            switch self {
+            case .noFarmer(let distance):
+                return "Aucun maraîcher trouvé dans un rayon de \(distance)"
+            case .noLocation:
+                return "Localisation impossible"
+            }
+        }
+
+        var message: String {
+            switch self {
+            case .noFarmer:
+                return "Vous pouvez entrer une nouvelle distance en km pour élargir votre recherche"
+            case .noLocation:
+                return "Merci d'accepter la localisation de l'application dans les réglages"
+            }
+        }
+
+        var textFieldTitle: String? {
+            switch self {
+            case .noFarmer:
+                return "Distance en km"
+            case .noLocation:
+                return nil
+            }
+        }
+
+        var confirmButtonTitle: String {
+            switch self {
+            case .noFarmer:
+                return "OK"
+            case .noLocation:
+                return "Réglages"
+            }
+        }
+
+        var cancelButtonTitle: String? {
+            switch self {
+            case .noFarmer:
+                return nil
+            case .noLocation:
+                return "Annuler"
+            }
+        }
     }
 }

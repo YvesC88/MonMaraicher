@@ -38,6 +38,24 @@ struct MapView: View {
         .overlay(alignment: .bottom) {
             nearbyFarmerButton
         }
+        .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
+            if viewModel.hasTextField {
+                TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
+                    .keyboardType(.numberPad)
+                Button(alert.confirmButtonTitle) {
+                    viewModel.isAlertPresented = false
+                }
+            } else {
+                Button(alert.confirmButtonTitle) {
+                    viewModel.openSettings()
+                }
+                Button(alert.cancelButtonTitle ?? "", role: .cancel) {
+                    viewModel.isAlertPresented = false
+                }
+            }
+        } message: { alert in
+            Text(alert.message)
+        }
     }
 }
 
@@ -51,11 +69,8 @@ extension MapView {
                 .font(.title)
                 .padding(16)
                 .foregroundStyle(.blue)
-                .background(Circle()
-                    .fill(.thinMaterial))
+                .background(Circle().fill(.thinMaterial))
         }
-        .alert(viewModel.titleError, isPresented: $viewModel.isErrorSearchFarmerPresented, actions: {
-        })
         .padding(32)
         .shadow(radius: 8)
     }
