@@ -13,6 +13,7 @@ import SwiftUI
 final class MapViewModel: ObservableObject {
 
     @Published var selectedFarmer: Farmer?
+    @Published var selectedAddress: AdressesOperateurs?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
@@ -73,15 +74,15 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noLocation
             return
         }
-        guard let nearbyProduceur = findNearbyFarmer(from: currentUserLocation) else {
+        guard let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) else {
             isAlertPresented = true
             hasTextField = true
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyProduceurCoordinate = CLLocationCoordinate2D(latitude: nearbyProduceur.lat, longitude: nearbyProduceur.long)
-        let nearbyProduceurRegion = MKCoordinateRegion(center: nearbyProduceurCoordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapCameraPosition = .region(nearbyProduceurRegion)
+        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.lat, longitude: nearbyFarmer.long)
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapCameraPosition = .region(nearbyFarmerRegion)
     }
 
     func openSettings() {
@@ -91,18 +92,18 @@ final class MapViewModel: ObservableObject {
 
     private func findNearbyFarmer(from location: CLLocation) -> AdressesOperateurs? {
         var searchScopeInKms = searchScope.inKilometers
-        var produceurAddress: AdressesOperateurs?
-        for produceur in allFarmers {
-            for address in produceur.adressesOperateurs {
+        var farmerAddress: AdressesOperateurs?
+        for farmer in allFarmers {
+            for address in farmer.adressesOperateurs {
                 let produceurLocation = CLLocation(latitude: address.lat, longitude: address.long)
                 let distance = location.distance(from: produceurLocation)
                 if distance < searchScopeInKms {
                     searchScopeInKms = distance
-                    produceurAddress = address
+                    farmerAddress = address
                 }
             }
         }
-        return produceurAddress
+        return farmerAddress
     }
 }
 
