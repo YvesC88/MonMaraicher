@@ -23,9 +23,7 @@ struct FarmerDetailsView: View {
             VStack(alignment: .leading) {
                 titleSection
                 Divider()
-                imageSection
                 VStack(alignment: .leading, spacing: 16) {
-                    Divider()
                     descriptionSection
                     linkSection
                     Divider()
@@ -40,25 +38,6 @@ struct FarmerDetailsView: View {
 }
 
 private extension FarmerDetailsView {
-
-    private var imageSection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack {
-                ForEach(viewModel.farmerImages, id: \.self) { farmerImage in
-                    AsyncImage(url: URL(string: farmerImage)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .scaledToFill()
-                    .frame(width: 180, height: 230)
-                    .clipShape(.rect(cornerRadius: 16))
-                }
-            }
-            .padding(8)
-        }
-        .shadow(radius: 8)
-    }
 
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -145,5 +124,5 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
 }
 
 #Preview {
-    FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: Farmer(id: 1, name: "chez william", location: .init(latitude: 48.86935, longitude: 2.331314, address: .init(streetNumber: 20, streetName: "rue de la paix", zipCode: 75000, city: "paris")), images: .init(farmer1: "https://plus.unsplash.com/premium_photo-1686529591582-7c53fa833bd9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", farmer2: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", farmer3: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=3174&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", farmer4: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1?q=80&w=3164&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", farmer5: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", farmer6: "https://images.unsplash.com/photo-1623227866882-c005c26dfe41?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZydWl0cyUyMCUyNiUyMGwlQzMlQTlndW1lc3xlbnwwfHwwfHx8MA%3D%3D"))))
+    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, raisonSociale: "chez william", adressesOperateurs: [.init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314), .init(id: 2, lieu: "300 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.45012, long: 2.354564)])))
 }

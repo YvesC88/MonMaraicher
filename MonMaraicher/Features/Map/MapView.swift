@@ -16,11 +16,11 @@ struct MapView: View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedFarmer) {
 
             ForEach(viewModel.allFarmers, id: \.id) { farmer in
-                Marker(farmer.title,
-                       systemImage: farmer.systemImageName,
-                       coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
-                .tag(farmer)
-                .tint(.orange)
+                ForEach(farmer.adressesOperateurs, id: \.id) { location in
+                    Marker(farmer.raisonSociale, systemImage: "laurel.leading", coordinate: CLLocationCoordinate2D(latitude: location.lat, longitude: location.long))
+                        .tag(farmer)
+                        .tint(.orange)
+                }
             }
 
             UserAnnotation()

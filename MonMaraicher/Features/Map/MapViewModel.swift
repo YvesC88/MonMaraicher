@@ -9,6 +9,7 @@ import MapKit
 import Combine
 import SwiftUI
 
+@MainActor
 final class MapViewModel: ObservableObject {
 
     @Published var selectedFarmer: Farmer?
@@ -19,7 +20,7 @@ final class MapViewModel: ObservableObject {
     @Published var isAlertPresented = false
     @Published var hasTextField = false
 
-    @Published var searchScope = 0.0
+    @Published var searchScope = 5.0
 
     private let locationManager = CLLocationManager()
     private var currentUserLocation: CLLocation? { locationManager.location }
@@ -34,7 +35,9 @@ final class MapViewModel: ObservableObject {
     init(farmerService: FarmerService) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
-        loadFarmers()
+        Task {
+            await loadFarmers()
+        }
 
         $nearbyButtonAlert
             .map { alertType in
@@ -48,13 +51,12 @@ final class MapViewModel: ObservableObject {
         requestUserAuthorization()
     }
 
-    private func loadFarmers() {
-        DispatchQueue.main.async {
-            do {
-                self.allFarmers = try self.farmerService.loadFarmers(forName: "Farmers")
-            } catch {
-                print("Error when loading farmers: \(error)")
-            }
+    private func loadFarmers() async {
+        do {
+            let farmers = try await self.farmerService.loadFarmers()
+            self.allFarmers = farmers.items
+        } catch {
+            print("Error when loading farmers: \(error)")
         }
     }
 
@@ -71,17 +73,15 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noLocation
             return
         }
-        guard let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) else {
+        guard let nearbyProduceur = findNearbyFarmer(from: currentUserLocation) else {
             isAlertPresented = true
             hasTextField = true
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
-                                                            longitude: nearbyFarmer.location.longitude)
-        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
-                                                    span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapCameraPosition = .region(nearbyFarmerRegion)
+        let nearbyProduceurCoordinate = CLLocationCoordinate2D(latitude: nearbyProduceur.lat, longitude: nearbyProduceur.long)
+        let nearbyProduceurRegion = MKCoordinateRegion(center: nearbyProduceurCoordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapCameraPosition = .region(nearbyProduceurRegion)
     }
 
     func openSettings() {
@@ -89,18 +89,20 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyFarmer(from location: CLLocation) -> Farmer? {
+    private func findNearbyFarmer(from location: CLLocation) -> AdressesOperateurs? {
         var searchScopeInKms = searchScope.inKilometers
-        var nearbyFarmer: Farmer?
-        for farmer in allFarmers {
-            let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
-            let distance = location.distance(from: farmerLocation)
-            if distance < searchScopeInKms {
-                searchScopeInKms = distance
-                nearbyFarmer = farmer
+        var produceurAddress: AdressesOperateurs?
+        for produceur in allFarmers {
+            for address in produceur.adressesOperateurs {
+                let produceurLocation = CLLocation(latitude: address.lat, longitude: address.long)
+                let distance = location.distance(from: produceurLocation)
+                if distance < searchScopeInKms {
+                    searchScopeInKms = distance
+                    produceurAddress = address
+                }
             }
         }
-        return nearbyFarmer
+        return produceurAddress
     }
 }
 
@@ -114,7 +116,7 @@ extension Double {
 extension Farmer {
 
     var title: String {
-        return name.capitalized
+        return raisonSociale.capitalized
     }
 
     var systemImageName: String {
