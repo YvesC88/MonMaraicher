@@ -7,6 +7,8 @@
 
 import Foundation
 
+// FIXME: this list of properties are currently changing
+
 struct Farmers: Decodable, Hashable {
     let nbTotal: String
     let items: [Farmer]
@@ -16,18 +18,40 @@ struct Farmer: Decodable, Identifiable, Hashable {
     let id: Int
     let raisonSociale: String
     let telephone: String?
-//    let email: String?
-//    let codeNAF: String?
-//    let gerant: String?
-//    let dateMaj: String
+    //    let email: String?
+    //    let codeNAF: String?
+    //    let gerant: String?
+    //    let dateMaj: String
     let telephoneCommerciale: String?
-//    let categories: [Categories]
-//    let siteWebs: [SiteWebs]
-    let adressesOperateurs: [AdressesOperateurs]
-    let productions: [Productions]
-//    let activites: [Activities]
-//    let certificats: [Certificats]
-//    let mixite: String
+    //    let categories: [Categories]
+    //    let siteWebs: [SiteWebs]
+    let adressesOperateurs: [OperatorsAddresses]
+    let productions: [Products]
+    //    let activites: [Activities]
+    //    let certificats: [Certificats]
+    //    let mixite: String
+
+
+    // TODO: Customizing JSON Key Mapping in Swift with CodingKey Protocol
+/*    enum FarmerCodingKeys: String, CodingKey {
+        case id
+        case raisonSociale = "name"
+        case telephone = "personalPhone"
+        case telephoneCommerciale = "businessPhone"
+        case adressesOperateurs = "operatorAddresses"
+        case productions = "products"
+    }
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: FarmerCodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        raisonSociale = try values.decode(String.self, forKey: .raisonSociale)
+        telephone = try values.decodeIfPresent(String.self, forKey: .telephone)
+        telephoneCommerciale = try values.decodeIfPresent(String.self, forKey: .telephoneCommerciale)
+        adressesOperateurs =  try values.decode([OperatorAddresses].self, forKey: .adressesOperateurs)
+        productions = try values.decode([Products].self, forKey: .productions)
+    }
+ */
 }
 
 struct Categories: Decodable, Identifiable, Hashable {
@@ -55,7 +79,7 @@ struct TypeSiteWeb: Decodable, Identifiable, Hashable {
     let status: Int
 }
 
-struct AdressesOperateurs: Decodable, Identifiable, Hashable {
+struct OperatorsAddresses: Decodable, Identifiable, Hashable {
     let id: Int
     let lieu: String
     let codePostal: String
@@ -64,7 +88,7 @@ struct AdressesOperateurs: Decodable, Identifiable, Hashable {
     let typeAdresseOperateurs: [String]
 }
 
-struct Productions: Decodable, Identifiable, Hashable {
+struct Products: Decodable, Identifiable, Hashable {
     let id: Int
     let code: String
     let nom: String

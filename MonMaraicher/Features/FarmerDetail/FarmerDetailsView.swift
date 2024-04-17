@@ -43,7 +43,7 @@ private extension FarmerDetailsView {
             Text(viewModel.title)
                 .font(.title)
                 .bold()
-            ForEach(viewModel.typeAddress, id: \.self) { type in
+            ForEach(viewModel.farmerAddressesTypes, id: \.self) { type in
                 Text(type)
                     .font(.subheadline)
             }
@@ -56,7 +56,7 @@ private extension FarmerDetailsView {
     private var descriptionSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(viewModel.productions, id: \.self) { product in
+                ForEach(viewModel.products, id: \.self) { product in
                     Text(product.nom)
                         .padding(10)
                         .font(.subheadline)
@@ -150,5 +150,6 @@ private extension FarmerDetailsView {
 }
 
 #Preview {
+    // TODO: simplify this code
     FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, raisonSociale: "chez william", telephone: nil, telephoneCommerciale: nil, adressesOperateurs: [.init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314, typeAdresseOperateurs: ["Lieu de production"]), .init(id: 2, lieu: "300 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.45012, long: 2.354564, typeAdresseOperateurs: ["Magasin"])], productions: [.init(id: 1, code: "", nom: "Citrons"), .init(id: 2, code: "", nom: "Pommes"), .init(id: 3, code: "", nom: "Cerises"), .init(id: 4, code: "", nom: "Légumes frais sous abris avec des céréales"), .init(id: 5, code: "", nom: "Tomates"), .init(id: 6, code: "", nom: "Courgettes")]), address: .init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314, typeAdresseOperateurs: ["Siège social"])))
 }

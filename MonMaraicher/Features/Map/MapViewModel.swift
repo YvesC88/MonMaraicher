@@ -9,10 +9,9 @@ import MapKit
 import Combine
 import SwiftUI
 
-@MainActor
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedAddress: AdressesOperateurs?
+    @Published var selectedAddress: OperatorsAddresses?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
@@ -35,9 +34,6 @@ final class MapViewModel: ObservableObject {
     init(farmerService: FarmerService) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
-        Task {
-            await loadFarmers()
-        }
 
         $nearbyButtonAlert
             .map { alertType in
@@ -49,9 +45,12 @@ final class MapViewModel: ObservableObject {
 
     func onViewAppear() {
         requestUserAuthorization()
+        Task {
+            await loadFarmers()
+        }
     }
 
-    private func loadFarmers() async {
+    @MainActor private func loadFarmers() async {
         do {
             let farmers = try await self.farmerService.loadFarmers()
             self.allFarmers = farmers.items
@@ -73,7 +72,7 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noLocation
             return
         }
-        guard let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) else {
+        guard let nearbyFarmer = findNearbyAddress(from: currentUserLocation) else {
             isAlertPresented = true
             hasTextField = true
             nearbyButtonAlert = .noFarmer(formattedDistance)
@@ -89,13 +88,13 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyFarmer(from location: CLLocation) -> AdressesOperateurs? {
+    private func findNearbyAddress(from location: CLLocation) -> OperatorsAddresses? {
         var searchScopeInKms = searchScope.inKilometers
-        var farmerAddress: AdressesOperateurs?
+        var farmerAddress: OperatorsAddresses?
         for farmer in allFarmers {
             for address in farmer.adressesOperateurs {
-                let produceurLocation = CLLocation(latitude: address.lat, longitude: address.long)
-                let distance = location.distance(from: produceurLocation)
+                let farmerLocation = CLLocation(latitude: address.lat, longitude: address.long)
+                let distance = location.distance(from: farmerLocation)
                 if distance < searchScopeInKms {
                     searchScopeInKms = distance
                     farmerAddress = address

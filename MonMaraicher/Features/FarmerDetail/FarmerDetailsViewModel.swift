@@ -11,23 +11,23 @@ struct FarmerDetailsViewModel {
 
     let title: String
     let phoneNumber: String?
-    let productions: [Productions]
+    let products: [Products]
     let coordinate: CLLocationCoordinate2D
     let markerSystemImageName: String
     let directionButtonTitle: String
     let address: String
-    let typeAddress: [String]
+    let farmerAddressesTypes: [String]
     let city: String
 
-    init(farmer: Farmer, address: AdressesOperateurs) {
+    init(farmer: Farmer, address: OperatorsAddresses) {
         self.title = farmer.raisonSociale.capitalized
         self.phoneNumber = farmer.telephone ?? farmer.telephoneCommerciale ?? "Aucun numéro disponible"
-        self.productions = farmer.productions
+        self.products = farmer.productions
         self.coordinate = .init(latitude: address.lat, longitude: address.long)
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
         self.address = "\(address.lieu.capitalized)\n\(address.codePostal) \(address.ville.capitalized)"
-        self.typeAddress = address.typeAdresseOperateurs
+        self.farmerAddressesTypes = address.typeAdresseOperateurs
         self.city = address.ville.capitalized
     }
 
