@@ -15,20 +15,16 @@ struct Farmers: Decodable, Hashable {
 struct Farmer: Decodable, Identifiable, Hashable {
     let id: Int
     let raisonSociale: String
-//    let denominationcourante: String?
-//    let siret: String?
-//    let numeroBio: Int
-//    let telephone: String?
+    let telephone: String?
 //    let email: String?
 //    let codeNAF: String?
 //    let gerant: String?
 //    let dateMaj: String
-//    let telephoneCommerciale: String?
-//    let reseau: String
+    let telephoneCommerciale: String?
 //    let categories: [Categories]
 //    let siteWebs: [SiteWebs]
     let adressesOperateurs: [AdressesOperateurs]
-//    let productions: [Productions]
+    let productions: [Productions]
 //    let activites: [Activities]
 //    let certificats: [Certificats]
 //    let mixite: String
@@ -65,22 +61,13 @@ struct AdressesOperateurs: Decodable, Identifiable, Hashable {
     let codePostal: String
     let ville: String
     let lat, long: Double
-//    let codeCommune: String
-//    let active: Bool
-//    let departementID: Int
-//    let typeAdresseOperateurs: [String]
+    let typeAdresseOperateurs: [String]
 }
 
 struct Productions: Decodable, Identifiable, Hashable {
     let id: Int
     let code: String
     let nom: String
-    let etatProductions: [EtatProductions]
-}
-
-struct EtatProductions: Decodable, Identifiable, Hashable {
-    let id: Int
-    let etatProduction: String
 }
 
 struct Certificats: Decodable, Hashable {

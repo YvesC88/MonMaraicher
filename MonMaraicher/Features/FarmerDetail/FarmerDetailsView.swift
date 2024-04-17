@@ -22,9 +22,8 @@ struct FarmerDetailsView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 titleSection
-                Divider()
+                descriptionSection
                 VStack(alignment: .leading, spacing: 16) {
-                    descriptionSection
                     linkSection
                     Divider()
                     mapSection
@@ -42,23 +41,31 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.largeTitle)
+                .font(.title)
                 .bold()
-            Text(viewModel.city)
-                .foregroundStyle(.secondary)
+            ForEach(viewModel.typeAddress, id: \.self) { type in
+                Text(type)
+                    .font(.subheadline)
+            }
+            Divider()
         }
-        .padding(20)
+        .padding()
         .padding(.trailing)
     }
 
     private var descriptionSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("""
-Bienvenue à la ferme de William, où la nature prospère en harmonie. William cultive une grande variété de fruits et légumes avec amour et respect pour l'environnement.\nSans pesticides ni produits chimiques synthétiques, sa ferme est un havre de biodiversité où les méthodes agricoles durables préservent la terre pour les générations futures.
-""")
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(viewModel.productions, id: \.self) { product in
+                    Text(product.nom)
+                        .padding(10)
+                        .font(.subheadline)
+                        .background(.ultraThinMaterial)
+                        .clipShape(.rect(cornerRadius: 16))
+                }
+            }
         }
+        .padding()
     }
 
     private var linkSection: some View {
@@ -92,7 +99,7 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
         }
         .aspectRatio(1.5, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
-        .shadow(radius: 2)
+        .shadow(radius: 4)
         .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
@@ -107,22 +114,41 @@ Bienvenue à la ferme de William, où la nature prospère en harmonie. William c
     }
 
     private var addressSection: some View {
-        HStack {
-            Text(viewModel.address)
+        VStack(alignment: .leading) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Adresse")
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    Text(viewModel.address)
+                        .font(.callout)
+                }
+                Spacer()
+                directionButton
+                    .frame(width: 80, height: 35)
+                    .background(.ultraThinMaterial)
+                    .clipShape(.capsule)
+                    .padding()
+                    .shadow(radius: 2)
+            }
+            Divider()
+            Text("Téléphone")
+                .foregroundStyle(.secondary)
+                .font(.subheadline)
+            Text(viewModel.phoneNumber ?? "")
                 .font(.callout)
-                .padding()
-            Spacer()
-            directionButton
-                .frame(width: 80, height: 35)
-                .background()
-                .clipShape(.capsule)
-                .padding()
+            Divider()
+            Text("Site Web")
+                .foregroundStyle(.secondary)
+                .font(.subheadline)
         }
-        .background(.thinMaterial)
+        .padding()
+        .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 20))
+        .shadow(radius: 4)
     }
 }
 
 #Preview {
-    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, raisonSociale: "chez william", adressesOperateurs: [.init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314), .init(id: 2, lieu: "300 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.45012, long: 2.354564)])))
+    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, raisonSociale: "chez william", telephone: nil, telephoneCommerciale: nil, adressesOperateurs: [.init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314, typeAdresseOperateurs: ["Lieu de production"]), .init(id: 2, lieu: "300 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.45012, long: 2.354564, typeAdresseOperateurs: ["Magasin"])], productions: [.init(id: 1, code: "", nom: "Citrons"), .init(id: 2, code: "", nom: "Pommes"), .init(id: 3, code: "", nom: "Cerises"), .init(id: 4, code: "", nom: "Légumes frais sous abris avec des céréales"), .init(id: 5, code: "", nom: "Tomates"), .init(id: 6, code: "", nom: "Courgettes")]), address: .init(id: 1, lieu: "20 rue de la paix", codePostal: "75000", ville: "paris", lat: 48.86935, long: 2.331314, typeAdresseOperateurs: ["Siège social"])))
 }

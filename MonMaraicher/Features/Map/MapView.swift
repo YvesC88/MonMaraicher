@@ -13,12 +13,12 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel(farmerService: FarmerService())
 
     var body: some View {
-        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedFarmer) {
+        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedAddress) {
 
             ForEach(viewModel.allFarmers, id: \.id) { farmer in
                 ForEach(farmer.adressesOperateurs, id: \.id) { location in
-                    Marker(farmer.raisonSociale, systemImage: "laurel.leading", coordinate: CLLocationCoordinate2D(latitude: location.lat, longitude: location.long))
-                        .tag(farmer)
+                    Marker(farmer.raisonSociale.capitalized, systemImage: "laurel.leading", coordinate: .init(latitude: location.lat, longitude: location.long))
+                        .tag(location)
                         .tint(.orange)
                 }
             }
@@ -26,9 +26,11 @@ struct MapView: View {
             UserAnnotation()
 
         }
-        .sheet(item: $viewModel.selectedFarmer) { farmer in
-            FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: farmer))
-                .presentationDetents([.medium, .large])
+        .sheet(item: $viewModel.selectedAddress) { location in
+            if let selectedFarmer = viewModel.allFarmers.first(where: { $0.adressesOperateurs.contains(location) }) {
+                FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: selectedFarmer, address: location))
+                    .presentationDetents([.medium, .large])
+            }
         }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {

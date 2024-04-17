@@ -10,19 +10,25 @@ import MapKit
 struct FarmerDetailsViewModel {
 
     let title: String
+    let phoneNumber: String?
+    let productions: [Productions]
     let coordinate: CLLocationCoordinate2D
     let markerSystemImageName: String
     let directionButtonTitle: String
     let address: String
+    let typeAddress: [String]
     let city: String
 
-    init(farmer: Farmer) {
+    init(farmer: Farmer, address: AdressesOperateurs) {
         self.title = farmer.raisonSociale.capitalized
-        self.coordinate = CLLocationCoordinate2D(latitude: farmer.adressesOperateurs.first?.lat ?? 0.0, longitude: farmer.adressesOperateurs.first?.long ?? 0.0)
+        self.phoneNumber = farmer.telephone ?? farmer.telephoneCommerciale ?? "Aucun numéro disponible"
+        self.productions = farmer.productions
+        self.coordinate = .init(latitude: address.lat, longitude: address.long)
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
-        self.address = "\(farmer.adressesOperateurs.first?.lieu.capitalized ?? "")\n\(farmer.adressesOperateurs.first?.codePostal ?? "") \(farmer.adressesOperateurs.first?.ville.capitalized ?? "")"
-        self.city = farmer.adressesOperateurs.first?.ville.capitalized ?? ""
+        self.address = "\(address.lieu.capitalized)\n\(address.codePostal) \(address.ville.capitalized)"
+        self.typeAddress = address.typeAdresseOperateurs
+        self.city = address.ville.capitalized
     }
 
     func onItineraryButtonTapped() {

@@ -12,7 +12,6 @@ import SwiftUI
 @MainActor
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedFarmer: Farmer?
     @Published var selectedAddress: AdressesOperateurs?
     @Published var allFarmers: [Farmer] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
