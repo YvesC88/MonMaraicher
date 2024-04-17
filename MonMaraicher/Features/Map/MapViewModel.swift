@@ -92,7 +92,7 @@ final class MapViewModel: ObservableObject {
         var searchScopeInKms = searchScope.inKilometers
         var farmerAddress: OperatorsAddresses?
         for farmer in allFarmers {
-            for address in farmer.adressesOperateurs {
+            for address in farmer.operatorsAddresses {
                 let farmerLocation = CLLocation(latitude: address.lat, longitude: address.long)
                 let distance = location.distance(from: farmerLocation)
                 if distance < searchScopeInKms {
@@ -115,7 +115,7 @@ extension Double {
 extension Farmer {
 
     var title: String {
-        return raisonSociale.capitalized
+        return businessName.capitalized
     }
 
     var systemImageName: String {

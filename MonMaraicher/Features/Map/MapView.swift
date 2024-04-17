@@ -16,8 +16,8 @@ struct MapView: View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedAddress) {
 
             ForEach(viewModel.allFarmers, id: \.id) { farmer in
-                ForEach(farmer.adressesOperateurs, id: \.id) { location in
-                    Marker(farmer.raisonSociale.capitalized, systemImage: "laurel.leading", coordinate: .init(latitude: location.lat, longitude: location.long))
+                ForEach(farmer.operatorsAddresses, id: \.id) { location in
+                    Marker(farmer.title, systemImage: farmer.systemImageName, coordinate: .init(latitude: location.lat, longitude: location.long))
                         .tag(location)
                         .tint(.orange)
                 }
@@ -27,7 +27,7 @@ struct MapView: View {
 
         }
         .sheet(item: $viewModel.selectedAddress) { location in
-            if let selectedFarmer = viewModel.allFarmers.first(where: { $0.adressesOperateurs.contains(location) }) {
+            if let selectedFarmer = viewModel.allFarmers.first(where: { $0.operatorsAddresses.contains(location) }) {
                 FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: selectedFarmer, address: location))
                     .presentationDetents([.medium, .large])
             }

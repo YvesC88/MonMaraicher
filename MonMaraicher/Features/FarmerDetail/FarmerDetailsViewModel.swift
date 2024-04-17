@@ -20,15 +20,15 @@ struct FarmerDetailsViewModel {
     let city: String
 
     init(farmer: Farmer, address: OperatorsAddresses) {
-        self.title = farmer.raisonSociale.capitalized
-        self.phoneNumber = farmer.telephone ?? farmer.telephoneCommerciale ?? "Aucun numéro disponible"
-        self.products = farmer.productions
+        self.title = farmer.businessName.capitalized
+        self.phoneNumber = farmer.personalPhone ?? farmer.businessPhone ?? "Aucun numéro disponible"
+        self.products = farmer.products
         self.coordinate = .init(latitude: address.lat, longitude: address.long)
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
-        self.address = "\(address.lieu.capitalized)\n\(address.codePostal) \(address.ville.capitalized)"
-        self.farmerAddressesTypes = address.typeAdresseOperateurs
-        self.city = address.ville.capitalized
+        self.address = "\(address.place.capitalized)\n\(address.zipCode) \(address.city.capitalized)"
+        self.farmerAddressesTypes = address.operatorsAddressesTypes
+        self.city = address.city.capitalized
     }
 
     func onItineraryButtonTapped() {
