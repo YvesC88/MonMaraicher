@@ -57,7 +57,7 @@ private extension FarmerDetailsView {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(viewModel.products, id: \.self) { product in
-                    Text(product.nom)
+                    Text(product.name)
                         .padding(10)
                         .font(.subheadline)
                         .background(.ultraThinMaterial)
@@ -151,5 +151,5 @@ private extension FarmerDetailsView {
 
 #Preview {
     // TODO: simplify this code
-    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, operatorsAddresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Lieu de production"]), .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", lat: 48.45012, long: 2.354564, operatorsAddressesTypes: ["Magasin"])], products: [.init(id: 1, nom: "Citrons"), .init(id: 2, nom: "Pommes"), .init(id: 3, nom: "Cerises"), .init(id: 4, nom: "Légumes frais sous abris avec des céréales"), .init(id: 5, nom: "Tomates"), .init(id: 6, nom: "Courgettes")]), address: .init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Siège social"])))
+    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, operatorsAddresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Lieu de production"]), .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", lat: 48.45012, long: 2.354564, operatorsAddressesTypes: ["Magasin"])], products: [.init(id: 1, name: "Citrons"), .init(id: 2, name: "Pommes"), .init(id: 3, name: "Cerises"), .init(id: 4, name: "Légumes frais sous abris avec des céréales"), .init(id: 5, name: "Tomates"), .init(id: 6, name: "Courgettes")]), address: .init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Siège social"])))
 }

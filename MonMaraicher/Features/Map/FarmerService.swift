@@ -22,6 +22,8 @@ final class FarmerService {
             guard response.statusCode == 200 else {
                 throw Error.badStatus
             }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .deferredToDate
             let produceurs = try JSONDecoder().decode(Farmers.self, from: data)
             return produceurs
         } catch {
