@@ -54,18 +54,19 @@ private extension FarmerDetailsView {
     }
 
     private var descriptionSection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(viewModel.products, id: \.self) { product in
+        VStack {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 120))]) {
+                ForEach(viewModel.products, id: \.id) { product in
                     Text(product.name)
-                        .padding(10)
+                        .padding(12)
+                        .lineLimit(2)
+                        .background(.blue)
                         .font(.subheadline)
-                        .background(.ultraThinMaterial)
-                        .clipShape(.rect(cornerRadius: 16))
+                        .foregroundStyle(.white)
+                        .clipShape(.rect(cornerRadius: 20))
                 }
             }
         }
-        .padding()
     }
 
     private var linkSection: some View {
@@ -151,5 +152,6 @@ private extension FarmerDetailsView {
 
 #Preview {
     // TODO: simplify this code
-    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, operatorsAddresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Lieu de production"]), .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", lat: 48.45012, long: 2.354564, operatorsAddressesTypes: ["Magasin"])], products: [.init(id: 1, name: "Citrons"), .init(id: 2, name: "Pommes"), .init(id: 3, name: "Cerises"), .init(id: 4, name: "Légumes frais sous abris avec des céréales"), .init(id: 5, name: "Tomates"), .init(id: 6, name: "Courgettes")]), address: .init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", lat: 48.86935, long: 2.331314, operatorsAddressesTypes: ["Siège social"])))
+//    FarmerDetailsView(viewModel: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Lieu de production"]), .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["Magasin"])], products: [.init(id: 1, name: "Citrons"), .init(id: 2, name: "Pommes"), .init(id: 3, name: "Cerises"), .init(id: 4, name: "Légumes frais sous abris avec des céréales bio"), .init(id: 5, name: "Tomates"), .init(id: 6, name: "Courgettes"), .init(id: 5, name: "Tomates"), .init(id: 6, name: "Melons")])))
+    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Tomates")]))))
 }

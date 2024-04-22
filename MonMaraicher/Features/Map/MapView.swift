@@ -13,12 +13,12 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel(farmerService: FarmerService())
 
     var body: some View {
-        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedAddress) {
+        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
 
-            ForEach(viewModel.allFarmers, id: \.id) { farmer in
-                ForEach(farmer.operatorsAddresses, id: \.id) { location in
-                    Marker(farmer.title, systemImage: farmer.systemImageName, coordinate: .init(latitude: location.lat, longitude: location.long))
-                        .tag(location)
+            ForEach(viewModel.allMarkers, id: \.id) { marker in
+                ForEach(marker.farmer.addresses, id: \.id) { location in
+                    Marker(marker.title, systemImage: marker.farmer.systemImageName, coordinate: .init(latitude: location.latitude, longitude: location.longitude))
+                        .tag(marker)
                         .tint(.orange)
                 }
             }
@@ -26,11 +26,9 @@ struct MapView: View {
             UserAnnotation()
 
         }
-        .sheet(item: $viewModel.selectedAddress) { location in
-            if let selectedFarmer = viewModel.allFarmers.first(where: { $0.operatorsAddresses.contains(location) }) {
-                FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: selectedFarmer, address: location))
-                    .presentationDetents([.medium, .large])
-            }
+        .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
+            FarmerDetailsView(viewModel: farmerViewModel)
+                .presentationDetents([.medium, .large])
         }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {

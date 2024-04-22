@@ -11,8 +11,9 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedAddress: OperatorsAddresses?
-    @Published var allFarmers: [Farmer] = []
+    @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
+    @Published var selectedMarker: SelectedMarker?
+    @Published var allMarkers: [SelectedMarker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     @Published var nearbyButtonAlert: NearbyButtonAlert?
@@ -41,6 +42,14 @@ final class MapViewModel: ObservableObject {
             }
             .receive(on: DispatchQueue.main)
             .assign(to: &$isAlertPresented)
+
+        $selectedMarker
+            .map { marker in
+                guard let marker else { return nil }
+                return FarmerDetailsViewModel(marker: marker)
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$farmerDetailsViewModel)
     }
 
     func onViewAppear() {
@@ -53,7 +62,9 @@ final class MapViewModel: ObservableObject {
     @MainActor private func loadFarmers() async {
         do {
             let farmers = try await self.farmerService.loadFarmers()
-            self.allFarmers = farmers.items
+            self.allMarkers = farmers.items.map { farmer in
+                return SelectedMarker(farmer: farmer)
+            }
         } catch {
             print("Error when loading farmers: \(error)")
         }
@@ -78,7 +89,7 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.lat, longitude: nearbyFarmer.long)
+        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.latitude, longitude: nearbyFarmer.longitude)
         let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapCameraPosition = .region(nearbyFarmerRegion)
     }
@@ -88,20 +99,20 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyAddress(from location: CLLocation) -> OperatorsAddresses? {
+    private func findNearbyAddress(from location: CLLocation) -> Addresses? {
         var searchScopeInKms = searchScope.inKilometers
-        var farmerAddress: OperatorsAddresses?
-        for farmer in allFarmers {
-            for address in farmer.operatorsAddresses {
-                let farmerLocation = CLLocation(latitude: address.lat, longitude: address.long)
+        var markerAddress: Addresses?
+        for marker in allMarkers {
+            for address in marker.farmer.addresses {
+                let farmerLocation = CLLocation(latitude: address.latitude, longitude: address.longitude)
                 let distance = location.distance(from: farmerLocation)
                 if distance < searchScopeInKms {
                     searchScopeInKms = distance
-                    farmerAddress = address
+                    markerAddress = address
                 }
             }
         }
-        return farmerAddress
+        return markerAddress
     }
 }
 

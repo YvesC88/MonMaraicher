@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 // FIXME: this list of properties are currently changing
 
@@ -36,7 +37,7 @@ struct Farmer: Decodable, Identifiable, Hashable {
     let businessPhone: String?
     //    let categories: [Categories]
     //    let siteWebs: [SiteWebs]
-    let operatorsAddresses: [OperatorsAddresses]
+    let addresses: [Addresses]
     let products: [Products]
     //    let activites: [Activities]
     //    let certificats: [Certificats]
@@ -47,7 +48,7 @@ struct Farmer: Decodable, Identifiable, Hashable {
         case businessName = "raisonSociale"
         case personalPhone = "telephone"
         case businessPhone = "telephoneCommerciale"
-        case operatorsAddresses = "adressesOperateurs"
+        case addresses = "adressesOperateurs"
         case products = "productions"
     }
 }
@@ -100,22 +101,22 @@ struct WebsiteType: Decodable, Identifiable, Hashable {
     }
 }
 
-struct OperatorsAddresses: Decodable, Identifiable, Hashable {
+struct Addresses: Decodable, Identifiable, Hashable {
     let id: Int
     let place: String
     let zipCode: String
     let city: String
-    let lat, long: Double
-    let operatorsAddressesTypes: [String]
+    let latitude, longitude: Double
+    let farmerAddressesTypes: [String]
 
     enum CodingKeys: String, CodingKey {
         case id
-        case lat
-        case long
+        case latitude = "lat"
+        case longitude = "long"
         case place = "lieu"
         case zipCode = "codePostal"
         case city = "ville"
-        case operatorsAddressesTypes = "typeAdresseOperateurs"
+        case farmerAddressesTypes = "typeAdresseOperateurs"
     }
 }
 

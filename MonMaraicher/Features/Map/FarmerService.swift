@@ -9,6 +9,7 @@ import Foundation
 
 final class FarmerService {
 
+    // TODO: Write unit tests for this method
     func loadFarmers() async throws -> Farmers {
         do {
             let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=43.600345&lng=3.908215"
