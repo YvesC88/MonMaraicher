@@ -7,21 +7,6 @@
 
 import MapKit
 
-struct SelectedMarker: Identifiable, Hashable {
-
-    let id: Int
-    let title: String
-    let address: Addresses
-    let farmer: Farmer
-
-    init(farmer: Farmer) {
-        self.id = farmer.id
-        self.title = farmer.title
-        self.address = farmer.addresses.first!
-        self.farmer = farmer
-    }
-}
-
 struct FarmerDetailsViewModel: Identifiable, Hashable {
     let id: Int
     let title: String
@@ -34,7 +19,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let farmerAddressesTypes: [String]
     let city: String
 
-    init(marker: SelectedMarker) {
+    init(marker: MapViewModel.Marker) {
         self.id = marker.id
         self.title = marker.title
         self.phoneNumber = marker.farmer.personalPhone ?? marker.farmer.businessPhone ?? "Aucun numéro disponible"

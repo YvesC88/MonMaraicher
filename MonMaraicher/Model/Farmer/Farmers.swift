@@ -37,7 +37,7 @@ struct Farmer: Decodable, Identifiable, Hashable {
     let businessPhone: String?
     //    let categories: [Categories]
     //    let siteWebs: [SiteWebs]
-    let addresses: [Addresses]
+    let addresses: [Address]
     let products: [Products]
     //    let activites: [Activities]
     //    let certificats: [Certificats]
@@ -101,7 +101,7 @@ struct WebsiteType: Decodable, Identifiable, Hashable {
     }
 }
 
-struct Addresses: Decodable, Identifiable, Hashable {
+struct Address: Decodable, Identifiable, Hashable {
     let id: Int
     let place: String
     let zipCode: String

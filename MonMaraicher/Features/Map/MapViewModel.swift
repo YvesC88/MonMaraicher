@@ -12,8 +12,8 @@ import SwiftUI
 final class MapViewModel: ObservableObject {
 
     @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
-    @Published var selectedMarker: SelectedMarker?
-    @Published var allMarkers: [SelectedMarker] = []
+    @Published var selectedMarker: Marker?
+    @Published var allMarkers: [Marker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     @Published var nearbyButtonAlert: NearbyButtonAlert?
@@ -62,9 +62,14 @@ final class MapViewModel: ObservableObject {
     @MainActor private func loadFarmers() async {
         do {
             let farmers = try await self.farmerService.loadFarmers()
-            self.allMarkers = farmers.items.map { farmer in
-                return SelectedMarker(farmer: farmer)
+            var allMarkers: [Marker] = []
+            for farmer in farmers.items {
+                for address in farmer.addresses {
+                    let marker = Marker(farmer: farmer, address: address)
+                    allMarkers.append(marker)
+                }
             }
+            self.allMarkers = allMarkers
         } catch {
             print("Error when loading farmers: \(error)")
         }
@@ -99,9 +104,9 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyAddress(from location: CLLocation) -> Addresses? {
+    private func findNearbyAddress(from location: CLLocation) -> Address? {
         var searchScopeInKms = searchScope.inKilometers
-        var markerAddress: Addresses?
+        var markerAddress: Address?
         for marker in allMarkers {
             for address in marker.farmer.addresses {
                 let farmerLocation = CLLocation(latitude: address.latitude, longitude: address.longitude)
@@ -183,6 +188,23 @@ extension MapViewModel {
             case .noLocation:
                 return "Annuler"
             }
+        }
+    }
+}
+extension MapViewModel {
+
+    struct Marker: Identifiable, Hashable {
+
+        let id: Int
+        let title: String
+        let address: Address
+        let farmer: Farmer
+
+        init(farmer: Farmer, address: Address) {
+            self.id = farmer.id
+            self.title = farmer.title
+            self.address = address
+            self.farmer = farmer
         }
     }
 }
