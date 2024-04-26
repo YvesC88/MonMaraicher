@@ -8,7 +8,7 @@
 import MapKit
 
 struct FarmerDetailsViewModel: Identifiable, Hashable {
-    let id: Int
+    let id: UUID
     let title: String
     let phoneNumber: String?
     let products: [Products]
@@ -27,7 +27,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.coordinate = .init(latitude: marker.address.latitude, longitude: marker.address.longitude)
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
-        self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode)\(marker.address.city.capitalized)"
+        self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
     }
@@ -41,7 +41,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
 }
 
 extension CLLocationCoordinate2D: Hashable {
-    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
     }
 

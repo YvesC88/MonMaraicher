@@ -195,16 +195,20 @@ extension MapViewModel {
 
     struct Marker: Identifiable, Hashable {
 
-        let id: Int
+        let id: UUID
         let title: String
         let address: Address
         let farmer: Farmer
 
         init(farmer: Farmer, address: Address) {
-            self.id = farmer.id
+            self.id = UUID()
             self.title = farmer.title
             self.address = address
             self.farmer = farmer
+        }
+
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            return lhs.id == rhs.id && lhs.address == rhs.address
         }
     }
 }

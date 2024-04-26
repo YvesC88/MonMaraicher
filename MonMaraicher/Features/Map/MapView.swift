@@ -16,19 +16,13 @@ struct MapView: View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
 
             ForEach(viewModel.allMarkers, id: \.id) { marker in
-                ForEach(marker.farmer.addresses, id: \.id) { location in
-                    Marker(marker.title, systemImage: marker.farmer.systemImageName, coordinate: .init(latitude: location.latitude, longitude: location.longitude))
-                        .tag(marker)
-                        .tint(.orange)
-                }
+                Marker(marker.title, systemImage: marker.farmer.systemImageName, coordinate: .init(latitude: marker.address.latitude, longitude: marker.address.longitude))
+                    .tag(marker)
+                    .tint(.orange)
             }
 
             UserAnnotation()
 
-        }
-        .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
-            FarmerDetailsView(viewModel: farmerViewModel)
-                .presentationDetents([.medium, .large])
         }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {
@@ -37,6 +31,10 @@ struct MapView: View {
         .onAppear(perform: viewModel.onViewAppear)
         .overlay(alignment: .bottom) {
             nearbyFarmerButton
+        }
+        .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
+            FarmerDetailsView(viewModel: farmerViewModel)
+                .presentationDetents([.medium, .large])
         }
         .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
             if viewModel.hasTextField {
