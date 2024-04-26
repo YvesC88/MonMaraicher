@@ -188,6 +188,7 @@ extension MapViewModel {
         }
     }
 }
+
 extension MapViewModel {
 
     struct Marker: Identifiable, Hashable {
@@ -207,9 +208,5 @@ extension MapViewModel {
             self.address = address
             self.farmer = farmer
         }
-
-        //        static func == (lhs: Self, rhs: Self) -> Bool {
-        //            return lhs.id == rhs.id && lhs.address == rhs.address
-        //        }
     }
 }
