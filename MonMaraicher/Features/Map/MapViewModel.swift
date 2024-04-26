@@ -11,15 +11,16 @@ import SwiftUI
 
 final class MapViewModel: ObservableObject {
 
-    @Published var selectedFarmer: Farmer?
-    @Published var allFarmers: [Farmer] = []
+    @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
+    @Published var selectedMarker: Marker?
+    @Published var allMarkers: [Marker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     @Published var nearbyButtonAlert: NearbyButtonAlert?
     @Published var isAlertPresented = false
     @Published var hasTextField = false
 
-    @Published var searchScope = 0.0
+    @Published var searchScope = 5.0
 
     private let locationManager = CLLocationManager()
     private var currentUserLocation: CLLocation? { locationManager.location }
@@ -34,7 +35,6 @@ final class MapViewModel: ObservableObject {
     init(farmerService: FarmerService) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
-        loadFarmers()
 
         $nearbyButtonAlert
             .map { alertType in
@@ -42,19 +42,36 @@ final class MapViewModel: ObservableObject {
             }
             .receive(on: DispatchQueue.main)
             .assign(to: &$isAlertPresented)
+
+        $selectedMarker
+            .map { marker in
+                guard let marker else { return nil }
+                return FarmerDetailsViewModel(marker: marker)
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$farmerDetailsViewModel)
     }
 
     func onViewAppear() {
         requestUserAuthorization()
+        Task {
+            await loadFarmers()
+        }
     }
 
-    private func loadFarmers() {
-        DispatchQueue.main.async {
-            do {
-                self.allFarmers = try self.farmerService.loadFarmers(forName: "Farmers")
-            } catch {
-                print("Error when loading farmers: \(error)")
+    @MainActor private func loadFarmers() async {
+        do {
+            let farmers = try await self.farmerService.loadFarmers()
+            var allMarkers: [Marker] = []
+            for farmer in farmers.items {
+                for address in farmer.addresses {
+                    let marker = Marker(farmer: farmer, address: address)
+                    allMarkers.append(marker)
+                }
             }
+            self.allMarkers = allMarkers
+        } catch {
+            print("Error when loading farmers: \(error)")
         }
     }
 
@@ -71,16 +88,13 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noLocation
             return
         }
-        guard let nearbyFarmer = findNearbyFarmer(from: currentUserLocation) else {
+        guard let nearbyLocation = findNearbyLocation(from: currentUserLocation) else {
             isAlertPresented = true
             hasTextField = true
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.location.latitude,
-                                                            longitude: nearbyFarmer.location.longitude)
-        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate,
-                                                    span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapCameraPosition = .region(nearbyFarmerRegion)
     }
 
@@ -89,18 +103,18 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyFarmer(from location: CLLocation) -> Farmer? {
+    private func findNearbyLocation(from location: CLLocation) -> CLLocation? {
         var searchScopeInKms = searchScope.inKilometers
-        var nearbyFarmer: Farmer?
-        for farmer in allFarmers {
-            let farmerLocation = CLLocation(latitude: farmer.location.latitude, longitude: farmer.location.longitude)
+        var nearbyLocation: CLLocation?
+        for marker in allMarkers {
+            let farmerLocation = CLLocation(latitude: marker.coordinate.latitude, longitude: marker.coordinate.longitude)
             let distance = location.distance(from: farmerLocation)
             if distance < searchScopeInKms {
                 searchScopeInKms = distance
-                nearbyFarmer = farmer
+                nearbyLocation = farmerLocation
             }
         }
-        return nearbyFarmer
+        return nearbyLocation
     }
 }
 
@@ -114,7 +128,7 @@ extension Double {
 extension Farmer {
 
     var title: String {
-        return name.capitalized
+        return businessName.capitalized
     }
 
     var systemImageName: String {
@@ -171,6 +185,28 @@ extension MapViewModel {
             case .noLocation:
                 return "Annuler"
             }
+        }
+    }
+}
+
+extension MapViewModel {
+
+    struct Marker: Identifiable, Hashable {
+
+        let id: UUID
+        let title: String
+        let coordinate: CLLocationCoordinate2D
+        let systemImage: String
+        let address: Address
+        let farmer: Farmer
+
+        init(farmer: Farmer, address: Address) {
+            self.id = UUID()
+            self.title = farmer.title
+            self.coordinate = .init(latitude: address.latitude, longitude: address.longitude)
+            self.systemImage = farmer.systemImageName
+            self.address = address
+            self.farmer = farmer
         }
     }
 }

@@ -13,22 +13,16 @@ struct MapView: View {
     @StateObject private var viewModel = MapViewModel(farmerService: FarmerService())
 
     var body: some View {
-        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedFarmer) {
+        Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
 
-            ForEach(viewModel.allFarmers, id: \.id) { farmer in
-                Marker(farmer.title,
-                       systemImage: farmer.systemImageName,
-                       coordinate: CLLocationCoordinate2D(latitude: farmer.location.latitude, longitude: farmer.location.longitude))
-                .tag(farmer)
-                .tint(.orange)
+            ForEach(viewModel.allMarkers, id: \.id) { marker in
+                Marker(marker.title, systemImage: marker.systemImage, coordinate: marker.coordinate)
+                    .tag(marker)
+                    .tint(.orange)
             }
 
             UserAnnotation()
 
-        }
-        .sheet(item: $viewModel.selectedFarmer) { farmer in
-            FarmerDetailsView(viewModel: FarmerDetailsViewModel(farmer: farmer))
-                .presentationDetents([.medium, .large])
         }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {
@@ -37,6 +31,10 @@ struct MapView: View {
         .onAppear(perform: viewModel.onViewAppear)
         .overlay(alignment: .bottom) {
             nearbyFarmerButton
+        }
+        .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
+            FarmerDetailsView(viewModel: farmerViewModel)
+                .presentationDetents([.medium, .large])
         }
         .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
             if viewModel.hasTextField {

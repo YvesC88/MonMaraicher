@@ -9,18 +9,26 @@ import Foundation
 
 final class FarmerService {
 
-    func loadFarmers(forName ressourceName: String) throws -> [Farmer] {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+    // TODO: Write unit tests for this method
+    func loadFarmers() async throws -> Farmers {
         do {
-            guard let bundlePath = Bundle.main.path(forResource: ressourceName, ofType: "json"),
-                  let farmerJson = try String(contentsOfFile: bundlePath).data(using: .utf8) else {
-                throw Error.invalidJsonFile
+            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=43.600345&lng=3.908215"
+            guard let url = URL(string: endPoint) else {
+                throw Error.badUrl
             }
-            let farmers = try decoder.decode([Farmer].self, from: farmerJson)
-            return farmers
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard let response = response as? HTTPURLResponse else { throw
+                Error.badResponse
+            }
+            guard response.statusCode == 200 else {
+                throw Error.badStatus
+            }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .deferredToDate
+            let produceurs = try JSONDecoder().decode(Farmers.self, from: data)
+            return produceurs
         } catch {
-            throw Error.decodingError
+            throw Error.failedToDecodeResponse
         }
     }
 }
@@ -28,7 +36,9 @@ final class FarmerService {
 extension FarmerService {
 
     enum Error: Swift.Error {
-        case invalidJsonFile
-        case decodingError
+        case badUrl
+        case badResponse
+        case badStatus
+        case failedToDecodeResponse
     }
 }

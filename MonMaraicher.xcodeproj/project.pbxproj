@@ -9,11 +9,8 @@
 /* Begin PBXBuildFile section */
 		FB2054E92B9B359D00AAA189 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2054E82B9B359D00AAA189 /* FarmersTests.swift */; };
 		FB2887F82B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2887F72B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift */; };
-		FB29A3CA2BA1B22000158776 /* Farmers.json in Resources */ = {isa = PBXBuildFile; fileRef = FB29A3C92BA1B22000158776 /* Farmers.json */; };
-		FB29A3CC2BA1F19400158776 /* Farmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB29A3CB2BA1F19400158776 /* Farmer.swift */; };
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
-		FB72604D2B8D67E5003A1A40 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604C2B8D67E5003A1A40 /* Location.swift */; };
 		FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */; };
 		FB7CAA682B90EB920093540E /* FarmerDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */; };
 		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
@@ -21,8 +18,8 @@
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
 		FB85C4582BA89474008704F8 /* FarmerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85C4572BA89473008704F8 /* FarmerServiceTests.swift */; };
+		FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA13FF02BC73AEB0025C200 /* Farmers.swift */; };
 		FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */; };
-		FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBCBA2C2B97C89600FDB64F /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,11 +35,8 @@
 /* Begin PBXFileReference section */
 		FB2054E82B9B359D00AAA189 /* FarmersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmersTests.swift; sourceTree = "<group>"; };
 		FB2887F72B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModelTests.swift; sourceTree = "<group>"; };
-		FB29A3C92BA1B22000158776 /* Farmers.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = Farmers.json; sourceTree = "<group>"; };
-		FB29A3CB2BA1F19400158776 /* Farmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmer.swift; sourceTree = "<group>"; };
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		FB72604C2B8D67E5003A1A40 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsView.swift; sourceTree = "<group>"; };
 		FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModel.swift; sourceTree = "<group>"; };
 		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,8 +47,8 @@
 		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB85C4572BA89473008704F8 /* FarmerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceTests.swift; sourceTree = "<group>"; };
+		FBA13FF02BC73AEB0025C200 /* Farmers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmers.swift; sourceTree = "<group>"; };
 		FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerService.swift; sourceTree = "<group>"; };
-		FBBCBA2C2B97C89600FDB64F /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +72,8 @@
 		FB00C9BF2B9DE14B0008786C /* Farmer */ = {
 			isa = PBXGroup;
 			children = (
-				FB29A3CB2BA1F19400158776 /* Farmer.swift */,
+				FBA13FF02BC73AEB0025C200 /* Farmers.swift */,
 				FB2054E82B9B359D00AAA189 /* FarmersTests.swift */,
-				FB29A3C92BA1B22000158776 /* Farmers.json */,
 			);
 			path = Farmer;
 			sourceTree = "<group>";
@@ -89,8 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				FB00C9BF2B9DE14B0008786C /* Farmer */,
-				FB72604C2B8D67E5003A1A40 /* Location.swift */,
-				FBBCBA2C2B97C89600FDB64F /* Address.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,7 +233,6 @@
 			files = (
 				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
-				FB29A3CA2BA1B22000158776 /* Farmers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +276,8 @@
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */,
-				FBBCBA2D2B97C89600FDB64F /* Address.swift in Sources */,
-				FB29A3CC2BA1F19400158776 /* Farmer.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
-				FB72604D2B8D67E5003A1A40 /* Location.swift in Sources */,
+				FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */,
 				FB7CAA682B90EB920093540E /* FarmerDetailsViewModel.swift in Sources */,
 				FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */,
 			);

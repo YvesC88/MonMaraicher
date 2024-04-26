@@ -7,39 +7,29 @@
 
 import MapKit
 
-struct FarmerDetailsViewModel {
-
+struct FarmerDetailsViewModel: Identifiable, Hashable {
+    let id: UUID
     let title: String
+    let phoneNumber: String?
+    let products: [Products]
     let coordinate: CLLocationCoordinate2D
-    let farmerImages: [String]
     let markerSystemImageName: String
     let directionButtonTitle: String
     let address: String
+    let farmerAddressesTypes: [String]
     let city: String
 
-    init(farmer: Farmer) {
-        self.title = farmer.name.capitalized
-        self.coordinate = .init(latitude: farmer.location.latitude,
-                                longitude: farmer.location.longitude)
-        self.farmerImages = [farmer.images.farmer1,
-                           farmer.images.farmer2,
-                           farmer.images.farmer3,
-                           farmer.images.farmer4,
-                           farmer.images.farmer5,
-                           farmer.images.farmer6]
-        self.address = Self.formatAddress(farmer.location.address).capitalized
-        self.city = farmer.location.address.city.capitalized
+    init(marker: MapViewModel.Marker) {
+        self.id = marker.id
+        self.title = marker.title
+        self.phoneNumber = marker.farmer.personalPhone ?? marker.farmer.businessPhone ?? "Aucun numéro disponible"
+        self.products = marker.farmer.products
+        self.coordinate = marker.coordinate
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
-    }
-
-    private static func formatAddress(_ address: Address) -> String {
-        let endAddress = "\(address.streetName)\n\(address.zipCode) \(address.city)"
-        if let streetNumber = address.streetNumber {
-            return "\(streetNumber) " + endAddress
-        } else {
-            return endAddress
-        }
+        self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
+        self.farmerAddressesTypes = marker.address.farmerAddressesTypes
+        self.city = marker.address.city.capitalized
     }
 
     func onItineraryButtonTapped() {
@@ -47,5 +37,16 @@ struct FarmerDetailsViewModel {
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = self.title
         mapItem.openInMaps()
+    }
+}
+
+extension CLLocationCoordinate2D: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(latitude)
+        hasher.combine(longitude)
     }
 }
