@@ -24,7 +24,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.title = marker.title
         self.phoneNumber = marker.farmer.personalPhone ?? marker.farmer.businessPhone ?? "Aucun numéro disponible"
         self.products = marker.farmer.products
-        self.coordinate = .init(latitude: marker.address.latitude, longitude: marker.address.longitude)
+        self.coordinate = marker.coordinate
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"

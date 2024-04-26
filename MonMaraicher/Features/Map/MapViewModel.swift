@@ -88,14 +88,13 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noLocation
             return
         }
-        guard let nearbyFarmer = findNearbyAddress(from: currentUserLocation) else {
+        guard let nearbyLocation = findNearbyLocation(from: currentUserLocation) else {
             isAlertPresented = true
             hasTextField = true
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerCoordinate = CLLocationCoordinate2D(latitude: nearbyFarmer.latitude, longitude: nearbyFarmer.longitude)
-        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyFarmerCoordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapCameraPosition = .region(nearbyFarmerRegion)
     }
 
@@ -104,20 +103,18 @@ final class MapViewModel: ObservableObject {
         UIApplication.shared.open(settingsURL)
     }
 
-    private func findNearbyAddress(from location: CLLocation) -> Address? {
+    private func findNearbyLocation(from location: CLLocation) -> CLLocation? {
         var searchScopeInKms = searchScope.inKilometers
-        var markerAddress: Address?
+        var nearbyLocation: CLLocation?
         for marker in allMarkers {
-            for address in marker.farmer.addresses {
-                let farmerLocation = CLLocation(latitude: address.latitude, longitude: address.longitude)
-                let distance = location.distance(from: farmerLocation)
-                if distance < searchScopeInKms {
-                    searchScopeInKms = distance
-                    markerAddress = address
-                }
+            let farmerLocation = CLLocation(latitude: marker.coordinate.latitude, longitude: marker.coordinate.longitude)
+            let distance = location.distance(from: farmerLocation)
+            if distance < searchScopeInKms {
+                searchScopeInKms = distance
+                nearbyLocation = farmerLocation
             }
         }
-        return markerAddress
+        return nearbyLocation
     }
 }
 
@@ -197,18 +194,22 @@ extension MapViewModel {
 
         let id: UUID
         let title: String
+        let coordinate: CLLocationCoordinate2D
+        let systemImage: String
         let address: Address
         let farmer: Farmer
 
         init(farmer: Farmer, address: Address) {
             self.id = UUID()
             self.title = farmer.title
+            self.coordinate = .init(latitude: address.latitude, longitude: address.longitude)
+            self.systemImage = farmer.systemImageName
             self.address = address
             self.farmer = farmer
         }
 
-        static func == (lhs: Self, rhs: Self) -> Bool {
-            return lhs.id == rhs.id && lhs.address == rhs.address
-        }
+        //        static func == (lhs: Self, rhs: Self) -> Bool {
+        //            return lhs.id == rhs.id && lhs.address == rhs.address
+        //        }
     }
 }

@@ -16,7 +16,7 @@ struct MapView: View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
 
             ForEach(viewModel.allMarkers, id: \.id) { marker in
-                Marker(marker.title, systemImage: marker.farmer.systemImageName, coordinate: .init(latitude: marker.address.latitude, longitude: marker.address.longitude))
+                Marker(marker.title, systemImage: marker.systemImage, coordinate: marker.coordinate)
                     .tag(marker)
                     .tint(.orange)
             }

@@ -77,16 +77,14 @@ struct Websites: Decodable, Identifiable, Hashable {
     let id: Int
     let url: String
     let active: Bool
-    let idOperator: Int
-    let idWebsiteType: Int
+    let operatorId: Int
     let websiteType: WebsiteType
 
     enum CodingKeys: String, CodingKey {
         case id
         case url
         case active
-        case idOperator = "operateurId"
-        case idWebsiteType = "typeSiteWebId"
+        case operatorId = "operateurId"
         case websiteType = "typeSiteWeb"
     }
 }
@@ -141,13 +139,5 @@ struct Certificats: Decodable, Hashable {
         case certificationStatus = "etatCertification"
         case commitmentDate = "dateEngagement"
         case url
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.organization = try container.decode(String.self, forKey: .organization)
-        self.certificationStatus = try container.decode(String.self, forKey: .certificationStatus)
-        self.commitmentDate = try container.decode(Date.self, forKey: .commitmentDate)
-        self.url = try container.decode(String.self, forKey: .url)
     }
 }
