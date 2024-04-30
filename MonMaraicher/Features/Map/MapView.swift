@@ -14,23 +14,32 @@ struct MapView: View {
 
     var body: some View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
-
             ForEach(viewModel.allMarkers, id: \.id) { marker in
                 Marker(marker.title, systemImage: marker.systemImage, coordinate: marker.coordinate)
                     .tag(marker)
                     .tint(.orange)
             }
-
             UserAnnotation()
-
         }
         .mapStyle(.standard(elevation: .realistic))
         .mapControls {
             MapUserLocationButton()
         }
+        .overlay(alignment: .center) {
+            if viewModel.farmersLoadingInProgress && viewModel.hasUserAcceptedLocation {
+                loadingBar
+            }
+        }
+        .onChange(of: viewModel.hasUserAcceptedLocation ) {
+            viewModel.onReloadingFarmersButtonTapped()
+        }
         .onAppear(perform: viewModel.onViewAppear)
         .overlay(alignment: .bottom) {
-            nearbyFarmerButton
+            HStack {
+                nearbyFarmerButton
+                reloadFarmersButton
+                    .disabled(viewModel.farmersLoadingInProgress)
+            }
         }
         .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
             FarmerDetailsView(viewModel: farmerViewModel)
@@ -64,13 +73,35 @@ extension MapView {
             viewModel.onNearbyFarmerButtonTapped()
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
-                .font(.title)
-                .padding(16)
-                .foregroundStyle(.blue)
-                .background(Circle().fill(.thinMaterial))
+                .font(.system(size: 20, weight: .bold))
+                .padding(20)
+                .background(Circle().fill(.ultraThinMaterial))
+
         }
+        .shadow(radius: 12)
         .padding(32)
-        .shadow(radius: 8)
+    }
+
+    private var reloadFarmersButton: some View {
+        Button {
+            viewModel.onReloadingFarmersButtonTapped()
+        } label: {
+            Image(systemName: viewModel.imageSystemNameReloadButton )
+                .font(.system(size: 20, weight: .bold))
+                .padding(20)
+                .background(Circle().fill(.ultraThinMaterial))
+        }
+        .shadow(radius: 12)
+        .padding(32)
+    }
+
+    private var loadingBar: some View {
+        ProgressView("Chargement des données", value: viewModel.progressLoadingOfFarmers)
+            .font(.system(size: 17, design: .rounded))
+            .padding()
+            .frame(width: 250)
+            .background(.ultraThinMaterial)
+            .clipShape(.rect(cornerRadius: 16))
     }
 }
 

@@ -10,9 +10,9 @@ import Foundation
 final class FarmerService {
 
     // TODO: Write unit tests for this method
-    func loadFarmers() async throws -> Farmers {
+    func loadFarmers(latitude: Double, longitude: Double) async throws -> Farmers {
         do {
-            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=43.600345&lng=3.908215"
+            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=\(latitude)&lng=\(longitude)"
             guard let url = URL(string: endPoint) else {
                 throw Error.badUrl
             }
@@ -25,8 +25,8 @@ final class FarmerService {
             }
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .deferredToDate
-            let produceurs = try JSONDecoder().decode(Farmers.self, from: data)
-            return produceurs
+            let farmers = try JSONDecoder().decode(Farmers.self, from: data)
+            return farmers
         } catch {
             throw Error.failedToDecodeResponse
         }

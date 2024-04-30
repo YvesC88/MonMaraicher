@@ -54,16 +54,18 @@ private extension FarmerDetailsView {
     }
 
     private var descriptionSection: some View {
-        VStack {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 120))]) {
-                ForEach(viewModel.products, id: \.id) { product in
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 10) {
+            ForEach(viewModel.products, id: \.id) { product in
+                ZStack {
+                    Rectangle()
+                        .frame(width: 80, height: 50)
+                        .foregroundStyle(.blue)
+                        .clipShape(.rect(cornerRadius: 16))
                     Text(product.name)
-                        .padding(12)
-                        .lineLimit(2)
-                        .background(.blue)
-                        .font(.subheadline)
+                        .font(.system(size: 12, weight: .regular, design: .rounded))
+                        .padding()
+                        .lineLimit(3)
                         .foregroundStyle(.white)
-                        .clipShape(.rect(cornerRadius: 20))
                 }
             }
         }
@@ -152,5 +154,5 @@ private extension FarmerDetailsView {
 
 #Preview {
     // TODO: simplify this code
-    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Tomates")]), address: .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["siège social"]))))
+    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Fruits à pépins et à coques"), .init(id: 2, name: "Pomme de table"), .init(id: 3, name: "Poires"), .init(id: 4, name: "Coings"), .init(id: 5, name: "Abricots"), .init(id: 6, name: "Miel"), .init(id: 7, name: "Thym")]), address: .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["siège social"]))))
 }
