@@ -11,7 +11,9 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let id: UUID
     let title: String
     let phoneNumber: String?
+    let email: String?
     let products: [Products]
+    let websites: [Websites]
     let coordinate: CLLocationCoordinate2D
     let markerSystemImageName: String
     let directionButtonTitle: String
@@ -22,8 +24,10 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     init(marker: MapViewModel.Marker) {
         self.id = marker.id
         self.title = marker.title
-        self.phoneNumber = marker.farmer.personalPhone ?? marker.farmer.businessPhone ?? "Aucun numéro disponible"
+        self.phoneNumber = marker.farmer.businessPhone ?? marker.farmer.businessPhone
+        self.email = marker.farmer.email ?? "Aucune adresse mail"
         self.products = marker.farmer.products
+        self.websites = marker.farmer.websites
         self.coordinate = marker.coordinate
         self.markerSystemImageName = "laurel.leading"
         self.directionButtonTitle = "Y aller"
