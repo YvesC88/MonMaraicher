@@ -24,10 +24,9 @@ struct FarmerDetailsView: View {
                 titleSection
                 descriptionSection
                 VStack(alignment: .leading, spacing: 16) {
-                    linkSection
                     Divider()
                     mapSection
-                    addressSection
+                    informationsSection
                 }
                 .padding()
             }
@@ -70,16 +69,6 @@ private extension FarmerDetailsView {
         }
     }
 
-    private var linkSection: some View {
-        HStack {
-            if let url = URL(string: "https://www.google.fr") {
-                Link("Obtenir plus d'informations", destination: url)
-                    .font(.headline)
-                    .tint(.blue)
-            }
-        }
-    }
-
     private var closeButton: some View {
         Button {
             dismiss()
@@ -89,7 +78,7 @@ private extension FarmerDetailsView {
                 .padding(8)
                 .background(.thinMaterial)
                 .clipShape(.circle)
-                .shadow(radius: 10)
+                .shadow(radius: 8)
                 .padding()
         }
     }
@@ -99,39 +88,14 @@ private extension FarmerDetailsView {
             Marker(viewModel.title, systemImage: viewModel.markerSystemImageName, coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
-        .aspectRatio(1.5, contentMode: .fit)
+        .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
-        .shadow(radius: 4)
+        .shadow(radius: 8)
         .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
 
-    private var directionButton: some View {
-        Button {
-            viewModel.onItineraryButtonTapped()
-        } label: {
-            Text(viewModel.directionButtonTitle)
-        }
-        .font(.headline)
-    }
-
-    private var phoneButton: some View {
-        VStack {
-            if viewModel.phoneNumber == nil {
-                Image(systemName: "phone.fill")
-            } else {
-                if let number = viewModel.phoneNumber {
-                    if let url = URL(string: "tel:\(number)") {
-                        Link(destination: url) {
-                            Image(systemName: "phone.fill")
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private var addressSection: some View {
+    private var informationsSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading) {
@@ -143,11 +107,6 @@ private extension FarmerDetailsView {
                 }
                 Spacer()
                 directionButton
-                    .frame(width: 80, height: 35)
-                    .background(.ultraThinMaterial)
-                    .clipShape(.capsule)
-                    .padding()
-                    .shadow(radius: 4)
             }
             Divider()
             HStack {
@@ -160,39 +119,91 @@ private extension FarmerDetailsView {
                 }
                 Spacer()
                 phoneButton
-                    .frame(width: 80, height: 35)
-                    .background(.ultraThinMaterial)
-                    .clipShape(.capsule)
-                    .padding()
-                    .shadow(radius: 4)
             }
             Divider()
-            VStack(alignment: .leading) {
-                Text("Email")
-                    .foregroundStyle(.secondary)
-                    .font(.subheadline)
-                Link(viewModel.email!, destination: URL(string: viewModel.email!)!)
-            }
-            Divider()
-            VStack(alignment: .leading) {
-                if !viewModel.websites.isEmpty {
-                    Text("Site Web")
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Email")
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
+                    Text(viewModel.email ?? "Aucune adresse email")
+                        .font(.callout)
+                }
+                Spacer()
+                mailButton
+            }
+            Divider()
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Site Web")
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+                if !viewModel.websites.isEmpty {
                     ForEach(viewModel.websites, id: \.id) { website in
-                        Link(website.websiteType.name, destination: URL(string: website.url)!)
+                        Text(.init("[\(website.websiteType.name)](\(website.url))"))
                     }
+                } else {
+                    Text("Aucun site web")
+                        .font(.callout)
                 }
             }
         }
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 20))
+        .shadow(radius: 8)
+    }
+
+    private var directionButton: some View {
+        Button {
+            viewModel.onItineraryButtonTapped()
+        } label: {
+            Image(systemName: "map.fill")
+        }
+        .frame(width: 80, height: 40)
+        .background(.ultraThinMaterial)
+        .clipShape(.capsule)
+        .padding()
+        .shadow(radius: 4)
+    }
+
+    private var phoneButton: some View {
+        VStack {
+            if viewModel.phoneNumber == nil {
+                Image(systemName: "phone.fill")
+            } else {
+                Link(destination: viewModel.getPhoneCallURL) {
+                    Image(systemName: "phone.fill")
+                }
+            }
+        }
+        .frame(width: 80, height: 40)
+        .background(.ultraThinMaterial)
+        .clipShape(.capsule)
+        .padding()
+        .shadow(radius: 4)
+    }
+
+    private var mailButton: some View {
+        VStack {
+            if viewModel.email == nil {
+                Image(systemName: "envelope.fill")
+            } else {
+                Button {
+                    viewModel.onMailButtonTapped()
+                } label: {
+                    Image(systemName: "envelope.fill")
+                }
+            }
+        }
+        .frame(width: 80, height: 40)
+        .background(.ultraThinMaterial)
+        .clipShape(.capsule)
+        .padding()
         .shadow(radius: 4)
     }
 }
 
 #Preview {
     // TODO: simplify this code
-    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, email: "giulia.palazzin@tutanota.com", businessPhone: nil, websites: [.init(id: 1, url: "https://www.instagram.com/dilemme.bio/", active: true, operatorId: 1, websiteType: .init(id: 1, name: "Instagram")), .init(id: 2, url: "https://www.dilemme.bio", active: true, operatorId: 1, websiteType: .init(id: 1, name: "Facebook"))], addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Fruits à pépins et à coques"), .init(id: 2, name: "Pomme de table"), .init(id: 3, name: "Poires"), .init(id: 4, name: "Coings"), .init(id: 5, name: "Abricots"), .init(id: 6, name: "Miel"), .init(id: 7, name: "Thym")]), address: .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["siège social"]))))
+    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, email: nil, businessPhone: nil, websites: [.init(id: 1, url: "https://www.instagram.com/dilemme.bio/", active: true, operatorId: 1, websiteType: .init(id: 1, name: "Instagram")), .init(id: 2, url: "https://www.dilemme.bio", active: true, operatorId: 1, websiteType: .init(id: 1, name: "Facebook"))], addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Fruits à pépins et à coques"), .init(id: 2, name: "Pomme de table"), .init(id: 3, name: "Poires"), .init(id: 4, name: "Coings"), .init(id: 5, name: "Abricots"), .init(id: 6, name: "Miel"), .init(id: 7, name: "Thym")]), address: .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["siège social"]))))
 }

@@ -21,11 +21,16 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let farmerAddressesTypes: [String]
     let city: String
 
+    var getPhoneCallURL: URL {
+        guard let phoneNumber, let url = URL(string: "tel:\(phoneNumber)") else { return URL(fileURLWithPath: "") }
+        return url
+    }
+
     init(marker: MapViewModel.Marker) {
         self.id = marker.id
         self.title = marker.title
-        self.phoneNumber = marker.farmer.businessPhone ?? marker.farmer.businessPhone
-        self.email = marker.farmer.email ?? "Aucune adresse mail"
+        self.phoneNumber = marker.farmer.businessPhone ?? marker.farmer.personalPhone
+        self.email = marker.farmer.email
         self.products = marker.farmer.products
         self.websites = marker.farmer.websites
         self.coordinate = marker.coordinate
@@ -34,6 +39,11 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
+    }
+
+    func onMailButtonTapped() {
+        guard let email, let url = URL(string: "mailto:\(email)") else { return }
+        UIApplication.shared.open(url)
     }
 
     func onItineraryButtonTapped() {

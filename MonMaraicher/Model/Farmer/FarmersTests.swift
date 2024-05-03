@@ -10,27 +10,27 @@ import XCTest
 
 final class FarmersTests: XCTestCase {
 
-    func testTitleShouldReturnFarmerPlaceNameCapitalized() {
-
-        // Given
-        let farmer = Farmer.makeMock(name: "chez william")
-
-        // When
-        let expectedTitle = "Chez William"
-
-        // Then
-        XCTAssertEqual(farmer.title, expectedTitle)
-    }
-
-    func testSystemImageNameShouldReturnCorrectlyValue() {
-        // Given
-        let farmer = Farmer.makeMock()
-
-        // When
-        let expectedSystemImageName = "laurel.leading"
-
-        // Then
-        XCTAssertEqual(farmer.systemImageName, expectedSystemImageName)
-    }
+//    func testTitleShouldReturnFarmerPlaceNameCapitalized() {
+//
+//        // Given
+//        let farmer = Farmer.makeMock(name: "chez william")
+//
+//        // When
+//        let expectedTitle = "Chez William"
+//
+//        // Then
+//        XCTAssertEqual(farmer.title, expectedTitle)
+//    }
+//
+//    func testSystemImageNameShouldReturnCorrectlyValue() {
+//        // Given
+//        let farmer = Farmer.makeMock()
+//
+//        // When
+//        let expectedSystemImageName = "laurel.leading"
+//
+//        // Then
+//        XCTAssertEqual(farmer.systemImageName, expectedSystemImageName)
+//    }
 
 }

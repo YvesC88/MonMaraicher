@@ -25,11 +25,6 @@ struct MapView: View {
         .mapControls {
             MapUserLocationButton()
         }
-        .overlay(alignment: .center) {
-            if viewModel.farmersLoadingInProgress && viewModel.hasUserAcceptedLocation {
-                loadingBar
-            }
-        }
         .onChange(of: viewModel.hasUserAcceptedLocation ) {
             viewModel.onReloadingFarmersButtonTapped()
         }
@@ -73,7 +68,7 @@ extension MapView {
             viewModel.onNearbyFarmerButtonTapped()
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
-                .font(.system(size: 20, weight: .bold))
+                .font(.system(size: 17, weight: .bold, design: .rounded))
                 .padding(20)
                 .background(Circle().fill(.ultraThinMaterial))
 
@@ -86,22 +81,17 @@ extension MapView {
         Button {
             viewModel.onReloadingFarmersButtonTapped()
         } label: {
-            Image(systemName: viewModel.imageSystemNameReloadButton )
-                .font(.system(size: 20, weight: .bold))
-                .padding(20)
-                .background(Circle().fill(.ultraThinMaterial))
+            if viewModel.farmersLoadingInProgress {
+                ProgressView()
+            } else {
+                Image(systemName: viewModel.imageSystemNameReloadButton)
+            }
         }
+        .font(.system(size: 17, weight: .bold, design: .rounded))
+        .padding(20)
+        .background(Circle().fill(.ultraThinMaterial))
         .shadow(radius: 12)
         .padding(32)
-    }
-
-    private var loadingBar: some View {
-        ProgressView("Chargement des données", value: viewModel.progressLoadingOfFarmers)
-            .font(.system(size: 17, design: .rounded))
-            .padding()
-            .frame(width: 250)
-            .background(.ultraThinMaterial)
-            .clipShape(.rect(cornerRadius: 16))
     }
 }
 

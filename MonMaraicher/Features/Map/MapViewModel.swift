@@ -21,7 +21,6 @@ final class MapViewModel: ObservableObject {
     @Published var hasTextField = false
 
     @Published var farmersLoadingInProgress = false
-    @Published var progressLoadingOfFarmers = 0.0
 
     @Published var searchScope = 5.0
 
@@ -67,21 +66,15 @@ final class MapViewModel: ObservableObject {
 
     @MainActor private func loadFarmers() async {
         do {
-            progressLoadingOfFarmers = 0.0
             farmersLoadingInProgress = true
             guard let currentUserLocation else { return }
             let farmers = try await self.farmerService.loadFarmers(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
-            let totalMarkers = farmers.items.flatMap { $0.addresses }.count
-            var loadedMarkers = 0
             var allMarkers: [Marker] = []
             for farmer in farmers.items {
                 for address in farmer.addresses {
                     let marker = Marker(farmer: farmer, address: address)
                     allMarkers.append(marker)
-                    loadedMarkers += 1
-                    progressLoadingOfFarmers = Double(loadedMarkers) / Double(totalMarkers)
                 }
-                try await Task.sleep(for: .milliseconds(50))
             }
             self.allMarkers = allMarkers
             farmersLoadingInProgress = false
