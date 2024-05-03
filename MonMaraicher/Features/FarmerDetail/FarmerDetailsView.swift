@@ -155,7 +155,7 @@ private extension FarmerDetailsView {
 
     private var directionButton: some View {
         Button {
-            viewModel.onItineraryButtonTapped()
+            viewModel.onDirectionButtonTapped()
         } label: {
             Image(systemName: "map.fill")
         }
@@ -171,7 +171,7 @@ private extension FarmerDetailsView {
             if viewModel.phoneNumber == nil {
                 Image(systemName: "phone.fill")
             } else {
-                Link(destination: viewModel.getPhoneCallURL) {
+                Link(destination: viewModel.phoneCallURL) {
                     Image(systemName: "phone.fill")
                 }
             }

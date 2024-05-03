@@ -21,7 +21,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let farmerAddressesTypes: [String]
     let city: String
 
-    var getPhoneCallURL: URL {
+    var phoneCallURL: URL {
         guard let phoneNumber, let url = URL(string: "tel:\(phoneNumber)") else { return URL(fileURLWithPath: "") }
         return url
     }
@@ -46,7 +46,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         UIApplication.shared.open(url)
     }
 
-    func onItineraryButtonTapped() {
+    func onDirectionButtonTapped() {
         let placemark = MKPlacemark(coordinate: self.coordinate)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = self.title
