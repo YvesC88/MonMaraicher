@@ -36,6 +36,12 @@ struct MapView: View {
                     .disabled(viewModel.farmersLoadingInProgress)
             }
         }
+        .overlay {
+            if viewModel.farmersLoadingInProgress {
+                ProgressView()
+                    .controlSize(.large)
+            }
+        }
         .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
             FarmerDetailsView(viewModel: farmerViewModel)
                 .presentationDetents([.medium, .large])
@@ -81,11 +87,7 @@ extension MapView {
         Button {
             viewModel.onReloadingFarmersButtonTapped()
         } label: {
-            if viewModel.farmersLoadingInProgress {
-                ProgressView()
-            } else {
                 Image(systemName: viewModel.imageSystemNameReloadButton)
-            }
         }
         .font(.system(size: 17, weight: .bold, design: .rounded))
         .padding(20)
