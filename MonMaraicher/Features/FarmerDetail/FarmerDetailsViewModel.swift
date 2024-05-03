@@ -16,13 +16,16 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let websites: [Websites]
     let coordinate: CLLocationCoordinate2D
     let markerSystemImageName: String
-    let directionButtonTitle: String
     let address: String
     let farmerAddressesTypes: [String]
     let city: String
 
-    var phoneCallURL: URL {
-        guard let phoneNumber, let url = URL(string: "tel:\(phoneNumber)") else { return URL(fileURLWithPath: "") }
+    let directionButtonImageSystemName: String
+    let phoneButtonImageSystemName: String
+    let emailButtonImageSystemName: String
+
+    var phoneCallURL: URL? {
+        guard let phoneNumber, let url = URL(string: "tel:\(phoneNumber)") else { return nil }
         return url
     }
 
@@ -35,10 +38,12 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.websites = marker.farmer.websites
         self.coordinate = marker.coordinate
         self.markerSystemImageName = "laurel.leading"
-        self.directionButtonTitle = "Y aller"
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
+        self.directionButtonImageSystemName = "map.fill"
+        self.phoneButtonImageSystemName = "phone.fill"
+        self.emailButtonImageSystemName = "envelope.fill"
     }
 
     func onMailButtonTapped() {

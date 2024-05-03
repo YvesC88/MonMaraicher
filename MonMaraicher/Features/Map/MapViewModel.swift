@@ -68,7 +68,7 @@ final class MapViewModel: ObservableObject {
         do {
             farmersLoadingInProgress = true
             guard let currentUserLocation else { return }
-            let farmers = try await self.farmerService.loadFarmers(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+            let farmers = try await self.farmerService.searchFarmers(location: currentUserLocation)
             var allMarkers: [Marker] = []
             for farmer in farmers.items {
                 for address in farmer.addresses {

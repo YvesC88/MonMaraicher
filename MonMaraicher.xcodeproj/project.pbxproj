@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB2054E92B9B359D00AAA189 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2054E82B9B359D00AAA189 /* FarmersTests.swift */; };
-		FB2887F82B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2887F72B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift */; };
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
 		FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */; };
@@ -17,9 +15,10 @@
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
-		FB85C4582BA89474008704F8 /* FarmerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB85C4572BA89473008704F8 /* FarmerServiceTests.swift */; };
 		FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA13FF02BC73AEB0025C200 /* Farmers.swift */; };
 		FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */; };
+		FBF882F92BE53196002496E6 /* Farmers.json in Resources */ = {isa = PBXBuildFile; fileRef = FBF882F82BE53196002496E6 /* Farmers.json */; };
+		FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF882FA2BE532C9002496E6 /* FarmersTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,8 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FB2054E82B9B359D00AAA189 /* FarmersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmersTests.swift; sourceTree = "<group>"; };
-		FB2887F72B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsView.swift; sourceTree = "<group>"; };
@@ -46,9 +43,10 @@
 		FB832C682B87540600E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB85C4572BA89473008704F8 /* FarmerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceTests.swift; sourceTree = "<group>"; };
 		FBA13FF02BC73AEB0025C200 /* Farmers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmers.swift; sourceTree = "<group>"; };
 		FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerService.swift; sourceTree = "<group>"; };
+		FBF882F82BE53196002496E6 /* Farmers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Farmers.json; sourceTree = "<group>"; };
+		FBF882FA2BE532C9002496E6 /* FarmersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmersTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				FBA13FF02BC73AEB0025C200 /* Farmers.swift */,
-				FB2054E82B9B359D00AAA189 /* FarmersTests.swift */,
+				FBF882FA2BE532C9002496E6 /* FarmersTests.swift */,
+				FBF882F82BE53196002496E6 /* Farmers.json */,
 			);
 			path = Farmer;
 			sourceTree = "<group>";
@@ -101,7 +100,6 @@
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
 				FB7260482B8D6232003A1A40 /* MapViewModel.swift */,
 				FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */,
-				FB85C4572BA89473008704F8 /* FarmerServiceTests.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -111,7 +109,6 @@
 			children = (
 				FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */,
 				FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */,
-				FB2887F72B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift */,
 			);
 			path = FarmerDetail;
 			sourceTree = "<group>";
@@ -201,6 +198,7 @@
 					};
 					FB832C6E2B87540600E60C19 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1530;
 						TestTargetID = FB832C582B87540200E60C19;
 					};
 				};
@@ -233,6 +231,7 @@
 			files = (
 				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
+				FBF882F92BE53196002496E6 /* Farmers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB85C4582BA89474008704F8 /* FarmerServiceTests.swift in Sources */,
-				FB2054E92B9B359D00AAA189 /* FarmersTests.swift in Sources */,
-				FB2887F82B9F1ACF00ED0AFE /* FarmerDetailsViewModelTests.swift in Sources */,
+				FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +502,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
@@ -514,6 +512,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MonMaraicher.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MonMaraicher";
@@ -525,6 +524,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8ZV67K9B93;

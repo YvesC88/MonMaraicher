@@ -26,7 +26,7 @@ struct FarmerDetailsView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     Divider()
                     mapSection
-                    informationsSection
+                    contactSection
                 }
                 .padding()
             }
@@ -95,7 +95,7 @@ private extension FarmerDetailsView {
         .mapControlVisibility(.hidden)
     }
 
-    private var informationsSection: some View {
+    private var contactSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading) {
@@ -130,10 +130,10 @@ private extension FarmerDetailsView {
                         .font(.callout)
                 }
                 Spacer()
-                mailButton
+                emailButton
             }
             Divider()
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading) {
                 Text("Site Web")
                     .foregroundStyle(.secondary)
                     .font(.subheadline)
@@ -157,7 +157,7 @@ private extension FarmerDetailsView {
         Button {
             viewModel.onDirectionButtonTapped()
         } label: {
-            Image(systemName: "map.fill")
+            Image(systemName: viewModel.directionButtonImageSystemName)
         }
         .frame(width: 80, height: 40)
         .background(.ultraThinMaterial)
@@ -168,38 +168,34 @@ private extension FarmerDetailsView {
 
     private var phoneButton: some View {
         VStack {
-            if viewModel.phoneNumber == nil {
-                Image(systemName: "phone.fill")
-            } else {
-                Link(destination: viewModel.phoneCallURL) {
-                    Image(systemName: "phone.fill")
+            if viewModel.phoneNumber != nil {
+                Link(destination: viewModel.phoneCallURL!) {
+                    Image(systemName: viewModel.phoneButtonImageSystemName)
                 }
+                .frame(width: 80, height: 40)
+                .background(.ultraThinMaterial)
+                .clipShape(.capsule)
+                .padding()
+                .shadow(radius: 4)
             }
         }
-        .frame(width: 80, height: 40)
-        .background(.ultraThinMaterial)
-        .clipShape(.capsule)
-        .padding()
-        .shadow(radius: 4)
     }
 
-    private var mailButton: some View {
+    private var emailButton: some View {
         VStack {
-            if viewModel.email == nil {
-                Image(systemName: "envelope.fill")
-            } else {
+            if viewModel.email != nil {
                 Button {
                     viewModel.onMailButtonTapped()
                 } label: {
-                    Image(systemName: "envelope.fill")
+                    Image(systemName: viewModel.emailButtonImageSystemName)
                 }
+                .frame(width: 80, height: 40)
+                .background(.ultraThinMaterial)
+                .clipShape(.capsule)
+                .padding()
+                .shadow(radius: 4)
             }
         }
-        .frame(width: 80, height: 40)
-        .background(.ultraThinMaterial)
-        .clipShape(.capsule)
-        .padding()
-        .shadow(radius: 4)
     }
 }
 
@@ -211,8 +207,8 @@ private extension FarmerDetailsView {
                 farmer: .init(
                     id: 1,
                     businessName: "chez william",
-                    personalPhone: nil,
-                    email: nil,
+                    personalPhone: "0606060606",
+                    email: "test@test.fr",
                     businessPhone: nil,
                     websites: [
                         .init(

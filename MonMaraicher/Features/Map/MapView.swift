@@ -37,7 +37,7 @@ struct MapView: View {
             }
         }
         .overlay {
-            if viewModel.farmersLoadingInProgress {
+            if viewModel.farmersLoadingInProgress && viewModel.hasUserAcceptedLocation {
                 ProgressView()
                     .controlSize(.large)
             }

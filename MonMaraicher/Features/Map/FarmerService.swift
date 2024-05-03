@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import CoreLocation
 
 final class FarmerService {
 
     // TODO: Write unit tests for this method
-    func loadFarmers(latitude: Double, longitude: Double) async throws -> Farmers {
+    func searchFarmers(location: CLLocation) async throws -> Farmers {
         do {
-            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=\(latitude)&lng=\(longitude)"
+            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=\(location.coordinate.latitude)&lng=\(location.coordinate.longitude)"
             guard let url = URL(string: endPoint) else {
                 throw Error.badUrl
             }
@@ -25,7 +26,7 @@ final class FarmerService {
             }
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .deferredToDate
-            let farmers = try JSONDecoder().decode(Farmers.self, from: data)
+            let farmers = try decoder.decode(Farmers.self, from: data)
             return farmers
         } catch {
             throw Error.failedToDecodeResponse
