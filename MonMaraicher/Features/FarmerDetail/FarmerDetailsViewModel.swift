@@ -46,6 +46,10 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         UIApplication.shared.open(url)
     }
 
+    func formatWebsite(_ website: Websites) -> String {
+        return "[\(website.websiteType.name)](\(website.url))"
+    }
+
     func onDirectionButtonTapped() {
         let placemark = MKPlacemark(coordinate: self.coordinate)
         let mapItem = MKMapItem(placemark: placemark)

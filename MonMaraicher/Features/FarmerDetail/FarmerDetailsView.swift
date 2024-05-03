@@ -139,7 +139,7 @@ private extension FarmerDetailsView {
                     .font(.subheadline)
                 if !viewModel.websites.isEmpty {
                     ForEach(viewModel.websites, id: \.id) { website in
-                        Text(.init("[\(website.websiteType.name)](\(website.url))"))
+                        Text(.init(viewModel.formatWebsite(website)))
                     }
                 } else {
                     Text("Aucun site web")
