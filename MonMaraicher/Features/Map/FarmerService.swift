@@ -8,7 +8,11 @@
 import Foundation
 import CoreLocation
 
-final class FarmerService {
+protocol FarmerServiceProtocol {
+    func searchFarmers(location: CLLocation) async throws -> Farmers
+}
+
+final class FarmerService: FarmerServiceProtocol {
 
     // TODO: Write unit tests for this method
     func searchFarmers(location: CLLocation) async throws -> Farmers {

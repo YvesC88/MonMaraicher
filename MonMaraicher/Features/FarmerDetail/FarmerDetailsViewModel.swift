@@ -15,11 +15,11 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let products: [Products]
     let websites: [Websites]
     let coordinate: CLLocationCoordinate2D
-    let markerSystemImageName: String
     let address: String
     let farmerAddressesTypes: [String]
     let city: String
 
+    let markerSystemImageName: String
     let directionButtonImageSystemName: String
     let phoneButtonImageSystemName: String
     let emailButtonImageSystemName: String
@@ -37,10 +37,10 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.products = marker.farmer.products
         self.websites = marker.farmer.websites
         self.coordinate = marker.coordinate
-        self.markerSystemImageName = "laurel.leading"
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
+        self.markerSystemImageName = "laurel.leading"
         self.directionButtonImageSystemName = "map.fill"
         self.phoneButtonImageSystemName = "phone.fill"
         self.emailButtonImageSystemName = "envelope.fill"
