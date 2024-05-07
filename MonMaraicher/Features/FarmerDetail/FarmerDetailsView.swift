@@ -20,16 +20,15 @@ struct FarmerDetailsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 16) {
                 titleSection
+                Divider()
                 descriptionSection
-                VStack(alignment: .leading, spacing: 16) {
-                    Divider()
-                    mapSection
-                    contactSection
-                }
-                .padding()
+                Divider()
+                mapSection
+                contactSection
             }
+            .padding()
         }
         .overlay(closeButton, alignment: .topTrailing)
     }
@@ -46,9 +45,7 @@ private extension FarmerDetailsView {
                 Text(type)
                     .font(.subheadline)
             }
-            Divider()
         }
-        .padding()
         .padding(.trailing)
     }
 
@@ -160,10 +157,9 @@ private extension FarmerDetailsView {
             Image(systemName: viewModel.directionButtonImageSystemName)
         }
         .frame(width: 80, height: 40)
-        .background(.ultraThinMaterial)
-        .clipShape(.capsule)
+        .overlay(RoundedRectangle(cornerRadius: 32)
+                    .stroke(.blue, lineWidth: 1))
         .padding()
-        .shadow(radius: 4)
     }
 
     private var phoneButton: some View {
@@ -173,10 +169,9 @@ private extension FarmerDetailsView {
                     Image(systemName: viewModel.phoneButtonImageSystemName)
                 }
                 .frame(width: 80, height: 40)
-                .background(.ultraThinMaterial)
-                .clipShape(.capsule)
+                .overlay(RoundedRectangle(cornerRadius: 32)
+                            .stroke(.blue, lineWidth: 1))
                 .padding()
-                .shadow(radius: 4)
             }
         }
     }
@@ -190,10 +185,9 @@ private extension FarmerDetailsView {
                     Image(systemName: viewModel.emailButtonImageSystemName)
                 }
                 .frame(width: 80, height: 40)
-                .background(.ultraThinMaterial)
-                .clipShape(.capsule)
+                .overlay(RoundedRectangle(cornerRadius: 32)
+                            .stroke(.blue, lineWidth: 1))
                 .padding()
-                .shadow(radius: 4)
             }
         }
     }

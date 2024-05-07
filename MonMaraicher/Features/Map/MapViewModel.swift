@@ -31,12 +31,12 @@ final class MapViewModel: ObservableObject {
         measurementFormatter.string(from: Measurement(value: searchScope, unit: UnitLength.kilometers))
     }
     var hasUserAcceptedLocation: Bool { return currentUserLocation != nil }
-    private let farmerService: FarmerService
+    private let farmerService: FarmerServiceProtocol
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
 
-    init(farmerService: FarmerService) {
+    init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         self.imageSystemNameReloadButton = "arrow.clockwise"
