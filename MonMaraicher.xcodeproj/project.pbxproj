@@ -104,6 +104,7 @@
 				FB31C8C02B87604F00EDCD75 /* MapView.swift */,
 				FB7260482B8D6232003A1A40 /* MapViewModel.swift */,
 				FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */,
+				FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -113,7 +114,6 @@
 			children = (
 				FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */,
 				FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */,
-				FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */,
 				FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */,
 			);
 			path = FarmerDetail;
