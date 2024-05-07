@@ -18,6 +18,7 @@
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
 		FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA13FF02BC73AEB0025C200 /* Farmers.swift */; };
 		FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */; };
+		FBBF6A832BEA7878005CCDAA /* FarmerServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */; };
 		FBF882F92BE53196002496E6 /* Farmers.json in Resources */ = {isa = PBXBuildFile; fileRef = FBF882F82BE53196002496E6 /* Farmers.json */; };
 		FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF882FA2BE532C9002496E6 /* FarmersTests.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA13FF02BC73AEB0025C200 /* Farmers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmers.swift; sourceTree = "<group>"; };
 		FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerService.swift; sourceTree = "<group>"; };
+		FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceMock.swift; sourceTree = "<group>"; };
 		FBF882F82BE53196002496E6 /* Farmers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Farmers.json; sourceTree = "<group>"; };
 		FBF882FA2BE532C9002496E6 /* FarmersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmersTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			children = (
 				FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */,
 				FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */,
+				FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */,
 				FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */,
 			);
 			path = FarmerDetail;
@@ -276,6 +279,7 @@
 			files = (
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
+				FBBF6A832BEA7878005CCDAA /* FarmerServiceMock.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */,
 				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,

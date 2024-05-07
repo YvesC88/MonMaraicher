@@ -6,20 +6,46 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import MonMaraicher
 
 final class FarmerDetailsViewModelTests: XCTestCase {
 
-    func testFarmerAddressShouldReturnFormattedAddress() {
-        // Given
-        let farmerMock = Farmer.makeMock(place: "20 rue de la paix", zipCode: "75000", city: "paris")
-        let farmerDetail = FarmerDetailsViewModel(marker: farmerMock)
+    let farmerServiceMock = FarmerServiceMock()
 
-        // When
-        let expectedFormattedAddress = "20 Rue De La Paix\n75000 Paris"
+    func testFarmerNameShouldReturnCorrectNameOfFarmer() async {
+        do {
+            // Given
+            let farmers = try await farmerServiceMock.searchFarmers(location: CLLocation(latitude: 34, longitude: 34))
+            let farmer = farmers.items.first!
 
-        // Then
-        XCTAssertEqual(farmerDetail.address, expectedFormattedAddress)
+            // When
+            let expectedFarmerName = "L'Abeille du Pic"
+
+            // Then
+            XCTAssertEqual(farmer.businessName, expectedFarmerName)
+        } catch {
+
+        }
+    }
+
+    func testFarmerAddressShouldReturnFormattedAddress() async {
+        do {
+            // Given
+            let farmers = try await farmerServiceMock.searchFarmers(location: CLLocation(latitude: 34, longitude: 34))
+            let farmer = farmers.items.first!
+            let farmerAddress = farmer.addresses.first!
+            let farmerMock = Farmer.makeMock(place: farmerAddress.place, zipCode: farmerAddress.zipCode, city: farmerAddress.city)
+            let farmerDetail = FarmerDetailsViewModel(marker: farmerMock)
+
+            // When
+            let expectedFormattedAddress = "165 Rue Jean Louis Barrault\n34000 Montpellier"
+
+            // Then
+            XCTAssertEqual(farmerDetail.address, expectedFormattedAddress)
+        } catch {
+
+        }
     }
 }
 
