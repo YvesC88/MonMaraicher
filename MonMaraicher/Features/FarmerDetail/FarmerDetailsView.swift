@@ -158,7 +158,7 @@ private extension FarmerDetailsView {
         }
         .frame(width: 80, height: 40)
         .overlay(RoundedRectangle(cornerRadius: 32)
-                    .stroke(.blue, lineWidth: 1))
+            .stroke(.blue, lineWidth: 1))
         .padding()
     }
 
@@ -170,7 +170,7 @@ private extension FarmerDetailsView {
                 }
                 .frame(width: 80, height: 40)
                 .overlay(RoundedRectangle(cornerRadius: 32)
-                            .stroke(.blue, lineWidth: 1))
+                    .stroke(.blue, lineWidth: 1))
                 .padding()
             }
         }
@@ -186,7 +186,7 @@ private extension FarmerDetailsView {
                 }
                 .frame(width: 80, height: 40)
                 .overlay(RoundedRectangle(cornerRadius: 32)
-                            .stroke(.blue, lineWidth: 1))
+                    .stroke(.blue, lineWidth: 1))
                 .padding()
             }
         }

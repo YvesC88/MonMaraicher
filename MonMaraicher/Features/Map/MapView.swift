@@ -25,6 +25,7 @@ struct MapView: View {
         .mapControls {
             MapUserLocationButton()
         }
+        // FIXME: - method to rework
         .onChange(of: viewModel.hasUserAcceptedLocation ) {
             viewModel.onReloadingFarmersButtonTapped()
         }
