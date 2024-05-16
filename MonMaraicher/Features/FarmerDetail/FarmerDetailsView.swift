@@ -165,8 +165,15 @@ private extension FarmerDetailsView {
         .padding()
     }
 
+    @ViewBuilder
     private var phoneButton: some View {
-        Link(destination: viewModel.phoneCallURL!) {
+        if let phoneCallURL = viewModel.phoneCallURL {
+            self.phoneCallURL(url: phoneCallURL)
+        }
+    }
+
+    private func phoneCallURL(url: URL) -> some View {
+        Link(destination: url) {
             Image(systemName: viewModel.phoneButtonImageSystemName)
                 .foregroundStyle(.white)
         }
@@ -175,10 +182,15 @@ private extension FarmerDetailsView {
         .padding()
     }
 
+    @ViewBuilder
     private var emailButton: some View {
-        Button {
-            viewModel.onMailButtonTapped()
-        } label: {
+        if let emailURL = viewModel.emailURL {
+            self.emailURL(url: emailURL)
+        }
+    }
+
+    private func emailURL(url: URL) -> some View {
+        Link(destination: url) {
             Image(systemName: viewModel.emailButtonImageSystemName)
                 .foregroundStyle(.white)
         }
@@ -195,7 +207,7 @@ private extension FarmerDetailsView {
                 farmer: .init(
                     id: 1,
                     businessName: "chez william",
-                    personalPhone: "0606060606",
+                    personalPhone: nil,
                     email: "test@test.fr",
                     businessPhone: nil,
                     websites: [
