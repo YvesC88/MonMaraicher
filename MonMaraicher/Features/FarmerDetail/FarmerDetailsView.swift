@@ -18,12 +18,20 @@ struct FarmerDetailsView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @State var showingDetail = false
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 titleSection
                 Divider()
-                productsSection
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        distanceSection
+                        Divider()
+                        productsSection
+                    }
+                }
                 Divider()
                 mapSection
                 contactSection
@@ -48,20 +56,31 @@ private extension FarmerDetailsView {
         .padding(.trailing)
     }
 
+    private var distanceSection: some View {
+        VStack {
+            Text("distance".uppercased())
+                .font(.system(size: 10))
+                .foregroundStyle(.secondary)
+            Text(viewModel.distance)
+                .font(.system(size: 17, weight: .semibold))
+        }
+    }
+
     private var productsSection: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))], spacing: 10) {
-            ForEach(viewModel.products, id: \.id) { product in
-                ZStack {
-                    Rectangle()
-                        .frame(width: 110, height: 60)
-                        .foregroundStyle(.blue)
-                        .clipShape(.rect(cornerRadius: 16))
-                    Text(product.name)
-                        .padding(16)
-                        .lineLimit(2)
-                        .foregroundStyle(.white)
-                }
+        VStack {
+            Button {
+                self.showingDetail.toggle()
+            } label: {
+                Text("Liste des produits")
             }
+            .sheet(isPresented: $showingDetail) {
+                ProductsView(products: viewModel.products)
+                    .presentationDetents([.medium, .large])
+            }
+            .frame(width: 100, height: 60)
+            .font(.system(size: 15, weight: .semibold, design: .rounded))
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
         }
     }
 
@@ -207,7 +226,7 @@ private extension FarmerDetailsView {
                 farmer: .init(
                     id: 1,
                     businessName: "chez william",
-                    personalPhone: nil,
+                    personalPhone: "0606060606",
                     email: "test@test.fr",
                     businessPhone: nil,
                     websites: [
@@ -268,7 +287,7 @@ private extension FarmerDetailsView {
                         ),
                         .init(
                             id: 7,
-                            name: "Thym"
+                            name: "Citrons"
                         )
                     ]
                 ),
@@ -277,8 +296,8 @@ private extension FarmerDetailsView {
                     place: "300 rue de la paix",
                     zipCode: "75000",
                     city: "paris",
-                    latitude: 48.45012,
-                    longitude: 2.354564,
+                    latitude: 37.337838,
+                    longitude: -122.01,
                     farmerAddressesTypes: ["siège social"]
                 )
             )
