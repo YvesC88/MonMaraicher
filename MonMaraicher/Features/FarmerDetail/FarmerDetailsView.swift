@@ -23,7 +23,7 @@ struct FarmerDetailsView: View {
             VStack(alignment: .leading, spacing: 16) {
                 titleSection
                 Divider()
-                descriptionSection
+                productsSection
                 Divider()
                 mapSection
                 contactSection
@@ -39,17 +39,16 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.title)
-                .bold()
-            ForEach(viewModel.farmerAddressesTypes, id: \.self) { type in
-                Text(type)
-                    .font(.subheadline)
+                .font(.system(size: 30, weight: .bold, design: .rounded))
+            ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
+                Text(addressType)
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
             }
         }
         .padding(.trailing)
     }
 
-    private var descriptionSection: some View {
+    private var productsSection: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))], spacing: 10) {
             ForEach(viewModel.products, id: \.id) { product in
                 ZStack {
@@ -100,7 +99,7 @@ private extension FarmerDetailsView {
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     Text(viewModel.address)
-                        .font(.callout)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 Spacer()
                 directionButton
@@ -112,10 +111,12 @@ private extension FarmerDetailsView {
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     Text(viewModel.phoneNumber ?? "Aucun numéro disponible")
-                        .font(.callout)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 Spacer()
-                phoneButton
+                if viewModel.phoneNumber != nil {
+                    phoneButton
+                }
             }
             Divider()
             HStack {
@@ -124,10 +125,12 @@ private extension FarmerDetailsView {
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     Text(viewModel.email ?? "Aucune adresse email")
-                        .font(.callout)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 Spacer()
-                emailButton
+                if viewModel.email != nil {
+                    emailButton
+                }
             }
             Divider()
             VStack(alignment: .leading) {
@@ -140,9 +143,9 @@ private extension FarmerDetailsView {
                     }
                 } else {
                     Text("Aucun site web")
-                        .font(.callout)
                 }
             }
+            .font(.system(size: 15, weight: .semibold, design: .rounded))
         }
         .padding()
         .background(.ultraThinMaterial)
@@ -155,46 +158,37 @@ private extension FarmerDetailsView {
             viewModel.onDirectionButtonTapped()
         } label: {
             Image(systemName: viewModel.directionButtonImageSystemName)
+                .foregroundStyle(.white)
         }
         .frame(width: 80, height: 40)
-        .overlay(RoundedRectangle(cornerRadius: 32)
-            .stroke(.blue, lineWidth: 1))
+        .background(Capsule().fill(.blue.gradient))
         .padding()
     }
 
     private var phoneButton: some View {
-        VStack {
-            if viewModel.phoneNumber != nil {
-                Link(destination: viewModel.phoneCallURL!) {
-                    Image(systemName: viewModel.phoneButtonImageSystemName)
-                }
-                .frame(width: 80, height: 40)
-                .overlay(RoundedRectangle(cornerRadius: 32)
-                    .stroke(.blue, lineWidth: 1))
-                .padding()
-            }
+        Link(destination: viewModel.phoneCallURL!) {
+            Image(systemName: viewModel.phoneButtonImageSystemName)
+                .foregroundStyle(.white)
         }
+        .frame(width: 80, height: 40)
+        .background(Capsule().fill(.blue.gradient))
+        .padding()
     }
 
     private var emailButton: some View {
-        VStack {
-            if viewModel.email != nil {
-                Button {
-                    viewModel.onMailButtonTapped()
-                } label: {
-                    Image(systemName: viewModel.emailButtonImageSystemName)
-                }
-                .frame(width: 80, height: 40)
-                .overlay(RoundedRectangle(cornerRadius: 32)
-                    .stroke(.blue, lineWidth: 1))
-                .padding()
-            }
+        Button {
+            viewModel.onMailButtonTapped()
+        } label: {
+            Image(systemName: viewModel.emailButtonImageSystemName)
+                .foregroundStyle(.white)
         }
+        .frame(width: 80, height: 40)
+        .background(Capsule().fill(.blue.gradient))
+        .padding()
     }
 }
 
 #Preview {
-    // TODO: simplify this code
     FarmerDetailsView(
         viewModel: FarmerDetailsViewModel(
             marker: .init(

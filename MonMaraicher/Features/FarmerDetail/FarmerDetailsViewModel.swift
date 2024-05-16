@@ -25,8 +25,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let emailButtonImageSystemName: String
 
     var phoneCallURL: URL? {
-        guard let phoneNumber, let url = URL(string: "tel:\(phoneNumber)") else { return nil }
-        return url
+        return URL(string: "tel:\(phoneNumber ?? "")")
     }
 
     init(marker: MapViewModel.Marker) {

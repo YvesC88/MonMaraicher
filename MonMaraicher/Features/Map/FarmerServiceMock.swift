@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 class FarmerServiceMock: FarmerServiceProtocol {
-    func searchFarmers(location: CLLocation) async throws -> Farmers {
+    func searchFarmers(around location: CLLocation) async throws -> Farmers {
         let bundlePath = Bundle.main.path(forResource: "Farmers", ofType: "json")!
         let data = try Data(contentsOf: URL(filePath: bundlePath))
         let farmers = try JSONDecoder().decode(Farmers.self, from: data)

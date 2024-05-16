@@ -27,7 +27,7 @@ struct MapView: View {
         }
         // FIXME: - method to rework
         .onChange(of: viewModel.hasUserAcceptedLocation ) {
-            viewModel.onReloadingFarmersButtonTapped()
+            viewModel.reloadingFarmers()
         }
         .onAppear(perform: viewModel.onViewAppear)
         .overlay(alignment: .bottom) {
@@ -88,7 +88,7 @@ extension MapView {
         Button {
             viewModel.onReloadingFarmersButtonTapped()
         } label: {
-                Image(systemName: viewModel.imageSystemNameReloadButton)
+            Image(systemName: viewModel.imageSystemNameReloadButton)
         }
         .font(.system(size: 17, weight: .bold, design: .rounded))
         .padding(20)

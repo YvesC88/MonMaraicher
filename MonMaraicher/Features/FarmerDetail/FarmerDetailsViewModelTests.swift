@@ -16,7 +16,7 @@ final class FarmerDetailsViewModelTests: XCTestCase {
     func testFarmerNameShouldReturnCorrectNameOfFarmer() async {
         do {
             // Given
-            let farmers = try await farmerServiceMock.searchFarmers(location: CLLocation(latitude: 34, longitude: 34))
+            let farmers = try await farmerServiceMock.searchFarmers(around: CLLocation(latitude: 34, longitude: 34))
             let farmer = farmers.items.first!
 
             // When
@@ -32,7 +32,7 @@ final class FarmerDetailsViewModelTests: XCTestCase {
     func testFarmerAddressShouldReturnFormattedAddress() async {
         do {
             // Given
-            let farmers = try await farmerServiceMock.searchFarmers(location: CLLocation(latitude: 34, longitude: 34))
+            let farmers = try await farmerServiceMock.searchFarmers(around: CLLocation(latitude: 34, longitude: 34))
             let farmer = farmers.items.first!
             let farmerAddress = farmer.addresses.first!
             let farmerMock = Farmer.makeMock(place: farmerAddress.place, zipCode: farmerAddress.zipCode, city: farmerAddress.city)

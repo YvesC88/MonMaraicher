@@ -68,7 +68,7 @@ final class MapViewModel: ObservableObject {
         do {
             farmersLoadingInProgress = true
             guard let currentUserLocation else { return }
-            let farmers = try await self.farmerService.searchFarmers(location: currentUserLocation)
+            let farmers = try await self.farmerService.searchFarmers(around: currentUserLocation)
             var allMarkers: [Marker] = []
             for farmer in farmers.items {
                 for address in farmer.addresses {
@@ -89,16 +89,20 @@ final class MapViewModel: ObservableObject {
     }
 
     func onReloadingFarmersButtonTapped() {
-        guard currentUserLocation != nil else {
-            isAlertPresented = true
-            hasTextField = false
-            nearbyButtonAlert = .noLocation
-            return
-        }
-        Task {
-            await loadFarmers()
-        }
+        reloadingFarmers()
     }
+
+    func reloadingFarmers() {
+            guard currentUserLocation != nil else {
+                isAlertPresented = true
+                hasTextField = false
+                nearbyButtonAlert = .noLocation
+                return
+            }
+            Task {
+                await loadFarmers()
+            }
+        }
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
