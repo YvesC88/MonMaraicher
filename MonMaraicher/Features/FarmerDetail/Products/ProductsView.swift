@@ -22,20 +22,19 @@ struct ProductsView: View {
                         .font(.system(size: 17, weight: .semibold, design: .rounded))
                 }
             }
-
         }
     }
 }
 
 #Preview {
     ProductsView(products: [
-            .init(id: 1, name: "choux-fleurs et brocolis"),
-            .init(id: 2, name: "cerise"),
-            .init(id: 3, name: "fraises"),
-            .init(id: 4, name: "cire d'abeilles"),
-            .init(id: 5, name: "raisin de cuve"),
-            .init(id: 6, name: "abricots"),
-            .init(id: 7, name: "tomates"),
-            .init(id: 8, name: "framboises")
-        ])
+        .init(id: 1, name: "choux-fleurs et brocolis"),
+        .init(id: 2, name: "cerise"),
+        .init(id: 3, name: "fraises"),
+        .init(id: 4, name: "cire d'abeilles"),
+        .init(id: 5, name: "raisin de cuve"),
+        .init(id: 6, name: "abricots"),
+        .init(id: 7, name: "tomates"),
+        .init(id: 8, name: "framboises")
+    ])
 }

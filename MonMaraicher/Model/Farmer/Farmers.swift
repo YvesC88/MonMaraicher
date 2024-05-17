@@ -131,31 +131,8 @@ struct Products: Decodable, Identifiable, Hashable {
     }
 
     var image: String {
-        let imagesNames = [
-            "artichauts",
-            "cerises",
-            "chicorées",
-            "choux",
-            "cire d'abeilles",
-            "épinards",
-            "fraises",
-            "laitues",
-            "miels",
-            "ruches",
-            "framboises",
-            "pomelos et pamplemousses",
-            "thyms",
-            "olives",
-            "abricots",
-            "raisin de cuve raisin de table",
-            "tomates",
-            "légumes frais plein champ légumes frais sous abris",
-            "pommes de table pommes à cidre",
-            "blé tendre",
-            "choux-fleurs et brocolis"
-        ]
-        for imagesName in imagesNames where imagesName.contains(name.lowercased()) {
-            return imagesName
+        for imageName in Products.productsImagesNames where imageName.contains(name.lowercased()) {
+            return imageName
         }
         return "default"
     }
@@ -173,4 +150,31 @@ struct Certificats: Decodable, Hashable {
         case commitmentDate = "dateEngagement"
         case url
     }
+}
+
+extension Products {
+
+    private static let productsImagesNames = [
+        "artichauts",
+        "cerises",
+        "chicorées",
+        "choux",
+        "cire d'abeilles",
+        "épinards",
+        "fraises",
+        "laitues",
+        "miels",
+        "ruches",
+        "framboises",
+        "pomelos et pamplemousses",
+        "thyms",
+        "olives",
+        "abricots",
+        "raisin de cuve raisin de table",
+        "tomates",
+        "légumes frais plein champ légumes frais sous abris",
+        "pommes de table pommes à cidre",
+        "blé tendre",
+        "choux-fleurs et brocolis"
+    ]
 }
