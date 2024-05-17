@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
 
 // FIXME: this list of properties are currently changing
 
@@ -127,6 +128,36 @@ struct Products: Decodable, Identifiable, Hashable {
     enum CodingKeys: String, CodingKey {
         case id
         case name = "nom"
+    }
+
+    var image: String {
+        let imagesNames = [
+            "artichauts",
+            "cerises",
+            "chicorées",
+            "choux",
+            "cire d'abeilles",
+            "épinards",
+            "fraises",
+            "laitues",
+            "miels",
+            "ruches",
+            "framboises",
+            "pomelos et pamplemousses",
+            "thyms",
+            "olives",
+            "abricots",
+            "raisin de cuve raisin de table",
+            "tomates",
+            "légumes frais plein champ légumes frais sous abris",
+            "pommes de table pommes à cidre",
+            "blé tendre",
+            "choux-fleurs et brocolis"
+        ]
+        for imagesName in imagesNames where imagesName.contains(name.lowercased()) {
+            return imagesName
+        }
+        return "default"
     }
 }
 
