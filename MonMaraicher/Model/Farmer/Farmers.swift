@@ -31,12 +31,12 @@ struct Farmer: Decodable, Identifiable, Hashable {
     let id: Int
     let businessName: String
     let personalPhone: String?
-    //    let email: String?
+    let email: String?
     //    let gerant: String?
     //    let dateMaj: String
     let businessPhone: String?
     //    let categories: [Categories]
-    //    let siteWebs: [SiteWebs]
+    let websites: [Websites]
     let addresses: [Address]
     let products: [Products]
     //    let activites: [Activities]
@@ -45,11 +45,13 @@ struct Farmer: Decodable, Identifiable, Hashable {
 
     enum CodingKeys: String, CodingKey {
         case id
+        case email
         case businessName = "raisonSociale"
         case personalPhone = "telephone"
         case businessPhone = "telephoneCommerciale"
         case addresses = "adressesOperateurs"
         case products = "productions"
+        case websites = "siteWebs"
     }
 }
 

@@ -20,17 +20,15 @@ struct FarmerDetailsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 16) {
                 titleSection
-                descriptionSection
-                VStack(alignment: .leading, spacing: 16) {
-                    linkSection
-                    Divider()
-                    mapSection
-                    addressSection
-                }
-                .padding()
+                Divider()
+                productsSection
+                Divider()
+                mapSection
+                contactSection
             }
+            .padding()
         }
         .overlay(closeButton, alignment: .topTrailing)
     }
@@ -41,40 +39,28 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.title)
-                .bold()
-            ForEach(viewModel.farmerAddressesTypes, id: \.self) { type in
-                Text(type)
-                    .font(.subheadline)
+                .font(.system(size: 30, weight: .bold, design: .rounded))
+            ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
+                Text(addressType)
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
             }
-            Divider()
         }
-        .padding()
         .padding(.trailing)
     }
 
-    private var descriptionSection: some View {
-        VStack {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 120))]) {
-                ForEach(viewModel.products, id: \.id) { product in
+    private var productsSection: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))], spacing: 10) {
+            ForEach(viewModel.products, id: \.id) { product in
+                ZStack {
+                    Rectangle()
+                        .frame(width: 110, height: 60)
+                        .foregroundStyle(.blue)
+                        .clipShape(.rect(cornerRadius: 16))
                     Text(product.name)
-                        .padding(12)
+                        .padding(16)
                         .lineLimit(2)
-                        .background(.blue)
-                        .font(.subheadline)
                         .foregroundStyle(.white)
-                        .clipShape(.rect(cornerRadius: 20))
                 }
-            }
-        }
-    }
-
-    private var linkSection: some View {
-        HStack {
-            if let url = URL(string: "https://www.google.fr") {
-                Link("Obtenir plus d'informations", destination: url)
-                    .font(.headline)
-                    .tint(.blue)
             }
         }
     }
@@ -88,7 +74,7 @@ private extension FarmerDetailsView {
                 .padding(8)
                 .background(.thinMaterial)
                 .clipShape(.circle)
-                .shadow(radius: 10)
+                .shadow(radius: 8)
                 .padding()
         }
     }
@@ -98,23 +84,14 @@ private extension FarmerDetailsView {
             Marker(viewModel.title, systemImage: viewModel.markerSystemImageName, coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
-        .aspectRatio(1.5, contentMode: .fit)
+        .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
-        .shadow(radius: 4)
+        .shadow(radius: 8)
         .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
 
-    private var directionButton: some View {
-        Button {
-            viewModel.onItineraryButtonTapped()
-        } label: {
-            Text(viewModel.directionButtonTitle)
-        }
-        .font(.headline)
-    }
-
-    private var addressSection: some View {
+    private var contactSection: some View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading) {
@@ -122,35 +99,189 @@ private extension FarmerDetailsView {
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
                     Text(viewModel.address)
-                        .font(.callout)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 Spacer()
                 directionButton
-                    .frame(width: 80, height: 35)
-                    .background(.ultraThinMaterial)
-                    .clipShape(.capsule)
-                    .padding()
-                    .shadow(radius: 2)
             }
             Divider()
-            Text("Téléphone")
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
-            Text(viewModel.phoneNumber ?? "")
-                .font(.callout)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Téléphone")
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    Text(viewModel.phoneNumber ?? "Aucun numéro disponible")
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                }
+                Spacer()
+                if viewModel.phoneNumber != nil {
+                    phoneButton
+                }
+            }
             Divider()
-            Text("Site Web")
-                .foregroundStyle(.secondary)
-                .font(.subheadline)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Email")
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    Text(viewModel.email ?? "Aucune adresse email")
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                }
+                Spacer()
+                if viewModel.email != nil {
+                    emailButton
+                }
+            }
+            Divider()
+            VStack(alignment: .leading) {
+                Text("Site Web")
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+                if !viewModel.websites.isEmpty {
+                    ForEach(viewModel.websites, id: \.id) { website in
+                        Text(.init(viewModel.formatWebsite(website)))
+                    }
+                } else {
+                    Text("Aucun site web")
+                }
+            }
+            .font(.system(size: 15, weight: .semibold, design: .rounded))
         }
         .padding()
         .background(.ultraThinMaterial)
         .clipShape(.rect(cornerRadius: 20))
-        .shadow(radius: 4)
+        .shadow(radius: 8)
+    }
+
+    private var directionButton: some View {
+        Button {
+            viewModel.onDirectionButtonTapped()
+        } label: {
+            Image(systemName: viewModel.directionButtonImageSystemName)
+                .foregroundStyle(.white)
+        }
+        .frame(width: 80, height: 40)
+        .background(Capsule().fill(.blue.gradient))
+        .padding()
+    }
+
+    @ViewBuilder
+    private var phoneButton: some View {
+        if let phoneCallURL = viewModel.phoneCallURL {
+            self.phoneCallURL(url: phoneCallURL)
+        }
+    }
+
+    private func phoneCallURL(url: URL) -> some View {
+        Link(destination: url) {
+            Image(systemName: viewModel.phoneButtonImageSystemName)
+                .foregroundStyle(.white)
+        }
+        .frame(width: 80, height: 40)
+        .background(Capsule().fill(.blue.gradient))
+        .padding()
+    }
+
+    @ViewBuilder
+    private var emailButton: some View {
+        if let emailURL = viewModel.emailURL {
+            self.emailURL(url: emailURL)
+        }
+    }
+
+    private func emailURL(url: URL) -> some View {
+        Link(destination: url) {
+            Image(systemName: viewModel.emailButtonImageSystemName)
+                .foregroundStyle(.white)
+        }
+        .frame(width: 80, height: 40)
+        .background(Capsule().fill(.blue.gradient))
+        .padding()
     }
 }
 
 #Preview {
-    // TODO: simplify this code
-    FarmerDetailsView(viewModel: FarmerDetailsViewModel(marker: .init(farmer: .init(id: 1, businessName: "chez william", personalPhone: nil, businessPhone: nil, addresses: [.init(id: 1, place: "20 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.86935, longitude: 2.331314, farmerAddressesTypes: ["Siège social"])], products: [.init(id: 1, name: "Tomates")]), address: .init(id: 2, place: "300 rue de la paix", zipCode: "75000", city: "paris", latitude: 48.45012, longitude: 2.354564, farmerAddressesTypes: ["siège social"]))))
+    FarmerDetailsView(
+        viewModel: FarmerDetailsViewModel(
+            marker: .init(
+                farmer: .init(
+                    id: 1,
+                    businessName: "chez william",
+                    personalPhone: nil,
+                    email: "test@test.fr",
+                    businessPhone: nil,
+                    websites: [
+                        .init(
+                            id: 1,
+                            url: "https://www.instagram.com/dilemme.bio/",
+                            active: true,
+                            operatorId: 1,
+                            websiteType: .init(
+                                id: 1,
+                                name: "Instagram"
+                            )
+                        ),
+                        .init(
+                            id: 2,
+                            url: "https://www.dilemme.bio",
+                            active: true,
+                            operatorId: 1,
+                            websiteType: .init(
+                                id: 1,
+                                name: "Facebook"
+                            )
+                        )
+                    ],
+                    addresses: [.init(
+                        id: 1,
+                        place: "20 rue de la paix",
+                        zipCode: "75000",
+                        city: "paris",
+                        latitude: 48.86935,
+                        longitude: 2.331314,
+                        farmerAddressesTypes: ["Siège social"]
+                    )],
+                    products: [
+                        .init(
+                            id: 1,
+                            name: "Fruits à pépins et à coques"
+                        ),
+                        .init(
+                            id: 2,
+                            name: "Pomme de table"
+                        ),
+                        .init(
+                            id: 3,
+                            name: "Poires"
+                        ),
+                        .init(
+                            id: 4,
+                            name: "Coings"
+                        ),
+                        .init(
+                            id: 5,
+                            name: "Abricots"
+                        ),
+                        .init(
+                            id: 6,
+                            name: "Miel"
+                        ),
+                        .init(
+                            id: 7,
+                            name: "Thym"
+                        )
+                    ]
+                ),
+                address: .init(
+                    id: 2,
+                    place: "300 rue de la paix",
+                    zipCode: "75000",
+                    city: "paris",
+                    latitude: 48.45012,
+                    longitude: 2.354564,
+                    farmerAddressesTypes: ["siège social"]
+                )
+            )
+        )
+    )
 }

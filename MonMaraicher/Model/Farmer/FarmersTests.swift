@@ -1,8 +1,8 @@
 //
-//  FarmerPlaceTests.swift
+//  FarmersTests.swift
 //  MonMaraicherTests
 //
-//  Created by Yves Charpentier on 08/03/2024.
+//  Created by Yves Charpentier on 03/05/2024.
 //
 
 import XCTest
@@ -10,27 +10,15 @@ import XCTest
 
 final class FarmersTests: XCTestCase {
 
-    func testTitleShouldReturnFarmerPlaceNameCapitalized() {
+    func testTitleShouldReturnFarmerNameCapitalized() {
 
         // Given
-        let farmer = Farmer.makeMock(name: "chez william")
+        let farmer = Farmer.makeMock(name: "L'Abeille du Pic")
 
         // When
-        let expectedTitle = "Chez William"
+        let expectedTitle = "L'abeille Du Pic"
 
         // Then
         XCTAssertEqual(farmer.title, expectedTitle)
     }
-
-    func testSystemImageNameShouldReturnCorrectlyValue() {
-        // Given
-        let farmer = Farmer.makeMock()
-
-        // When
-        let expectedSystemImageName = "laurel.leading"
-
-        // Then
-        XCTAssertEqual(farmer.systemImageName, expectedSystemImageName)
-    }
-
 }

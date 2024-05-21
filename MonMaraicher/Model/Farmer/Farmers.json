@@ -1,0 +1,106 @@
+{
+    "nbTotal": "8881",
+    "items": [
+        {
+            "id": 136553,
+            "raisonSociale": "L'Abeille du Pic",
+            "denominationcourante": "PALAZZIN Giulia - L'ABEILLE DU PIC",
+            "siret": "90404844400023",
+            "numeroBio": 57637,
+            "telephone": null,
+            "email": "giulia.palazzin@tutanota.com",
+            "codeNAF": "01.49Z",
+            "gerant": "PALAZZIN GIULIA",
+            "dateMaj": "2024-04-10",
+            "telephoneCommerciale": null,
+            "reseau": "",
+            "categories": [
+                {
+                    "id": 1,
+                    "nom": "Vente aux consommateurs"
+                }
+            ],
+            "siteWebs": [],
+            "adressesOperateurs": [
+                {
+                    "id": 1133797,
+                    "lieu": "165 Rue Jean Louis Barrault",
+                    "codePostal": "34000",
+                    "ville": "Montpellier",
+                    "lat": 43.604019,
+                    "long": 3.90443,
+                    "codeCommune": "34172",
+                    "active": true,
+                    "departementId": 36,
+                    "typeAdresseOperateurs": [
+                        "Lieux d'activité"
+                    ]
+                },
+                {
+                    "id": 1155507,
+                    "lieu": "1180 CHE DE MONTAUD",
+                    "codePostal": "34820",
+                    "ville": "GUZARGUES",
+                    "lat": 43.74032,
+                    "long": 3.933749,
+                    "codeCommune": "34118",
+                    "active": true,
+                    "departementId": 36,
+                    "typeAdresseOperateurs": [
+                        "Siège social"
+                    ]
+                }
+            ],
+            "productions": [
+                {
+                    "id": 412,
+                    "code": "01.49.19.1",
+                    "nom": "Ruches",
+                    "etatProductions": []
+                },
+                {
+                    "id": 415,
+                    "code": "01.49.21",
+                    "nom": "Miel",
+                    "etatProductions": []
+                },
+                {
+                    "id": 1458,
+                    "code": "01.49.26.1",
+                    "nom": "Cire d'abeille",
+                    "etatProductions": []
+                },
+                {
+                    "id": 1502,
+                    "code": "01.49.24.2",
+                    "nom": "Autres produits de l'apiculture",
+                    "etatProductions": []
+                },
+                {
+                    "id": 1583,
+                    "code": "01.19.00.1",
+                    "nom": "Autres cultures non permanentes n.c.a.",
+                    "etatProductions": []
+                }
+            ],
+            "activites": [
+                {
+                    "id": 1,
+                    "nom": "Production"
+                }
+            ],
+            "certificats": [
+                {
+                    "organisme": "Ecocert France",
+                    "etatCertification": "ENGAGEE",
+                    "dateSuspension": null,
+                    "dateArret": null,
+                    "dateEngagement": "2024-01-30",
+                    "dateNotification": "2023-11-16T15:28:58.056Z",
+                    "url": "https://certificat.ecocert.com/entreprise/94641A33-5AFF-46FC-B356-FA19E98866DC"
+                }
+            ],
+            "mixite": "Oui"
+        }
+    ]
+}

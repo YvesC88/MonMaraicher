@@ -20,6 +20,8 @@ final class MapViewModel: ObservableObject {
     @Published var isAlertPresented = false
     @Published var hasTextField = false
 
+    @Published var farmersLoadingInProgress = false
+
     @Published var searchScope = 5.0
 
     private let locationManager = CLLocationManager()
@@ -28,13 +30,16 @@ final class MapViewModel: ObservableObject {
     private var formattedDistance: String {
         measurementFormatter.string(from: Measurement(value: searchScope, unit: UnitLength.kilometers))
     }
-    private let farmerService: FarmerService
+    var hasUserAcceptedLocation: Bool { return currentUserLocation != nil }
+    private let farmerService: FarmerServiceProtocol
 
     let imageSystemNameSearchButton: String
+    let imageSystemNameReloadButton: String
 
-    init(farmerService: FarmerService) {
+    init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
+        self.imageSystemNameReloadButton = "arrow.clockwise"
 
         $nearbyButtonAlert
             .map { alertType in
@@ -61,7 +66,9 @@ final class MapViewModel: ObservableObject {
 
     @MainActor private func loadFarmers() async {
         do {
-            let farmers = try await self.farmerService.loadFarmers()
+            farmersLoadingInProgress = true
+            guard let currentUserLocation else { return }
+            let farmers = try await self.farmerService.searchFarmers(around: currentUserLocation)
             var allMarkers: [Marker] = []
             for farmer in farmers.items {
                 for address in farmer.addresses {
@@ -70,6 +77,7 @@ final class MapViewModel: ObservableObject {
                 }
             }
             self.allMarkers = allMarkers
+            farmersLoadingInProgress = false
         } catch {
             print("Error when loading farmers: \(error)")
         }
@@ -79,6 +87,22 @@ final class MapViewModel: ObservableObject {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
+
+    func onReloadingFarmersButtonTapped() {
+        reloadingFarmers()
+    }
+
+    func reloadingFarmers() {
+            guard currentUserLocation != nil else {
+                isAlertPresented = true
+                hasTextField = false
+                nearbyButtonAlert = .noLocation
+                return
+            }
+            Task {
+                await loadFarmers()
+            }
+        }
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
