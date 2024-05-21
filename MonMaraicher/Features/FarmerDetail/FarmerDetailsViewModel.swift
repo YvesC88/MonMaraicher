@@ -69,6 +69,13 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         mapItem.name = self.title
         mapItem.openInMaps()
     }
+
+    func displayingProductsImages() -> [String] {
+        return products.map { product in
+            let imageName = product.name.lowercased()
+            return ImagesProducts.productsImagesNames.contains(imageName) ? imageName : "not found"
+        }
+    }
 }
 
 extension CLLocationCoordinate2D: Hashable {

@@ -75,9 +75,9 @@ extension MapView {
             viewModel.onNearbyFarmerButtonTapped()
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
-                .font(.system(size: 17, weight: .bold, design: .rounded))
+                .font(.system(size: 20, weight: .bold, design: .rounded))
                 .padding(20)
-                .background(Circle().fill(.ultraThinMaterial))
+                .background(Circle().fill(.regularMaterial))
 
         }
         .shadow(radius: 12)
@@ -89,10 +89,10 @@ extension MapView {
             viewModel.onReloadingFarmersButtonTapped()
         } label: {
             Image(systemName: viewModel.imageSystemNameReloadButton)
+                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .padding(20)
+                .background(Circle().fill(.regularMaterial))
         }
-        .font(.system(size: 17, weight: .bold, design: .rounded))
-        .padding(20)
-        .background(Circle().fill(.ultraThinMaterial))
         .shadow(radius: 12)
         .padding(32)
     }

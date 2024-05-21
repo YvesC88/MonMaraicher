@@ -129,13 +129,6 @@ struct Products: Decodable, Identifiable, Hashable {
         case id
         case name = "nom"
     }
-
-    var image: String {
-        for imageName in Products.productsImagesNames where imageName.contains(name.lowercased()) {
-            return imageName
-        }
-        return "default"
-    }
 }
 
 struct Certificats: Decodable, Hashable {
@@ -152,28 +145,30 @@ struct Certificats: Decodable, Hashable {
     }
 }
 
-extension Products {
-
-    private static let productsImagesNames = [
+enum ImagesProducts {
+    static let productsImagesNames = [
         "artichauts",
         "cerises",
         "chicorées",
         "choux",
-        "cire d'abeilles",
+        "cire d'abeille",
         "épinards",
         "fraises",
         "laitues",
-        "miels",
+        "miel",
         "ruches",
         "framboises",
         "pomelos et pamplemousses",
         "thyms",
         "olives",
         "abricots",
-        "raisin de cuve raisin de table",
+        "raisin de cuve",
+        "raisin de table",
         "tomates",
-        "légumes frais plein champ légumes frais sous abris",
-        "pommes de table pommes à cidre",
+        "légumes frais plein champ",
+        "légumes frais sous abris",
+        "pommes de table",
+        "pommes à cidre",
         "blé tendre",
         "choux-fleurs et brocolis"
     ]
