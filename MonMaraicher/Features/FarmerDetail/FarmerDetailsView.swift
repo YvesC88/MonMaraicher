@@ -95,7 +95,7 @@ private extension FarmerDetailsView {
     private var productsScrollingSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(viewModel.displayingProductsImages(), id: \.self) { image in
+                ForEach(viewModel.getProductsImagesNames(), id: \.self) { image in
                     VStack {
                         Image(image)
                             .resizable()

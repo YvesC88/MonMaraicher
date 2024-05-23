@@ -70,7 +70,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         mapItem.openInMaps()
     }
 
-    func displayingProductsImages() -> [String] {
+    func getProductsImagesNames() -> [String] {
         var imagesNames: [Int: String] = [:]
         for product in products {
             for image in ProductsImages.allCases where product.name.lowercased().contains(image.rawValue) {
