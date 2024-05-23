@@ -213,7 +213,7 @@ private extension FarmerDetailsView {
     @ViewBuilder
     private var phoneButton: some View {
         if let phoneCallURL = viewModel.phoneCallURL {
-            self.makeURL(url: phoneCallURL, image: viewModel.phoneButtonImageSystemName)
+            self.makeLink(with: phoneCallURL, image: viewModel.phoneButtonImageSystemName)
                 .foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
                 .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
@@ -224,7 +224,7 @@ private extension FarmerDetailsView {
     @ViewBuilder
     private var emailButton: some View {
         if let emailURL = viewModel.emailURL {
-            self.makeURL(url: emailURL, image: viewModel.emailButtonImageSystemName)
+            self.makeLink(with: emailURL, image: viewModel.emailButtonImageSystemName)
                 .foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
                 .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
@@ -232,7 +232,7 @@ private extension FarmerDetailsView {
         }
     }
 
-    private func makeURL(url: URL, image: String) -> some View {
+    private func makeLink(with url: URL, image: String) -> some View {
         Link(destination: url) {
             Image(systemName: image)
         }
