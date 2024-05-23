@@ -71,10 +71,13 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     }
 
     func displayingProductsImages() -> [String] {
-        return products.map { product in
-            let imageName = product.name.lowercased()
-            return ImagesProducts.productsImagesNames.contains(imageName) ? imageName : "not found"
+        var imagesNames: [Int: String] = [:]
+        for product in products {
+            for image in ProductsImages.allCases where product.name.lowercased().contains(image.rawValue) {
+                imagesNames[product.id] = image.rawValue
+            }
         }
+        return Array(imagesNames.values)
     }
 }
 

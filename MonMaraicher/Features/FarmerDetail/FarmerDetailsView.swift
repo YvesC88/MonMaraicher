@@ -80,14 +80,12 @@ private extension FarmerDetailsView {
                 } label: {
                     Text("Liste des produits")
                         .foregroundStyle(.white)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 .sheet(isPresented: $showingProductsList) {
                     ProductsView(products: viewModel.products)
                         .presentationDetents([.medium, .large])
                 }
-                .padding(2)
-                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                .foregroundStyle(.blue.gradient)
             }
             .foregroundStyle(.white)
         }
@@ -285,23 +283,23 @@ private extension FarmerDetailsView {
                     products: [
                         .init(
                             id: 1,
-                            name: "choux"
+                            name: "blé tendre"
                         ),
                         .init(
                             id: 2,
-                            name: "Autres fruits à noyau"
+                            name: "choux-fleurs"
+                        ),
+                        .init(
+                            id: 3,
+                            name: "Poires"
+                        ),
+                        .init(
+                            id: 4,
+                            name: "pomelos et pamplemousses"
                         ),
                         .init(
                             id: 5,
-                            name: "Abricots"
-                        ),
-                        .init(
-                            id: 6,
-                            name: "Miel"
-                        ),
-                        .init(
-                            id: 7,
-                            name: "Tomates"
+                            name: "Thym"
                         )
                     ]
                 ),

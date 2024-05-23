@@ -14,13 +14,9 @@ struct ProductsView: View {
     var body: some View {
         List {
             ForEach(products, id: \.id) { product in
-                HStack(spacing: 20) {
-                    Image(product.name.lowercased())
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                    Text(product.name)
-                        .font(.system(size: 17, weight: .semibold, design: .rounded))
-                }
+                Text(product.name)
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .foregroundStyle(.blue)
             }
         }
     }
@@ -28,8 +24,8 @@ struct ProductsView: View {
 
 #Preview {
     ProductsView(products: [
-        .init(id: 1, name: "not found"),
-        .init(id: 2, name: "not found"),
+        .init(id: 1, name: "piments"),
+        .init(id: 2, name: "choux"),
         .init(id: 3, name: "fraises"),
         .init(id: 4, name: "cire d'abeille"),
         .init(id: 5, name: "raisin de cuve"),

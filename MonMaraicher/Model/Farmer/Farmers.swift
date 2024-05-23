@@ -145,31 +145,34 @@ struct Certificats: Decodable, Hashable {
     }
 }
 
-enum ImagesProducts {
-    static let productsImagesNames = [
-        "artichauts",
-        "cerises",
-        "chicorées",
-        "choux",
-        "cire d'abeille",
-        "épinards",
-        "fraises",
-        "laitues",
-        "miel",
-        "ruches",
-        "framboises",
-        "pomelos et pamplemousses",
-        "thyms",
-        "olives",
-        "abricots",
-        "raisin de cuve",
-        "raisin de table",
-        "tomates",
-        "légumes frais plein champ",
-        "légumes frais sous abris",
-        "pommes de table",
-        "pommes à cidre",
-        "blé tendre",
-        "choux-fleurs et brocolis"
-    ]
+enum ProductsImages: String, CaseIterable {
+    case artichoke = "artichaut"
+    case cherry = "cerise"
+    case chicory = "chicorée"
+    case cabbage = "choux"
+    case cauliflower = "choux-fleurs"
+    case beeswax = "cire d'abeille"
+    case spinach = "épinard"
+    case strawberry = "fraise"
+    case lettuce = "laitue"
+    case honey = "miel"
+    case hive = "ruche"
+    case raspberry = "framboise"
+    case grapefruit = "pamplemousse"
+    case thyme = "thym"
+    case olive = "olive"
+    case apricot = "abricot"
+    case grape = "raisin"
+    case tomato = "tomate"
+    case vegetable = "légumes frais"
+    case apple = "pomme"
+    case wheat = "blé"
+    case peach = "pêche"
+    case pear = "poire"
+    case celery = "céleris branche"
+    case corn = "maïs"
+    case watermelon = "pastèque"
+    case eggplant = "aubergine"
+    case zucchini = "courgette"
+    case pepper = "poivron"
 }
