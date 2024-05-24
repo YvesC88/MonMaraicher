@@ -115,11 +115,8 @@ private extension FarmerDetailsView {
             dismiss()
         } label: {
             Image(systemName: "xmark")
-                .font(.subheadline)
                 .padding(8)
-                .background(.thinMaterial)
-                .clipShape(.circle)
-                .shadow(radius: 8)
+                .background(Circle().fill(.regularMaterial))
                 .padding()
         }
     }
@@ -202,22 +199,17 @@ private extension FarmerDetailsView {
         Button {
             viewModel.onDirectionButtonTapped()
         } label: {
-            Image(systemName: viewModel.directionButtonImageSystemName)
+            Image(systemName: viewModel.directionButtonImageSystemName).foregroundStyle(.white.gradient)
+                .frame(width: 80, height: 40)
+                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .padding()
         }
-        .foregroundStyle(.white.gradient)
-        .frame(width: 80, height: 40)
-        .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
-        .padding()
     }
 
     @ViewBuilder
     private var phoneButton: some View {
         if let phoneCallURL = viewModel.phoneCallURL {
             self.makeLink(with: phoneCallURL, image: viewModel.phoneButtonImageSystemName)
-                .foregroundStyle(.white.gradient)
-                .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
-                .padding()
         }
     }
 
@@ -225,16 +217,16 @@ private extension FarmerDetailsView {
     private var emailButton: some View {
         if let emailURL = viewModel.emailURL {
             self.makeLink(with: emailURL, image: viewModel.emailButtonImageSystemName)
-                .foregroundStyle(.white.gradient)
-                .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
-                .padding()
         }
     }
 
     private func makeLink(with url: URL, image: String) -> some View {
         Link(destination: url) {
             Image(systemName: image)
+                .foregroundStyle(.white.gradient)
+                .frame(width: 80, height: 40)
+                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .padding()
         }
     }
 }
@@ -283,11 +275,11 @@ private extension FarmerDetailsView {
                     products: [
                         .init(
                             id: 1,
-                            name: "blé tendre"
+                            name: "huile d'olive, brute"
                         ),
                         .init(
                             id: 2,
-                            name: "choux-fleurs"
+                            name: "huile d'olive et ses fractions"
                         ),
                         .init(
                             id: 3,

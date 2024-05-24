@@ -175,4 +175,6 @@ enum ProductsImages: String, CaseIterable {
     case eggplant = "aubergine"
     case zucchini = "courgette"
     case pepper = "poivron"
+    case oliveOil = "huile d'olive"
+    case rawOliveOil = "huile d'olive, brute"
 }
