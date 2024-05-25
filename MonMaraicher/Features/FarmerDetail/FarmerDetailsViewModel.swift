@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import SwiftUI
 
 struct FarmerDetailsViewModel: Identifiable, Hashable {
     let id: UUID
@@ -78,6 +79,18 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
             }
         }
         return Array(imagesNames.values)
+    }
+
+    func getScale(proxy: GeometryProxy) -> CGFloat {
+        let startPoint: CGFloat = 150
+        let viewFrame = proxy.frame(in: .global)
+        var scale: CGFloat = 1.0
+        let deltaXAnimationThreshold: CGFloat = 120
+        let diffFromCenter = abs(startPoint - viewFrame.origin.x - deltaXAnimationThreshold / 2)
+        if diffFromCenter < deltaXAnimationThreshold {
+            scale = 1 + (deltaXAnimationThreshold - diffFromCenter) / 200
+        }
+        return scale
     }
 }
 

@@ -34,6 +34,7 @@ struct FarmerDetailsView: View {
                 productsScrollingSection
                 Divider()
                 mapSection
+                Divider()
                 contactSection
             }
             .padding()
@@ -48,6 +49,7 @@ private extension FarmerDetailsView {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
+                .foregroundStyle(.blue.gradient)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
@@ -73,7 +75,6 @@ private extension FarmerDetailsView {
     private var productsSection: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .foregroundStyle(.blue.gradient)
             VStack {
                 Button {
                     self.showingProductsList.toggle()
@@ -87,27 +88,29 @@ private extension FarmerDetailsView {
                         .presentationDetents([.medium, .large])
                 }
             }
-            .foregroundStyle(.white)
         }
+        .foregroundStyle(.blue.gradient)
         .frame(height: 60)
     }
 
     private var productsScrollingSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            HStack(spacing: 25) {
                 ForEach(viewModel.getProductsImagesNames(), id: \.self) { image in
-                    VStack {
+                    GeometryReader { proxy in
+                        let scale = viewModel.getScale(proxy: proxy)
                         Image(image)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .background(Circle().fill(.regularMaterial))
-                            .background(Circle().fill(.white))
+                            .scaledToFill()
+                            .scaleEffect(CGSize(width: scale, height: scale))
                     }
+                    .frame(width: 60, height: 60)
                 }
             }
-            .frame(height: 70)
-            .padding(2)
+            .padding(25)
         }
+        .background(RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial))
+        .clipShape(.rect(cornerRadius: 20))
     }
 
     private var closeButton: some View {
@@ -128,7 +131,6 @@ private extension FarmerDetailsView {
         }
         .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
-        .shadow(radius: 8)
         .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
@@ -190,9 +192,8 @@ private extension FarmerDetailsView {
             .font(.system(size: 15, weight: .semibold, design: .rounded))
         }
         .padding()
-        .background(.ultraThinMaterial)
+        .background(.regularMaterial)
         .clipShape(.rect(cornerRadius: 20))
-        .shadow(radius: 8)
     }
 
     private var directionButton: some View {

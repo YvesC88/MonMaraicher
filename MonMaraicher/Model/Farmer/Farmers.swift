@@ -177,4 +177,8 @@ enum ProductsImages: String, CaseIterable {
     case pepper = "poivron"
     case oliveOil = "huile d'olive"
     case rawOliveOil = "huile d'olive, brute"
+    case potatoes = "pommes de terre"
+    case preserves = "conserves"
+    case carrot = "carotte"
+    case jam = "confiture"
 }
