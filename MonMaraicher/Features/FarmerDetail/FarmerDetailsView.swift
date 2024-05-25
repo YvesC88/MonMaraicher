@@ -18,14 +18,23 @@ struct FarmerDetailsView: View {
 
     @Environment(\.dismiss) private var dismiss
 
+    @State var showingProductsList = false
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 titleSection
                 Divider()
-                productsSection
+                HStack {
+                    distanceSection
+                    Divider()
+                    productsSection
+                }
+                Divider()
+                productsScrollingSection
                 Divider()
                 mapSection
+                Divider()
                 contactSection
             }
             .padding()
@@ -40,6 +49,7 @@ private extension FarmerDetailsView {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
+                .foregroundStyle(.blue.gradient)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
@@ -48,21 +58,59 @@ private extension FarmerDetailsView {
         .padding(.trailing)
     }
 
+    private var distanceSection: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 20).foregroundStyle(.regularMaterial)
+            VStack {
+                Text("distance".uppercased())
+                    .font(.system(size: 10))
+                    .foregroundStyle(.secondary)
+                Text(viewModel.distance)
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+            }
+            .frame(maxWidth: .infinity)
+        }
+    }
+
     private var productsSection: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 110))], spacing: 10) {
-            ForEach(viewModel.products, id: \.id) { product in
-                ZStack {
-                    Rectangle()
-                        .frame(width: 110, height: 60)
-                        .foregroundStyle(.blue)
-                        .clipShape(.rect(cornerRadius: 16))
-                    Text(product.name)
-                        .padding(16)
-                        .lineLimit(2)
+        ZStack {
+            RoundedRectangle(cornerRadius: 20)
+            VStack {
+                Button {
+                    self.showingProductsList.toggle()
+                } label: {
+                    Text("Liste des produits")
                         .foregroundStyle(.white)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                }
+                .sheet(isPresented: $showingProductsList) {
+                    ProductsView(products: viewModel.products)
+                        .presentationDetents([.medium, .large])
                 }
             }
         }
+        .foregroundStyle(.blue.gradient)
+        .frame(height: 60)
+    }
+
+    private var productsScrollingSection: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 25) {
+                ForEach(viewModel.getProductsImagesNames(), id: \.self) { image in
+                    GeometryReader { proxy in
+                        let scale = viewModel.getScale(proxy: proxy)
+                        Image(image)
+                            .resizable()
+                            .scaledToFill()
+                            .scaleEffect(CGSize(width: scale, height: scale))
+                    }
+                    .frame(width: 60, height: 60)
+                }
+            }
+            .padding(25)
+        }
+        .background(RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial))
+        .clipShape(.rect(cornerRadius: 20))
     }
 
     private var closeButton: some View {
@@ -70,11 +118,8 @@ private extension FarmerDetailsView {
             dismiss()
         } label: {
             Image(systemName: "xmark")
-                .font(.subheadline)
                 .padding(8)
-                .background(.thinMaterial)
-                .clipShape(.circle)
-                .shadow(radius: 8)
+                .background(Circle().fill(.regularMaterial))
                 .padding()
         }
     }
@@ -86,7 +131,6 @@ private extension FarmerDetailsView {
         }
         .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
-        .shadow(radius: 8)
         .allowsHitTesting(false)
         .mapControlVisibility(.hidden)
     }
@@ -148,55 +192,43 @@ private extension FarmerDetailsView {
             .font(.system(size: 15, weight: .semibold, design: .rounded))
         }
         .padding()
-        .background(.ultraThinMaterial)
+        .background(.regularMaterial)
         .clipShape(.rect(cornerRadius: 20))
-        .shadow(radius: 8)
     }
 
     private var directionButton: some View {
         Button {
             viewModel.onDirectionButtonTapped()
         } label: {
-            Image(systemName: viewModel.directionButtonImageSystemName)
-                .foregroundStyle(.white)
+            Image(systemName: viewModel.directionButtonImageSystemName).foregroundStyle(.white.gradient)
+                .frame(width: 80, height: 40)
+                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .padding()
         }
-        .frame(width: 80, height: 40)
-        .background(Capsule().fill(.blue.gradient))
-        .padding()
     }
 
     @ViewBuilder
     private var phoneButton: some View {
         if let phoneCallURL = viewModel.phoneCallURL {
-            self.phoneCallURL(url: phoneCallURL)
+            self.makeLink(with: phoneCallURL, image: viewModel.phoneButtonImageSystemName)
         }
-    }
-
-    private func phoneCallURL(url: URL) -> some View {
-        Link(destination: url) {
-            Image(systemName: viewModel.phoneButtonImageSystemName)
-                .foregroundStyle(.white)
-        }
-        .frame(width: 80, height: 40)
-        .background(Capsule().fill(.blue.gradient))
-        .padding()
     }
 
     @ViewBuilder
     private var emailButton: some View {
         if let emailURL = viewModel.emailURL {
-            self.emailURL(url: emailURL)
+            self.makeLink(with: emailURL, image: viewModel.emailButtonImageSystemName)
         }
     }
 
-    private func emailURL(url: URL) -> some View {
+    private func makeLink(with url: URL, image: String) -> some View {
         Link(destination: url) {
-            Image(systemName: viewModel.emailButtonImageSystemName)
-                .foregroundStyle(.white)
+            Image(systemName: image)
+                .foregroundStyle(.white.gradient)
+                .frame(width: 80, height: 40)
+                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .padding()
         }
-        .frame(width: 80, height: 40)
-        .background(Capsule().fill(.blue.gradient))
-        .padding()
     }
 }
 
@@ -207,7 +239,7 @@ private extension FarmerDetailsView {
                 farmer: .init(
                     id: 1,
                     businessName: "chez william",
-                    personalPhone: nil,
+                    personalPhone: "0606060606",
                     email: "test@test.fr",
                     businessPhone: nil,
                     websites: [
@@ -244,11 +276,11 @@ private extension FarmerDetailsView {
                     products: [
                         .init(
                             id: 1,
-                            name: "Fruits à pépins et à coques"
+                            name: "huile d'olive, brute"
                         ),
                         .init(
                             id: 2,
-                            name: "Pomme de table"
+                            name: "huile d'olive et ses fractions"
                         ),
                         .init(
                             id: 3,
@@ -256,18 +288,10 @@ private extension FarmerDetailsView {
                         ),
                         .init(
                             id: 4,
-                            name: "Coings"
+                            name: "pomelos et pamplemousses"
                         ),
                         .init(
                             id: 5,
-                            name: "Abricots"
-                        ),
-                        .init(
-                            id: 6,
-                            name: "Miel"
-                        ),
-                        .init(
-                            id: 7,
                             name: "Thym"
                         )
                     ]
@@ -277,8 +301,8 @@ private extension FarmerDetailsView {
                     place: "300 rue de la paix",
                     zipCode: "75000",
                     city: "paris",
-                    latitude: 48.45012,
-                    longitude: 2.354564,
+                    latitude: 37.337838,
+                    longitude: -122.01,
                     farmerAddressesTypes: ["siège social"]
                 )
             )

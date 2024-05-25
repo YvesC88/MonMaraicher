@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "pot-de-confiture.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import SwiftUI
 
 // FIXME: this list of properties are currently changing
 
@@ -142,4 +143,42 @@ struct Certificats: Decodable, Hashable {
         case commitmentDate = "dateEngagement"
         case url
     }
+}
+
+enum ProductsImages: String, CaseIterable {
+    case artichoke = "artichaut"
+    case cherry = "cerise"
+    case chicory = "chicorée"
+    case cabbage = "choux"
+    case cauliflower = "choux-fleurs"
+    case beeswax = "cire d'abeille"
+    case spinach = "épinard"
+    case strawberry = "fraise"
+    case lettuce = "laitue"
+    case honey = "miel"
+    case hive = "ruche"
+    case raspberry = "framboise"
+    case grapefruit = "pamplemousse"
+    case thyme = "thym"
+    case olive = "olive"
+    case apricot = "abricot"
+    case grape = "raisin"
+    case tomato = "tomate"
+    case vegetable = "légumes frais"
+    case apple = "pomme"
+    case wheat = "blé"
+    case peach = "pêche"
+    case pear = "poire"
+    case celery = "céleris branche"
+    case corn = "maïs"
+    case watermelon = "pastèque"
+    case eggplant = "aubergine"
+    case zucchini = "courgette"
+    case pepper = "poivron"
+    case oliveOil = "huile d'olive"
+    case rawOliveOil = "huile d'olive, brute"
+    case potatoes = "pommes de terre"
+    case preserves = "conserves"
+    case carrot = "carotte"
+    case jam = "confiture"
 }
