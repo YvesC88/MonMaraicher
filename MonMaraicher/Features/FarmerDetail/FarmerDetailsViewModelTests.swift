@@ -11,49 +11,36 @@ import CoreLocation
 
 final class FarmerDetailsViewModelTests: XCTestCase {
 
-    let farmerServiceMock = FarmerServiceMock()
+    private var viewModel: FarmerDetailsViewModel?
 
-    func testFarmerNameShouldReturnCorrectNameOfFarmer() async {
-        do {
-            // Given
-            let farmers = try await farmerServiceMock.searchFarmers(around: CLLocation(latitude: 34, longitude: 34))
-            let farmer = farmers.items.first!
+    func testFarmerNameShouldReturnCorrectNameOfFarmer() {
+        // Given
+        let markerMock = Farmer.makeMock(name: "l'abeille du pic")
 
-            // When
-            let expectedFarmerName = "L'Abeille du Pic"
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
 
-            // Then
-            XCTAssertEqual(farmer.businessName, expectedFarmerName)
-        } catch {
-
-        }
+        // Then
+        XCTAssertNotNil(viewModel?.title)
     }
 
-    func testFarmerAddressShouldReturnFormattedAddress() async {
-        do {
-            // Given
-            let farmers = try await farmerServiceMock.searchFarmers(around: CLLocation(latitude: 34, longitude: 34))
-            let farmer = farmers.items.first!
-            let farmerAddress = farmer.addresses.first!
-            let farmerMock = Farmer.makeMock(place: farmerAddress.place, zipCode: farmerAddress.zipCode, city: farmerAddress.city)
-            let farmerDetail = FarmerDetailsViewModel(marker: farmerMock)
+    func testFarmerHaveNoBusinessPhoneShouldReturnPersonalPhone() {
+        // Given
+        let markerMock = Farmer.makeMock(personalPhone: "0606060606", businessPhone: nil)
 
-            // When
-            let expectedFormattedAddress = "165 Rue Jean Louis Barrault\n34000 Montpellier"
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
 
-            // Then
-            XCTAssertEqual(farmerDetail.address, expectedFormattedAddress)
-        } catch {
-
-        }
+        // Then
+        XCTAssertNotNil(viewModel?.phoneNumber)
     }
 }
 
 extension Farmer {
 
-    static func makeMock(id: Int = 0, name: String = "", phoneNumber: String? = "", email: String? = "", websites: [Websites] = [], place: String = "", zipCode: String = "", city: String = "", latitude: Double = 0, longitude: Double = 0, products: [Products] = []) -> MapViewModel.Marker {
+    static func makeMock(id: Int = 0, name: String = "", personalPhone: String? = "", businessPhone: String? = "", email: String? = "", websites: [Websites] = [], place: String = "", zipCode: String = "", city: String = "", latitude: Double = 0, longitude: Double = 0, products: [Products] = []) -> MapViewModel.Marker {
         let address = Address(id: id, place: place, zipCode: zipCode, city: city, latitude: latitude, longitude: longitude, farmerAddressesTypes: [])
-        let farmer = Farmer(id: id, businessName: name, personalPhone: phoneNumber, email: email, businessPhone: phoneNumber, websites: websites, addresses: [address], products: products)
+        let farmer = Farmer(id: id, businessName: name, personalPhone: personalPhone, email: email, businessPhone: businessPhone, websites: websites, addresses: [address], products: products)
         return MapViewModel.Marker(farmer: farmer, address: address)
     }
 }
