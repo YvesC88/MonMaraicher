@@ -276,7 +276,7 @@ private extension FarmerDetailsView {
                     products: [
                         .init(
                             id: 1,
-                            name: "huile d'olive, brute"
+                            name: "plantes à épices, aromatiques"
                         ),
                         .init(
                             id: 2,

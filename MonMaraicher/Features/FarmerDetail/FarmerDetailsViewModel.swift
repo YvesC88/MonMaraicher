@@ -72,13 +72,15 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     }
 
     func getProductsImagesNames() -> [String] {
-        var imagesNames: [Int: String] = [:]
+        var imagesNames: Set<String> = []
+        let sortedImages = ProductsImages.allCases.sorted { $0.rawValue.count > $1.rawValue.count }
         for product in products {
-            for image in ProductsImages.allCases where product.name.lowercased().contains(image.rawValue) {
-                imagesNames[product.id] = image.rawValue
+            for image in sortedImages where product.name.lowercased().contains(image.rawValue) {
+                imagesNames.insert(image.rawValue)
+                break
             }
         }
-        return Array(imagesNames.values)
+        return Array(imagesNames)
     }
 
     func getScale(proxy: GeometryProxy) -> CGFloat {
