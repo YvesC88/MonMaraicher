@@ -29,7 +29,9 @@ struct MapView: View {
         .onChange(of: viewModel.hasUserAcceptedLocation ) {
             viewModel.reloadingFarmers()
         }
-        .onAppear(perform: viewModel.onViewAppear)
+        .onAppear {
+            viewModel.onViewAppear()
+        }
         .overlay(alignment: .bottom) {
             HStack {
                 nearbyFarmerButton
@@ -39,8 +41,7 @@ struct MapView: View {
         }
         .overlay {
             if viewModel.farmersLoadingInProgress && viewModel.hasUserAcceptedLocation {
-                ProgressView()
-                    .controlSize(.large)
+                LoaderAnimationView()
             }
         }
         .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in

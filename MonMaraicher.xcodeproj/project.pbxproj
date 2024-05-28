@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
+		FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
 		FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */; };
 		FB7407172BE53A2D004111FA /* FarmerDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAnimationView.swift; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsView.swift; sourceTree = "<group>"; };
 		FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModelTests.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 				FBF882F82BE53196002496E6 /* Farmers.json */,
 			);
 			path = Farmer;
+			sourceTree = "<group>";
+		};
+		FB5FE87F2C060E2B00E8CD13 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */,
+			);
+			path = Animations;
 			sourceTree = "<group>";
 		};
 		FB7260502B909708003A1A40 /* Model */ = {
@@ -144,6 +154,7 @@
 			children = (
 				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
 				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
+				FB5FE87F2C060E2B00E8CD13 /* Animations */,
 				FB7CAA632B90EB330093540E /* Features */,
 				FB7260502B909708003A1A40 /* Model */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
@@ -288,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */,
 				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
 				FBC81EAB2BF6035E006F9EC8 /* FarmerServiceMock.swift in Sources */,
