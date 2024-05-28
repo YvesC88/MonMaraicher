@@ -19,20 +19,68 @@ final class FarmerDetailsViewModelTests: XCTestCase {
 
         // When
         self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let expectedBusinessName = "L'abeille Du Pic"
 
         // Then
-        XCTAssertNotNil(viewModel?.title)
+        XCTAssertEqual(viewModel?.title, expectedBusinessName)
     }
 
-    func testFarmerHaveNoBusinessPhoneShouldReturnPersonalPhone() {
+    func testFarmerHaveNoBusinessPhoneNumberAndShouldReturnPersonalPhoneNumber() {
         // Given
         let markerMock = Farmer.makeMock(personalPhone: "0606060606", businessPhone: nil)
 
         // When
         self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let expectedPersonalPhone = "0606060606"
 
         // Then
-        XCTAssertNotNil(viewModel?.phoneNumber)
+        XCTAssertEqual(viewModel?.phoneNumber, expectedPersonalPhone)
+    }
+
+    func testFarmerHaveNoPersonalPhoneNumberAndShouldReturnBusinessPhoneNumber() {
+        // Given
+        let markerMock = Farmer.makeMock(personalPhone: nil, businessPhone: "0606060606")
+
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let expectedBusinessPhone = "0606060606"
+
+        // Then
+        XCTAssertEqual(viewModel?.phoneNumber, "0606060606")
+    }
+
+    func testFarmerHaveNoPersonalPhoneAndNoBusinessPhoneNumberAndSouldReturnNoPhoneNumber() {
+        // Given
+        let markerMock = Farmer.makeMock(personalPhone: nil, businessPhone: nil)
+
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+
+        // Then
+        XCTAssertNil(viewModel?.phoneNumber)
+    }
+
+    func testFarmerHaveEmailAddressAndShouldReturnCorrectEmailAddress() {
+        // Given
+        let markerMock = Farmer.makeMock(email: "test@test.fr")
+
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let expectedEmail = "test@test.fr"
+
+        // Then
+        XCTAssertEqual(viewModel?.email, "test@test.fr")
+    }
+
+    func testFarmerHaveNoEmailAddressAndShouldReturnNoEmailAddress() {
+        // Given
+        let markerMock = Farmer.makeMock(email: nil)
+
+        // When
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+
+        // Then
+        XCTAssertNil(viewModel?.email)
     }
 }
 
