@@ -71,7 +71,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         mapItem.openInMaps()
     }
 
-    func getProductsImagesNames() -> [String] {
+    func getProductsImagesNames(products: [Products]) -> [String] {
         var imagesNames: Set<String> = []
         let sortedImages = ProductsImages.allCases.sorted { $0.rawValue.count > $1.rawValue.count }
         for product in products {

@@ -96,7 +96,7 @@ private extension FarmerDetailsView {
     private var productsScrollingSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 25) {
-                ForEach(viewModel.getProductsImagesNames(), id: \.self) { image in
+                ForEach(viewModel.getProductsImagesNames(products: viewModel.products), id: \.self) { image in
                     GeometryReader { proxy in
                         let scale = viewModel.getScale(proxy: proxy)
                         Image(image)

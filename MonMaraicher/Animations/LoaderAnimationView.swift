@@ -15,7 +15,7 @@ struct LoaderAnimationView: View {
 
     let trackerRotation: Double = 2
 
-    let animationDuration: Double = 0.8
+    let animationDuration: Double = 0.75
 
     var body: some View {
         animation
@@ -59,16 +59,14 @@ extension LoaderAnimationView {
             }
         }
         Timer.scheduledTimer(withTimeInterval: animationDuration * 1.25, repeats: false) { _ in
-            withAnimation(.easeInOut(duration: trackerRotation * animationDuration)) {
-                circleEnd = 1
+            withAnimation(.easeOut(duration: (trackerRotation * animationDuration) / 2.25)) {
+                circleEnd = 0.9
             }
         }
         Timer.scheduledTimer(withTimeInterval: trackerRotation * animationDuration, repeats: false) { _ in
-            withAnimation(.easeInOut(duration: animationDuration)) {
-                rotationDegree = .degrees(50)
-                withAnimation(.easeInOut(duration: animationDuration)) {
-                    circleEnd = 0.5
-                }
+            rotationDegree = .degrees(47.5)
+            withAnimation(.easeOut(duration: animationDuration)) {
+                circleEnd = 0.4
             }
         }
     }
