@@ -22,11 +22,7 @@ struct FarmerDetailsView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            Image(.topBackground)
-                .resizable()
-                .scaledToFit()
-                .clipShape(.rect(cornerRadius: 20))
-                .ignoresSafeArea()
+            headerImage
             ScrollView(.vertical, showsIndicators: false) {
                 Spacer(minLength: 180)
                 VStack(alignment: .leading, spacing: 16) {
@@ -56,6 +52,14 @@ struct FarmerDetailsView: View {
 }
 
 private extension FarmerDetailsView {
+
+    private var headerImage: some View {
+        Image(.topBackground)
+            .resizable()
+            .scaledToFit()
+            .clipShape(.rect(cornerRadius: 8))
+            .ignoresSafeArea()
+    }
 
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
