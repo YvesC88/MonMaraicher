@@ -9,13 +9,11 @@ import SwiftUI
 
 struct LoaderAnimationView: View {
 
-    @State var circleEnd: CGFloat = 0.325
-
+    @State var circleEnd: CGFloat = 0.4
     @State var rotationDegree: Angle = .degrees(0)
 
-    let trackerRotation: Double = 2
-
-    let animationDuration: Double = 0.75
+    let trackerRotation: Double = 1.75
+    let animationDuration: Double = 0.7
 
     var body: some View {
         animation
@@ -27,12 +25,12 @@ extension LoaderAnimationView {
     private var animation: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: 8)
+                .stroke(lineWidth: 6)
                 .fill(.blue.opacity(0.2))
             Circle()
-                .trim(from: 0.17, to: circleEnd)
-                .stroke(style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                .fill(LinearGradient(colors: [.blue, .green], startPoint: .leading, endPoint: .trailing))
+                .trim(from: 0.2, to: circleEnd)
+                .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                .fill(LinearGradient(colors: [.red, .white], startPoint: .leading, endPoint: .trailing))
                 .rotationEffect(rotationDegree)
                 .onAppear {
                     animationLoader()
@@ -41,11 +39,11 @@ extension LoaderAnimationView {
                     }
                 }
         }
-        .frame(width: 40, height: 40)
+        .frame(width: 32, height: 32)
     }
 
     private func getRotationAngle() -> Angle {
-        return .degrees(360 * trackerRotation) + .degrees(120)
+        return .degrees(360 * trackerRotation) + .degrees(150)
     }
 
     private func animationLoader() {
@@ -60,13 +58,13 @@ extension LoaderAnimationView {
         }
         Timer.scheduledTimer(withTimeInterval: animationDuration * 1.25, repeats: false) { _ in
             withAnimation(.easeOut(duration: (trackerRotation * animationDuration) / 2.25)) {
-                circleEnd = 0.9
+                circleEnd = 0.8
             }
         }
         Timer.scheduledTimer(withTimeInterval: trackerRotation * animationDuration, repeats: false) { _ in
-            rotationDegree = .degrees(47.5)
+            rotationDegree = .degrees(60)
             withAnimation(.easeOut(duration: animationDuration)) {
-                circleEnd = 0.4
+                circleEnd = 0.3
             }
         }
     }

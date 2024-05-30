@@ -16,7 +16,7 @@ struct ProductsView: View {
             ForEach(products, id: \.id) { product in
                 Text(product.name)
                     .font(.system(size: 17, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.accent)
             }
         }
     }

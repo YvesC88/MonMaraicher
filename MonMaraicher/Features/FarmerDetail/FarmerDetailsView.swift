@@ -21,25 +21,37 @@ struct FarmerDetailsView: View {
     @State var showingProductsList = false
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                titleSection
-                Divider()
-                HStack {
-                    distanceSection
+        ZStack(alignment: .top) {
+            Image(.topBackground)
+                .resizable()
+                .scaledToFit()
+                .clipShape(.rect(cornerRadius: 20))
+                .ignoresSafeArea()
+            ScrollView(.vertical, showsIndicators: false) {
+                Spacer(minLength: 180)
+                VStack(alignment: .leading, spacing: 16) {
+                    titleSection
                     Divider()
-                    productsSection
+                    HStack {
+                        distanceSection
+                        Divider()
+                        productsSection
+                    }
+                    Divider()
+                    productsScrollingSection
+                    Divider()
+                    mapSection
+                    Divider()
+                    contactSection
                 }
-                Divider()
-                productsScrollingSection
-                Divider()
-                mapSection
-                Divider()
-                contactSection
+                .padding()
+                .background()
+                .clipShape(.rect(cornerRadius: 32))
+                .shadow(color: .black.opacity(0.3), radius: 16, x: 0, y: -32)
             }
-            .padding()
+            .ignoresSafeArea()
+            .overlay(closeButton, alignment: .topTrailing)
         }
-        .overlay(closeButton, alignment: .topTrailing)
     }
 }
 
@@ -49,7 +61,7 @@ private extension FarmerDetailsView {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
-                .foregroundStyle(.blue.gradient)
+                .foregroundStyle(.accent)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
@@ -60,7 +72,7 @@ private extension FarmerDetailsView {
 
     private var distanceSection: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20).foregroundStyle(.regularMaterial)
+            RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
             VStack {
                 Text("distance".uppercased())
                     .font(.system(size: 10))
@@ -89,7 +101,7 @@ private extension FarmerDetailsView {
                 }
             }
         }
-        .foregroundStyle(.blue.gradient)
+        .foregroundStyle(.accent.gradient)
         .frame(height: 60)
     }
 
@@ -120,6 +132,7 @@ private extension FarmerDetailsView {
             Image(systemName: "xmark")
                 .padding(8)
                 .background(Circle().fill(.regularMaterial))
+                .shadow(radius: 16)
                 .padding()
         }
     }
@@ -202,7 +215,7 @@ private extension FarmerDetailsView {
         } label: {
             Image(systemName: viewModel.directionButtonImageSystemName).foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .background(RoundedRectangle(cornerRadius: 20).fill(.accent.gradient))
                 .padding()
         }
     }
@@ -226,7 +239,7 @@ private extension FarmerDetailsView {
             Image(systemName: image)
                 .foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .background(RoundedRectangle(cornerRadius: 20).fill(.accent.gradient))
                 .padding()
         }
     }
