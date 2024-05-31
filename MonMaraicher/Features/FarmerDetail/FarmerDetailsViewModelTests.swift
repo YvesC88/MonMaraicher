@@ -46,7 +46,7 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let expectedBusinessPhone = "0606060606"
 
         // Then
-        XCTAssertEqual(viewModel?.phoneNumber, "0606060606")
+        XCTAssertEqual(viewModel?.phoneNumber, expectedBusinessPhone)
     }
 
     func testFarmerHaveNoPersonalPhoneAndNoBusinessPhoneNumberAndSouldReturnNoPhoneNumber() {
@@ -69,7 +69,7 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let expectedEmail = "test@test.fr"
 
         // Then
-        XCTAssertEqual(viewModel?.email, "test@test.fr")
+        XCTAssertEqual(viewModel?.email, expectedEmail)
     }
 
     func testFarmerHaveNoEmailAddressAndShouldReturnNoEmailAddress() {
@@ -109,11 +109,26 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(imageNames, [])
     }
+
+    func testFormatWebSiteAndShouldReturnCorrectWebsite() {
+        // Given
+        let websiteType = WebsiteType(id: 1, name: "Facebook")
+        let website = Websites(id: 1, url: "https://www.facebook.com", active: true, operatorId: 1, websiteType: websiteType)
+        let markerMock = Farmer.makeMock(websites: [website])
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+
+        // When
+        let formatWebsiteString = viewModel?.formatWebsite(website)
+        let expectedFormatWebsite = "[Facebook](https://www.facebook.com)"
+
+        // Then
+        XCTAssertEqual(formatWebsiteString, expectedFormatWebsite)
+    }
 }
 
 extension Farmer {
 
-    static func makeMock(id: Int = 0, name: String = "", personalPhone: String? = "", businessPhone: String? = "", email: String? = "", websites: [Websites] = [], place: String = "", zipCode: String = "", city: String = "", latitude: Double = 0, longitude: Double = 0, products: [Products] = []) -> MapViewModel.Marker {
+    static func makeMock(id: Int = 0, name: String = "", personalPhone: String? = "", businessPhone: String? = "", email: String? = "", websites: [Websites] = [], distance: String = "", place: String = "", zipCode: String = "", city: String = "", latitude: Double = 0, longitude: Double = 0, products: [Products] = []) -> MapViewModel.Marker {
         let address = Address(id: id, place: place, zipCode: zipCode, city: city, latitude: latitude, longitude: longitude, farmerAddressesTypes: [])
         let farmer = Farmer(id: id, businessName: name, personalPhone: personalPhone, email: email, businessPhone: businessPhone, websites: websites, addresses: [address], products: products)
         return MapViewModel.Marker(farmer: farmer, address: address)
