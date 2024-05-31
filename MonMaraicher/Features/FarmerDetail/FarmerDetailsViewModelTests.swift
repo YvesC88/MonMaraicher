@@ -82,6 +82,33 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         // Then
         XCTAssertNil(viewModel?.email)
     }
+
+    func testGetProductsImagesNamesWithMultipleProducts() {
+        // Given
+        let products = [Products(id: 1, name: "laitue"), Products(id: 2, name: "raisin"), Products(id: 3, name: "pomme")]
+        let markerMock = Farmer.makeMock(products: products)
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+
+        // When
+        let imageNames = viewModel?.getProductsImagesNames(products: products)
+        let expectedImages = ["pomme", "laitue", "raisin"].sorted()
+
+        // Then
+        XCTAssertEqual(imageNames, expectedImages)
+    }
+
+    func testNotGetProductsImagesNamesWithMultipleProducts() {
+        // Given
+        let products = [Products(id: 1, name: "test"), Products(id: 2, name: "test2")]
+        let markerMock = Farmer.makeMock(products: products)
+        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+
+        // When
+        let imageNames = viewModel?.getProductsImagesNames(products: products)
+
+        // Then
+        XCTAssertEqual(imageNames, [])
+    }
 }
 
 extension Farmer {

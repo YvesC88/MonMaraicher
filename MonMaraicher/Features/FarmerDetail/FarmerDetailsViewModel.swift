@@ -80,7 +80,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
                 break
             }
         }
-        return Array(imagesNames)
+        return Array(imagesNames).sorted()
     }
 
     func getScale(proxy: GeometryProxy) -> CGFloat {
