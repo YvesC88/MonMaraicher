@@ -17,6 +17,7 @@
 		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
+		FB929C1D2C0B171F0065135B /* FarmerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB929C1C2C0B171F0065135B /* FarmerServiceTests.swift */; };
 		FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA13FF02BC73AEB0025C200 /* Farmers.swift */; };
 		FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */; };
 		FBC81EAB2BF6035E006F9EC8 /* FarmerServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */; };
@@ -49,6 +50,7 @@
 		FB832C682B87540600E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB929C1C2C0B171F0065135B /* FarmerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceTests.swift; sourceTree = "<group>"; };
 		FBA13FF02BC73AEB0025C200 /* Farmers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmers.swift; sourceTree = "<group>"; };
 		FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerService.swift; sourceTree = "<group>"; };
 		FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceMock.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				FB7260482B8D6232003A1A40 /* MapViewModel.swift */,
 				FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */,
 				FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */,
+				FB929C1C2C0B171F0065135B /* FarmerServiceTests.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB929C1D2C0B171F0065135B /* FarmerServiceTests.swift in Sources */,
 				FB7407172BE53A2D004111FA /* FarmerDetailsViewModelTests.swift in Sources */,
 				FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */,
 			);
