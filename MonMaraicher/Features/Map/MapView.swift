@@ -48,8 +48,8 @@ struct MapView: View {
             searchAreaButton
                 .disabled(viewModel.farmersLoadingInProgress)
         }
-        .onMapCameraChange { mapCameraUpdateContext in
-            viewModel.currentMapCameraPosition = mapCameraUpdateContext.camera.centerCoordinate
+        .onMapCameraChange { mapCameraUpdate in
+            viewModel.currentMapCameraPosition = mapCameraUpdate.camera.centerCoordinate
         }
         .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
             FarmerDetailsView(viewModel: farmerViewModel)
@@ -109,16 +109,10 @@ extension MapView {
     private func alertButtons(alert: MapViewModel.NearbyButtonAlert) -> some View {
         switch alert {
         case .noFarmer:
-            if viewModel.hasTextField {
-                TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
-                    .keyboardType(.numberPad)
-                Button(alert.confirmButtonTitle) {
-                    viewModel.isAlertPresented = false
-                }
-            } else {
-                Button(alert.confirmButtonTitle) {
-                    viewModel.isAlertPresented = false
-                }
+            TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
+                .keyboardType(.numberPad)
+            Button(alert.confirmButtonTitle) {
+                viewModel.isAlertPresented = false
             }
         case .noLocation:
             Button(alert.confirmButtonTitle) {
