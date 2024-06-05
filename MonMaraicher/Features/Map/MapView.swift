@@ -44,25 +44,19 @@ struct MapView: View {
                 LoaderAnimationView()
             }
         }
+        .overlay(alignment: .top) {
+            searchAreaButton
+                .disabled(viewModel.farmersLoadingInProgress)
+        }
+        .onMapCameraChange { mapCameraUpdateContext in
+            viewModel.currentMapCameraPosition = mapCameraUpdateContext.camera.centerCoordinate
+        }
         .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
             FarmerDetailsView(viewModel: farmerViewModel)
                 .presentationDetents([.medium, .large])
         }
         .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
-            if viewModel.hasTextField {
-                TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
-                    .keyboardType(.numberPad)
-                Button(alert.confirmButtonTitle) {
-                    viewModel.isAlertPresented = false
-                }
-            } else {
-                Button(alert.confirmButtonTitle) {
-                    viewModel.openSettings()
-                }
-                Button(alert.cancelButtonTitle ?? "", role: .cancel) {
-                    viewModel.isAlertPresented = false
-                }
-            }
+            alertButtons(alert: alert)
         } message: { alert in
             Text(alert.message)
         }
@@ -96,6 +90,48 @@ extension MapView {
         }
         .shadow(radius: 12)
         .padding(32)
+    }
+
+    private var searchAreaButton: some View {
+        Button {
+            viewModel.onSearchAreaButtonTapped()
+        } label: {
+            Text("Rechercher ici")
+                .font(.system(size: 20, weight: .regular, design: .rounded))
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 20).fill(.regularMaterial))
+                .shadow(radius: 12)
+        }
+        .padding()
+    }
+
+    @ViewBuilder
+    private func alertButtons(alert: MapViewModel.NearbyButtonAlert) -> some View {
+        switch alert {
+        case .noFarmer:
+            if viewModel.hasTextField {
+                TextField(alert.textFieldTitle ?? "", value: $viewModel.searchScope, format: .number)
+                    .keyboardType(.numberPad)
+                Button(alert.confirmButtonTitle) {
+                    viewModel.isAlertPresented = false
+                }
+            } else {
+                Button(alert.confirmButtonTitle) {
+                    viewModel.isAlertPresented = false
+                }
+            }
+        case .noLocation:
+            Button(alert.confirmButtonTitle) {
+                viewModel.openSettings()
+            }
+            Button(alert.cancelButtonTitle ?? "", role: .cancel) {
+                viewModel.isAlertPresented = false
+            }
+        case .noFarmerAround, .loadError:
+            Button(alert.confirmButtonTitle) {
+                viewModel.isAlertPresented = false
+            }
+        }
     }
 }
 
