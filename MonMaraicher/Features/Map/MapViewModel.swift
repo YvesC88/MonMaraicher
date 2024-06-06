@@ -115,25 +115,24 @@ final class MapViewModel: ObservableObject {
         reloadingFarmers()
     }
 
-    func onSearchAreaButtonTapped() {
+    func checkUserLocation() {
         guard currentUserLocation != nil else {
             isAlertPresented = true
             hasTextField = false
             nearbyButtonAlert = .noLocation
             return
         }
+    }
+
+    func onSearchAreaButtonTapped() {
+        checkUserLocation()
         Task {
             await loadFarmersWithSpecificArea()
         }
     }
 
     func reloadingFarmers() {
-        guard currentUserLocation != nil else {
-            isAlertPresented = true
-            hasTextField = false
-            nearbyButtonAlert = .noLocation
-            return
-        }
+        checkUserLocation()
         Task {
             await loadFarmers()
         }
