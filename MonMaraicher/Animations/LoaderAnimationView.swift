@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoaderAnimationView: View {
 
-    @State var circleEnd: CGFloat = 0.4
+    @State var trimCircleEnd: CGFloat = 0.4
     @State var rotationDegree: Angle = .degrees(0)
 
     let trackerRotation: Double = 1.75
@@ -28,7 +28,7 @@ extension LoaderAnimationView {
                 .stroke(lineWidth: 6)
                 .fill(.blue.opacity(0.2))
             Circle()
-                .trim(from: 0.2, to: circleEnd)
+                .trim(from: 0.2, to: trimCircleEnd)
                 .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
                 .fill(LinearGradient(colors: [.red, .white], startPoint: .leading, endPoint: .trailing))
                 .rotationEffect(rotationDegree)
@@ -49,7 +49,7 @@ extension LoaderAnimationView {
     private func animationLoader() {
         withAnimation(.bouncy(duration: animationDuration * 2)) {
             rotationDegree = .degrees(-60)
-            circleEnd = 0.5
+            trimCircleEnd = 0.5
         }
         Timer.scheduledTimer(withTimeInterval: animationDuration, repeats: false) { _ in
             withAnimation(.easeInOut(duration: trackerRotation * animationDuration)) {
@@ -58,13 +58,13 @@ extension LoaderAnimationView {
         }
         Timer.scheduledTimer(withTimeInterval: animationDuration * 1.25, repeats: false) { _ in
             withAnimation(.easeOut(duration: (trackerRotation * animationDuration) / 2.25)) {
-                circleEnd = 0.8
+                trimCircleEnd = 0.8
             }
         }
         Timer.scheduledTimer(withTimeInterval: trackerRotation * animationDuration, repeats: false) { _ in
             rotationDegree = .degrees(60)
             withAnimation(.easeOut(duration: animationDuration)) {
-                circleEnd = 0.3
+                trimCircleEnd = 0.3
             }
         }
     }

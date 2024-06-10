@@ -11,18 +11,16 @@ import CoreLocation
 
 final class FarmerDetailsViewModelTests: XCTestCase {
 
-    private var viewModel: FarmerDetailsViewModel?
-
     func testFarmerNameShouldReturnCorrectNameOfFarmer() {
         // Given
         let markerMock = Farmer.makeMock(name: "l'abeille du pic")
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
         let expectedBusinessName = "L'abeille Du Pic"
 
         // Then
-        XCTAssertEqual(viewModel?.title, expectedBusinessName)
+        XCTAssertEqual(viewModel.title, expectedBusinessName)
     }
 
     func testFarmerHaveNoBusinessPhoneNumberAndShouldReturnPersonalPhoneNumber() {
@@ -30,11 +28,11 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let markerMock = Farmer.makeMock(personalPhone: "0606060606", businessPhone: nil)
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
         let expectedPersonalPhone = "0606060606"
 
         // Then
-        XCTAssertEqual(viewModel?.phoneNumber, expectedPersonalPhone)
+        XCTAssertEqual(viewModel.phoneNumber, expectedPersonalPhone)
     }
 
     func testFarmerHaveNoPersonalPhoneNumberAndShouldReturnBusinessPhoneNumber() {
@@ -42,11 +40,11 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let markerMock = Farmer.makeMock(personalPhone: nil, businessPhone: "0606060606")
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
         let expectedBusinessPhone = "0606060606"
 
         // Then
-        XCTAssertEqual(viewModel?.phoneNumber, expectedBusinessPhone)
+        XCTAssertEqual(viewModel.phoneNumber, expectedBusinessPhone)
     }
 
     func testFarmerHaveNoPersonalPhoneAndNoBusinessPhoneNumberAndSouldReturnNoPhoneNumber() {
@@ -54,10 +52,10 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let markerMock = Farmer.makeMock(personalPhone: nil, businessPhone: nil)
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
 
         // Then
-        XCTAssertNil(viewModel?.phoneNumber)
+        XCTAssertNil(viewModel.phoneNumber)
     }
 
     func testFarmerHaveEmailAddressAndShouldReturnCorrectEmailAddress() {
@@ -65,11 +63,11 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let markerMock = Farmer.makeMock(email: "test@test.fr")
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
         let expectedEmail = "test@test.fr"
 
         // Then
-        XCTAssertEqual(viewModel?.email, expectedEmail)
+        XCTAssertEqual(viewModel.email, expectedEmail)
     }
 
     func testFarmerHaveNoEmailAddressAndShouldReturnNoEmailAddress() {
@@ -77,20 +75,20 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let markerMock = Farmer.makeMock(email: nil)
 
         // When
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
 
         // Then
-        XCTAssertNil(viewModel?.email)
+        XCTAssertNil(viewModel.email)
     }
 
     func testGetProductsImagesNamesWithMultipleProducts() {
         // Given
         let products = [Products(id: 1, name: "laitue"), Products(id: 2, name: "raisin"), Products(id: 3, name: "pomme")]
         let markerMock = Farmer.makeMock(products: products)
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
 
         // When
-        let imageNames = viewModel?.getProductsImagesNames(products: products)
+        let imageNames = viewModel.getProductsImagesNames(products: products)
         let expectedImages = ["pomme", "laitue", "raisin"].sorted()
 
         // Then
@@ -101,10 +99,10 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         // Given
         let products = [Products(id: 1, name: "test"), Products(id: 2, name: "test2")]
         let markerMock = Farmer.makeMock(products: products)
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
 
         // When
-        let imageNames = viewModel?.getProductsImagesNames(products: products)
+        let imageNames = viewModel.getProductsImagesNames(products: products)
 
         // Then
         XCTAssertEqual(imageNames, [])
@@ -115,10 +113,10 @@ final class FarmerDetailsViewModelTests: XCTestCase {
         let websiteType = WebsiteType(id: 1, name: "Facebook")
         let website = Websites(id: 1, url: "https://www.facebook.com", active: true, operatorId: 1, websiteType: websiteType)
         let markerMock = Farmer.makeMock(websites: [website])
-        self.viewModel = FarmerDetailsViewModel(marker: markerMock)
+        let viewModel = FarmerDetailsViewModel(marker: markerMock)
 
         // When
-        let formatWebsiteString = viewModel?.formatWebsite(website)
+        let formatWebsiteString = viewModel.formatWebsite(website)
         let expectedFormatWebsite = "[Facebook](https://www.facebook.com)"
 
         // Then
