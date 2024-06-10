@@ -24,6 +24,8 @@ final class MapViewModel: ObservableObject {
 
     @Published var searchScope = 5.0
 
+    @Published var currentMapCameraPosition: CLLocationCoordinate2D?
+
     private let locationManager = CLLocationManager()
     private var currentUserLocation: CLLocation? { locationManager.location }
     private let measurementFormatter = MeasurementFormatter()
@@ -79,7 +81,27 @@ final class MapViewModel: ObservableObject {
             self.allMarkers = allMarkers
             farmersLoadingInProgress = false
         } catch {
-            print("Error when loading farmers: \(error)")
+            farmersLoadingInProgress = false
+            nearbyButtonAlert = .loadError
+        }
+    }
+
+    @MainActor private func loadFarmersWithSpecificLocation(location: CLLocation) async {
+        do {
+            farmersLoadingInProgress = true
+            let farmers = try await self.farmerService.searchFarmers(around: location)
+            var allMarkers: [Marker] = []
+            for farmer in farmers.items {
+                for address in farmer.addresses {
+                    let marker = Marker(farmer: farmer, address: address)
+                    allMarkers.append(marker)
+                }
+            }
+            self.allMarkers = allMarkers
+            farmersLoadingInProgress = false
+        } catch {
+            farmersLoadingInProgress = false
+            nearbyButtonAlert = .noFarmerAround
         }
     }
 
@@ -92,17 +114,29 @@ final class MapViewModel: ObservableObject {
         reloadingFarmers()
     }
 
-    func reloadingFarmers() {
-            guard currentUserLocation != nil else {
-                isAlertPresented = true
-                hasTextField = false
-                nearbyButtonAlert = .noLocation
-                return
-            }
-            Task {
-                await loadFarmers()
-            }
+    func displayAnErrorIfNoUserLocation() {
+        if currentUserLocation == nil {
+            isAlertPresented = true
+            hasTextField = false
+            nearbyButtonAlert = .noLocation
         }
+    }
+
+    func onSearchAreaButtonTapped() {
+        displayAnErrorIfNoUserLocation()
+        Task {
+            guard let currentMapCameraPosition else { return }
+            let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
+            await loadFarmersWithSpecificLocation(location: currentLocation)
+        }
+    }
+
+    func reloadingFarmers() {
+        displayAnErrorIfNoUserLocation()
+        Task {
+            await loadFarmers()
+        }
+    }
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
@@ -165,6 +199,8 @@ extension MapViewModel {
     enum NearbyButtonAlert: LocalizedError {
         case noFarmer(String)
         case noLocation
+        case noFarmerAround
+        case loadError
 
         var errorDescription: String? {
             switch self {
@@ -172,6 +208,10 @@ extension MapViewModel {
                 return "Aucun maraîcher trouvé dans un rayon de \(distance)"
             case .noLocation:
                 return "Localisation impossible"
+            case .noFarmerAround:
+                return "Aucun maraîcher trouvé dans cette zone"
+            case .loadError:
+                return "Il semblerait qu'une erreur s'est produite"
             }
         }
 
@@ -181,6 +221,10 @@ extension MapViewModel {
                 return "Vous pouvez entrer une nouvelle distance en km pour élargir votre recherche"
             case .noLocation:
                 return "Merci d'accepter la localisation de l'application dans les réglages"
+            case .noFarmerAround:
+                return "Veuillez réessayer ailleurs"
+            case .loadError:
+                return "Veuillez réessayer"
             }
         }
 
@@ -189,6 +233,10 @@ extension MapViewModel {
             case .noFarmer:
                 return "Distance en km"
             case .noLocation:
+                return nil
+            case .noFarmerAround:
+                return nil
+            case .loadError:
                 return nil
             }
         }
@@ -199,6 +247,10 @@ extension MapViewModel {
                 return "OK"
             case .noLocation:
                 return "Réglages"
+            case .noFarmerAround:
+                return "OK"
+            case .loadError:
+                return "OK"
             }
         }
 
@@ -208,6 +260,10 @@ extension MapViewModel {
                 return nil
             case .noLocation:
                 return "Annuler"
+            case .noFarmerAround:
+                return nil
+            case .loadError:
+                return nil
             }
         }
     }

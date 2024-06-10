@@ -185,4 +185,7 @@ enum ProductsImages: String, CaseIterable {
     case aromaticPlants = "épice"
     case pig = "porc"
     case meat = "viande"
+    case fig = "figue"
+    case kiwi = "kiwi"
+    case beet = "betterave"
 }
