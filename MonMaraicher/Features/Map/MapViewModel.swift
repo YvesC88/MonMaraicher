@@ -86,11 +86,10 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    @MainActor private func loadFarmersWithSpecificArea() async {
+    @MainActor private func loadFarmersWithSpecificLocation(location: CLLocation) async {
         do {
             farmersLoadingInProgress = true
-            guard let currentMapCameraPosition else { return }
-            let farmers = try await self.farmerService.searchFarmers(around: CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude))
+            let farmers = try await self.farmerService.searchFarmers(around: location)
             var allMarkers: [Marker] = []
             for farmer in farmers.items {
                 for address in farmer.addresses {
@@ -115,24 +114,25 @@ final class MapViewModel: ObservableObject {
         reloadingFarmers()
     }
 
-    func checkUserLocation() {
-        guard currentUserLocation != nil else {
+    func displayAnErrorIfNoUserLocation() {
+        if currentUserLocation == nil {
             isAlertPresented = true
             hasTextField = false
             nearbyButtonAlert = .noLocation
-            return
         }
     }
 
     func onSearchAreaButtonTapped() {
-        checkUserLocation()
+        displayAnErrorIfNoUserLocation()
         Task {
-            await loadFarmersWithSpecificArea()
+            guard let currentMapCameraPosition else { return }
+            let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
+            await loadFarmersWithSpecificLocation(location: currentLocation)
         }
     }
 
     func reloadingFarmers() {
-        checkUserLocation()
+        displayAnErrorIfNoUserLocation()
         Task {
             await loadFarmers()
         }
