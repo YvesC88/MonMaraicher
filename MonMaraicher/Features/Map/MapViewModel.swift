@@ -61,47 +61,25 @@ final class MapViewModel: ObservableObject {
 
     func onViewAppear() {
         requestUserAuthorization()
+        guard let currentUserLocation else { return }
         Task {
-            await loadFarmers()
+            await loadFarmers(with: currentUserLocation, errorType: .loadError)
         }
     }
 
-    @MainActor private func loadFarmers() async {
-        do {
-            farmersLoadingInProgress = true
-            guard let currentUserLocation else { return }
-            let farmers = try await self.farmerService.searchFarmers(around: currentUserLocation)
-            var allMarkers: [Marker] = []
-            for farmer in farmers.items {
-                for address in farmer.addresses {
-                    let marker = Marker(farmer: farmer, address: address)
-                    allMarkers.append(marker)
-                }
-            }
-            self.allMarkers = allMarkers
-            farmersLoadingInProgress = false
-        } catch {
-            farmersLoadingInProgress = false
-            nearbyButtonAlert = .loadError
-        }
-    }
-
-    @MainActor private func loadFarmersWithSpecificLocation(location: CLLocation) async {
+    @MainActor private func loadFarmers(with location: CLLocation, errorType: NearbyButtonAlert) async {
         do {
             farmersLoadingInProgress = true
             let farmers = try await self.farmerService.searchFarmers(around: location)
-            var allMarkers: [Marker] = []
-            for farmer in farmers.items {
-                for address in farmer.addresses {
-                    let marker = Marker(farmer: farmer, address: address)
-                    allMarkers.append(marker)
+            allMarkers = farmers.items.flatMap { farmer in
+                farmer.addresses.map { address in
+                    Marker(farmer: farmer, address: address)
                 }
             }
-            self.allMarkers = allMarkers
             farmersLoadingInProgress = false
         } catch {
             farmersLoadingInProgress = false
-            nearbyButtonAlert = .noFarmerAround
+            nearbyButtonAlert = errorType
         }
     }
 
@@ -124,17 +102,18 @@ final class MapViewModel: ObservableObject {
 
     func onSearchAreaButtonTapped() {
         displayAnErrorIfNoUserLocation()
+        guard let currentMapCameraPosition else { return }
+        let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
         Task {
-            guard let currentMapCameraPosition else { return }
-            let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
-            await loadFarmersWithSpecificLocation(location: currentLocation)
+            await loadFarmers(with: currentLocation, errorType: .noFarmerAround)
         }
     }
 
     func reloadingFarmers() {
         displayAnErrorIfNoUserLocation()
+        guard let currentUserLocation else { return }
         Task {
-            await loadFarmers()
+            await loadFarmers(with: currentUserLocation, errorType: .loadError)
         }
     }
 
