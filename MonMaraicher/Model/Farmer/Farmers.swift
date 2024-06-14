@@ -188,4 +188,9 @@ enum ProductsImages: String, CaseIterable {
     case fig = "figue"
     case kiwi = "kiwi"
     case beet = "betterave"
+    case bread = "pain"
+    case rusk = "biscotte"
+    case gingerbread = "pains d'épices"
+    case sandwich = "sandwich"
+    case pastrie = "viennoiserie"
 }

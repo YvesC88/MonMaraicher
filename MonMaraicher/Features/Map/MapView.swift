@@ -21,40 +21,48 @@ struct MapView: View {
             }
             UserAnnotation()
         }
+        .mapControlVisibility(.hidden)
         .mapStyle(.standard(elevation: .realistic))
-        .mapControls {
-            MapUserLocationButton()
-        }
         // FIXME: - method to rework
-        .onChange(of: viewModel.hasUserAcceptedLocation ) {
+        .onChange(of: viewModel.hasUserAcceptedLocation) {
             viewModel.reloadingFarmers()
         }
         .onAppear {
             viewModel.onViewAppear()
         }
         .overlay(alignment: .bottom) {
-            HStack {
-                nearbyFarmerButton
-                reloadFarmersButton
-                    .disabled(viewModel.farmersLoadingInProgress)
-            }
+            nearbyFarmerButton
         }
         .overlay {
             if viewModel.farmersLoadingInProgress && viewModel.hasUserAcceptedLocation {
                 LoaderAnimationView()
             }
         }
-        .overlay(alignment: .top) {
-            searchAreaButton
-                .disabled(viewModel.farmersLoadingInProgress)
+        .overlay(alignment: .topTrailing) {
+            VStack(spacing: 16) {
+                userLocationButton
+                filterButton
+            }
+            .shadow(radius: 16)
+            .padding()
         }
-        .onMapCameraChange { mapCameraUpdate in
-            viewModel.currentMapCameraPosition = mapCameraUpdate.camera.centerCoordinate
+        .overlay(alignment: .trailing) {
+            if viewModel.isFilterViewVisible {
+                filterProductView
+                    .transition(.move(edge: .trailing))
+            }
         }
-        .sheet(item: $viewModel.farmerDetailsViewModel) { farmerViewModel in
+        .onMapCameraChange(frequency: .onEnd) { mapCameraUpdate in
+            viewModel.onMapCameraChange(currentMapCameraPosition: mapCameraUpdate.camera.centerCoordinate)
+        }
+        .sheet(item: $viewModel.farmerDetailsViewModel, onDismiss: {
+            withAnimation {
+                viewModel.deselectAnnotation()
+            }
+        }, content: { farmerViewModel in
             FarmerDetailsView(viewModel: farmerViewModel)
                 .presentationDetents([.medium, .large])
-        }
+        })
         .alert(isPresented: $viewModel.isAlertPresented, error: viewModel.nearbyButtonAlert) { alert in
             alertButtons(alert: alert)
         } message: { alert in
@@ -67,42 +75,63 @@ extension MapView {
 
     private var nearbyFarmerButton: some View {
         Button {
-            viewModel.onNearbyFarmerButtonTapped()
+            withAnimation {
+                viewModel.onNearbyFarmerButtonTapped()
+            }
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .padding(20)
                 .background(Circle().fill(.regularMaterial))
-
         }
         .shadow(radius: 12)
         .padding(32)
     }
 
-    private var reloadFarmersButton: some View {
+    private var userLocationButton: some View {
         Button {
-            viewModel.onReloadingFarmersButtonTapped()
+            withAnimation {
+                viewModel.focusUserLocation()
+            }
         } label: {
-            Image(systemName: viewModel.imageSystemNameReloadButton)
+            Image(systemName: "location.fill")
                 .font(.system(size: 20, weight: .bold, design: .rounded))
-                .padding(20)
-                .background(Circle().fill(.regularMaterial))
+                .padding(10)
+                .background(Circle().fill(.thinMaterial))
         }
-        .shadow(radius: 12)
-        .padding(32)
     }
 
-    private var searchAreaButton: some View {
+    private var filterButton: some View {
         Button {
-            viewModel.onSearchAreaButtonTapped()
+            withAnimation(.smooth(duration: 0.5)) {
+                viewModel.isFilterViewVisible.toggle()
+            }
         } label: {
-            Text("Rechercher ici")
-                .font(.system(size: 20, weight: .regular, design: .rounded))
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 20).fill(.regularMaterial))
-                .shadow(radius: 12)
+            Image(systemName: "slider.horizontal.3")
+                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .padding(10)
+                .background(Circle().fill(.thinMaterial))
+        }
+    }
+
+    private var filterProductView: some View {
+        VStack(spacing: 5) {
+            ForEach(Array(viewModel.productCategories.keys.sorted()), id: \.self) { category in
+                Button {
+                    viewModel.filterProducts(by: category)
+                } label: {
+                    Text(category)
+                        .font(.system(size: 13, weight: .bold, design: .rounded))
+                        .frame(width: 70, height: 35)
+                        .foregroundStyle(.white)
+                        .background(RoundedRectangle(cornerRadius: 16)
+                            .fill(viewModel.selectedCategory == category ? .gray : .orange))
+                }
+            }
         }
         .padding()
+        .background(RoundedRectangle(cornerRadius: 20).fill(.regularMaterial))
+        .padding(.trailing, 5)
     }
 
     @ViewBuilder

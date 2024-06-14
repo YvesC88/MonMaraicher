@@ -13,7 +13,9 @@ final class MapViewModel: ObservableObject {
 
     @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
     @Published var selectedMarker: Marker?
+    @Published var selectedCategory: String?
     @Published var allMarkers: [Marker] = []
+    @Published var filteredMarkers: [Marker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     @Published var nearbyButtonAlert: NearbyButtonAlert?
@@ -21,6 +23,7 @@ final class MapViewModel: ObservableObject {
     @Published var hasTextField = false
 
     @Published var farmersLoadingInProgress = false
+    @Published var isFilterViewVisible = false
 
     @Published var searchScope = 5.0
 
@@ -37,11 +40,21 @@ final class MapViewModel: ObservableObject {
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
+    let productCategories: [String: [ProductsImages]]
 
     init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         self.imageSystemNameReloadButton = "arrow.clockwise"
+        self.productCategories = [
+            "Légumes": [.artichoke, .chicory, .cabbage, .cauliflower, .spinach, .lettuce, .celery, .corn, .eggplant, .zucchini, .pepper, .potatoes, .carrot, .beet, .vegetable],
+            "Fruits": [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato],
+            "Miel": [.beeswax, .honey, .hive],
+            "Épices": [.thyme, .aromaticPlants, .hemp],
+            "Pains": [.wheat, .bread, .rusk, .gingerbread, .sandwich, .pastrie],
+            "Huiles": [.oliveOil, .rawOliveOil, .preserves, .jam],
+            "Viandes": [.pig, .meat]
+        ]
 
         $nearbyButtonAlert
             .map { alertType in
@@ -64,7 +77,14 @@ final class MapViewModel: ObservableObject {
         guard let currentUserLocation else { return }
         Task {
             await loadFarmers(with: currentUserLocation, errorType: .loadError)
+            DispatchQueue.main.async {
+                self.applyFilter(for: self.selectedCategory)
+            }
         }
+    }
+
+    func deselectAnnotation() {
+        selectedMarker = nil
     }
 
     @MainActor private func loadFarmers(with location: CLLocation, errorType: NearbyButtonAlert) async {
@@ -76,6 +96,7 @@ final class MapViewModel: ObservableObject {
                     Marker(farmer: farmer, address: address)
                 }
             }
+            filteredMarkers = allMarkers
             farmersLoadingInProgress = false
         } catch {
             farmersLoadingInProgress = false
@@ -88,11 +109,7 @@ final class MapViewModel: ObservableObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
-    func onReloadingFarmersButtonTapped() {
-        reloadingFarmers()
-    }
-
-    func displayAnErrorIfNoUserLocation() {
+    private func displayAnErrorIfNoUserLocation() {
         if currentUserLocation == nil {
             isAlertPresented = true
             hasTextField = false
@@ -100,21 +117,55 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    func onSearchAreaButtonTapped() {
+    @MainActor private func whenMapCameraPositionMove(position: CLLocationCoordinate2D) {
         displayAnErrorIfNoUserLocation()
-        guard let currentMapCameraPosition else { return }
-        let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
+        let currentLocation = CLLocation(latitude: position.latitude, longitude: position.longitude)
         Task {
             await loadFarmers(with: currentLocation, errorType: .noFarmerAround)
+            applyFilter(for: self.selectedCategory)
         }
     }
 
     func reloadingFarmers() {
         displayAnErrorIfNoUserLocation()
-        guard let currentUserLocation else { return }
+        guard let currentMapCameraPosition else { return }
+        let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
         Task {
-            await loadFarmers(with: currentUserLocation, errorType: .loadError)
+            await loadFarmers(with: currentLocation, errorType: .loadError)
+            applyFilter(for: self.selectedCategory)
         }
+    }
+
+    func filterProducts(by category: String) {
+        if selectedCategory == category {
+            selectedCategory = nil
+        } else {
+            selectedCategory = category
+        }
+        applyFilter(for: selectedCategory)
+    }
+
+    private func applyFilter(for category: String?) {
+        guard let category = category else {
+            allMarkers = filteredMarkers
+            return
+        }
+        guard let products = productCategories[category], !products.isEmpty else {
+            return
+        }
+        allMarkers = filteredMarkers.filter { marker in
+            marker.farmer.products.contains { product in
+                products.contains { productImage in
+                    product.name.localizedCaseInsensitiveContains(productImage.rawValue)
+                }
+            }
+        }
+    }
+
+    func focusUserLocation() {
+        displayAnErrorIfNoUserLocation()
+        guard let currentUserLocation else { return }
+        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)))
     }
 
     // TODO: Write unit tests for this method
@@ -152,6 +203,17 @@ final class MapViewModel: ObservableObject {
             }
         }
         return nearbyLocation
+    }
+
+    func onMapCameraChange(currentMapCameraPosition: CLLocationCoordinate2D) {
+        var timer = Timer()
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            Task {
+                await self.whenMapCameraPositionMove(position: currentMapCameraPosition)
+            }
+        }
     }
 }
 
