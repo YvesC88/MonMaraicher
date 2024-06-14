@@ -37,6 +37,7 @@ final class MapViewModel: ObservableObject {
     }
     var hasUserAcceptedLocation: Bool { return currentUserLocation != nil }
     private let farmerService: FarmerServiceProtocol
+    private var timer = Timer()
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
@@ -206,7 +207,6 @@ final class MapViewModel: ObservableObject {
     }
 
     func onMapCameraChange(currentMapCameraPosition: CLLocationCoordinate2D) {
-        var timer = Timer()
         timer.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
             guard let self = self else { return }
