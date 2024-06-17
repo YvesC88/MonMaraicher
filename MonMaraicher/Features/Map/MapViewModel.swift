@@ -13,7 +13,6 @@ final class MapViewModel: ObservableObject {
 
     @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
     @Published var selectedMarker: Marker?
-    @Published var selectedCategory: String?
     @Published var allMarkers: [Marker] = []
     @Published var filteredMarkers: [Marker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
@@ -41,21 +40,13 @@ final class MapViewModel: ObservableObject {
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
-    let productCategories: [String: [ProductsImages]]
+    var selectedCategory: String
 
     init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         self.imageSystemNameReloadButton = "arrow.clockwise"
-        self.productCategories = [
-            "Légumes": [.artichoke, .chicory, .cabbage, .cauliflower, .spinach, .lettuce, .celery, .corn, .eggplant, .zucchini, .pepper, .potatoes, .carrot, .beet, .vegetable],
-            "Fruits": [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato],
-            "Miel": [.beeswax, .honey, .hive],
-            "Épices": [.thyme, .aromaticPlants, .hemp],
-            "Pains": [.wheat, .bread, .rusk, .gingerbread, .sandwich, .pastrie],
-            "Huiles": [.oliveOil, .rawOliveOil, .preserves, .jam],
-            "Viandes": [.pig, .meat]
-        ]
+        self.selectedCategory = ""
 
         $nearbyButtonAlert
             .map { alertType in
@@ -137,27 +128,24 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    func filterProducts(by category: String) {
-        if selectedCategory == category {
-            selectedCategory = nil
-        } else {
-            selectedCategory = category
-        }
+    func onFilterProductsButtonTapped(by category: String) {
+        selectedCategory = (selectedCategory == category) ? "" : category
         applyFilter(for: selectedCategory)
     }
 
-    private func applyFilter(for category: String?) {
-        guard let category = category else {
+    private func applyFilter(for category: String) {
+        if category == "" {
             allMarkers = filteredMarkers
-            return
-        }
-        guard let products = productCategories[category], !products.isEmpty else {
-            return
-        }
-        allMarkers = filteredMarkers.filter { marker in
-            marker.farmer.products.contains { product in
-                products.contains { productImage in
-                    product.name.localizedCaseInsensitiveContains(productImage.rawValue)
+        } else {
+            guard let productCategory = allProductsCategories.first(where: { $0.name == category }) else {
+                return
+            }
+            let products = productCategory.products
+            allMarkers = filteredMarkers.filter { marker in
+                marker.farmer.products.contains { product in
+                    products.contains { productImage in
+                        product.name.localizedCaseInsensitiveContains(productImage.rawValue)
+                    }
                 }
             }
         }
@@ -166,7 +154,7 @@ final class MapViewModel: ObservableObject {
     func focusUserLocation() {
         displayAnErrorIfNoUserLocation()
         guard let currentUserLocation else { return }
-        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)))
+        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.06, longitudeDelta: 0.06)))
     }
 
     // TODO: Write unit tests for this method
@@ -183,7 +171,7 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02))
         mapCameraPosition = .region(nearbyFarmerRegion)
     }
 

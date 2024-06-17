@@ -44,7 +44,7 @@ struct MapView: View {
                 filterButton
             }
             .shadow(radius: 16)
-            .padding()
+            .padding(10)
         }
         .overlay(alignment: .trailing) {
             if viewModel.isFilterViewVisible {
@@ -96,41 +96,44 @@ extension MapView {
         } label: {
             Image(systemName: "location.fill")
                 .font(.system(size: 20, weight: .bold, design: .rounded))
-                .padding(10)
-                .background(Circle().fill(.thinMaterial))
+                .padding(12)
+                .background(Circle().fill(.ultraThinMaterial))
         }
     }
 
     private var filterButton: some View {
         Button {
-            withAnimation(.smooth(duration: 0.5)) {
+            withAnimation(.smooth(duration: 1)) {
                 viewModel.isFilterViewVisible.toggle()
             }
         } label: {
-            Image(systemName: "slider.horizontal.3")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .padding(10)
-                .background(Circle().fill(.thinMaterial))
+            Image(.filter)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 24, height: 24)
+                .padding(12)
+                .background(Circle().fill(.ultraThinMaterial))
         }
     }
 
     private var filterProductView: some View {
         VStack(spacing: 5) {
-            ForEach(Array(viewModel.productCategories.keys.sorted()), id: \.self) { category in
+            ForEach(allProductsCategories, id: \.name) { category in
                 Button {
-                    viewModel.filterProducts(by: category)
+                    viewModel.onFilterProductsButtonTapped(by: category.name)
                 } label: {
-                    Text(category)
+                    Text(category.name)
                         .font(.system(size: 13, weight: .bold, design: .rounded))
-                        .frame(width: 70, height: 35)
+                        .frame(width: 60, height: 25)
                         .foregroundStyle(.white)
-                        .background(RoundedRectangle(cornerRadius: 16)
-                            .fill(viewModel.selectedCategory == category ? .gray : .orange))
                 }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .background(RoundedRectangle(cornerRadius: 16).fill(viewModel.selectedCategory == category.name ? .gray : .accent))
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 20).fill(.regularMaterial))
+        .background(RoundedRectangle(cornerRadius: 16).fill(.ultraThinMaterial).shadow(radius: 16))
         .padding(.trailing, 5)
     }
 
