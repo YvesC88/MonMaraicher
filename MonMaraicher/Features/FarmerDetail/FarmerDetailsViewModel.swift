@@ -23,7 +23,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let farmerAddressesTypes: [String]
     let city: String
 
-    let markerSystemImageName: String
+    let markerImage: String
     let directionButtonImageSystemName: String
     let phoneButtonImageSystemName: String
     let emailButtonImageSystemName: String
@@ -42,7 +42,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
-        self.markerSystemImageName = "laurel.leading"
+        self.markerImage = marker.image
         self.directionButtonImageSystemName = "map.fill"
         self.phoneButtonImageSystemName = "phone.fill"
         self.emailButtonImageSystemName = "envelope.fill"

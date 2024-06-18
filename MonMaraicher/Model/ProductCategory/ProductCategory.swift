@@ -10,18 +10,30 @@ import Foundation
 struct ProductCategory {
     let name: String
     let products: [ProductsImages]
+    let image: IconName
 }
 
 let allProductsCategories: [ProductCategory] = [
-    .init(name: "Légumes", products: [.artichoke, .chicory, .cabbage, .cauliflower, .spinach, .lettuce, .celery, .corn, .eggplant, .zucchini, .pepper, .potatoes, .carrot, .beet, .vegetable]),
-    .init(name: "Fruits", products: [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato, .jam]),
-    .init(name: "Miel", products: [.beeswax, .honey, .hive]),
-    .init(name: "Céréales", products: [.wheat]),
-    .init(name: "Épices", products: [.thyme, .hemp]),
-    .init(name: "Pains", products: [.bread, .rusk, .biscuit, .sandwich, .pastrie, .gingerbread]),
-    .init(name: "Huiles", products: [.oliveOil, .rawOliveOil, .preserves]),
-    .init(name: "Viandes", products: [.pig, .meat])
+    .init(name: "Légumes", products: [.artichoke, .chicory, .cabbage, .cauliflower, .spinach, .lettuce, .celery, .corn, .eggplant, .zucchini, .pepper, .potatoes, .carrot, .beet, .vegetable], image: .iconLegume),
+    .init(name: "Fruits", products: [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato, .jam], image: .iconFruit),
+    .init(name: "Miel", products: [.beeswax, .honey, .hive], image: .iconMiel),
+    .init(name: "Céréales", products: [.wheat], image: .iconCereal),
+    .init(name: "Épices", products: [.thyme, .hemp], image: .iconEpice),
+    .init(name: "Pains", products: [.bread, .rusk, .biscuit, .sandwich, .pastrie, .gingerbread], image: .iconPain),
+    .init(name: "Huiles", products: [.oliveOil, .rawOliveOil, .preserves], image: .iconHuile),
+    .init(name: "Viandes", products: [.pig, .meat], image: .iconViande)
 ]
+
+enum IconName: String {
+    case iconLegume
+    case iconFruit
+    case iconMiel
+    case iconCereal
+    case iconEpice
+    case iconPain
+    case iconHuile
+    case iconViande
+}
 
 enum ProductsImages: String, CaseIterable {
     case artichoke = "artichaut"

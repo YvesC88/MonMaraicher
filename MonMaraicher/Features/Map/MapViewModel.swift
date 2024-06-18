@@ -40,13 +40,13 @@ final class MapViewModel: ObservableObject {
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
-    var selectedCategory: String
+    var selectedCategories: Set<String>
 
     init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         self.imageSystemNameReloadButton = "arrow.clockwise"
-        self.selectedCategory = ""
+        self.selectedCategories = []
 
         $nearbyButtonAlert
             .map { alertType in
@@ -70,7 +70,7 @@ final class MapViewModel: ObservableObject {
         Task {
             await loadFarmers(with: currentUserLocation, errorType: .loadError)
             DispatchQueue.main.async {
-                self.applyFilter(for: self.selectedCategory)
+                self.applyFilter(for: self.selectedCategories)
             }
         }
     }
@@ -114,7 +114,7 @@ final class MapViewModel: ObservableObject {
         let currentLocation = CLLocation(latitude: position.latitude, longitude: position.longitude)
         Task {
             await loadFarmers(with: currentLocation, errorType: .noFarmerAround)
-            applyFilter(for: self.selectedCategory)
+            applyFilter(for: self.selectedCategories)
         }
     }
 
@@ -124,27 +124,34 @@ final class MapViewModel: ObservableObject {
         let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
         Task {
             await loadFarmers(with: currentLocation, errorType: .loadError)
-            applyFilter(for: self.selectedCategory)
+            applyFilter(for: self.selectedCategories)
         }
     }
 
     func onFilterProductsButtonTapped(by category: String) {
-        selectedCategory = (selectedCategory == category) ? "" : category
-        applyFilter(for: selectedCategory)
+        if selectedCategories.contains(category) {
+            selectedCategories.remove(category)
+        } else {
+            selectedCategories.insert(category)
+        }
+        applyFilter(for: selectedCategories)
     }
 
-    private func applyFilter(for category: String) {
-        if category == "" {
+    private func applyFilter(for categories: Set<String>) {
+        guard !categories.isEmpty else {
             allMarkers = filteredMarkers
-        } else {
-            guard let productCategory = allProductsCategories.first(where: { $0.name == category }) else {
-                return
-            }
-            let products = productCategory.products
-            allMarkers = filteredMarkers.filter { marker in
-                marker.farmer.products.contains { product in
-                    products.contains { productImage in
-                        product.name.localizedCaseInsensitiveContains(productImage.rawValue)
+            return
+        }
+        allMarkers = filteredMarkers.filter { marker in
+            categories.allSatisfy { category in
+                guard let productCategory = allProductsCategories.first(where: { $0.name == category }) else {
+                    return false
+                }
+
+                let productsInCategory = productCategory.products
+                return marker.farmer.products.contains { product in
+                    productsInCategory.contains { productInCategory in
+                        product.name.localizedCaseInsensitiveContains(productInCategory.rawValue)
                     }
                 }
             }
@@ -154,7 +161,7 @@ final class MapViewModel: ObservableObject {
     func focusUserLocation() {
         displayAnErrorIfNoUserLocation()
         guard let currentUserLocation else { return }
-        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.06, longitudeDelta: 0.06)))
+        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     }
 
     // TODO: Write unit tests for this method
@@ -218,8 +225,8 @@ extension Farmer {
         return businessName.capitalized
     }
 
-    var systemImageName: String {
-        return "laurel.leading"
+    var imageName: String {
+        return "farmerIcon"
     }
 }
 
@@ -305,7 +312,7 @@ extension MapViewModel {
         let id: UUID
         let title: String
         let coordinate: CLLocationCoordinate2D
-        let systemImage: String
+        let image: String
         let address: Address
         let farmer: Farmer
 
@@ -313,7 +320,7 @@ extension MapViewModel {
             self.id = UUID()
             self.title = farmer.title
             self.coordinate = .init(latitude: address.latitude, longitude: address.longitude)
-            self.systemImage = farmer.systemImageName
+            self.image = farmer.imageName
             self.address = address
             self.farmer = farmer
         }

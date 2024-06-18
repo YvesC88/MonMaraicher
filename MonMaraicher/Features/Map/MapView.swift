@@ -15,7 +15,7 @@ struct MapView: View {
     var body: some View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
             ForEach(viewModel.allMarkers, id: \.id) { marker in
-                Marker(marker.title, systemImage: marker.systemImage, coordinate: marker.coordinate)
+                Marker(marker.title, image: marker.image, coordinate: marker.coordinate)
                     .tag(marker)
                     .tint(.orange)
             }
@@ -50,6 +50,7 @@ struct MapView: View {
             if viewModel.isFilterViewVisible {
                 filterProductView
                     .transition(.move(edge: .trailing))
+                    .padding(.top)
             }
         }
         .onMapCameraChange(frequency: .onEnd) { mapCameraUpdate in
@@ -107,7 +108,7 @@ extension MapView {
                 viewModel.isFilterViewVisible.toggle()
             }
         } label: {
-            Image(.filter)
+            Image(.filterIcon)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 24, height: 24)
@@ -122,19 +123,26 @@ extension MapView {
                 Button {
                     viewModel.onFilterProductsButtonTapped(by: category.name)
                 } label: {
-                    Text(category.name)
-                        .font(.system(size: 13, weight: .bold, design: .rounded))
-                        .frame(width: 60, height: 25)
-                        .foregroundStyle(.white)
+                    VStack {
+                        Image(category.image.rawValue)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 28, height: 28)
+                    }
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.small)
-                .background(RoundedRectangle(cornerRadius: 16).fill(viewModel.selectedCategory == category.name ? .gray : .accent))
+                .padding(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.white)
+                        .shadow(radius: 16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.accent, lineWidth: 3)
+                                .opacity(viewModel.selectedCategories.contains(category.name) ? 1 : 0))
+                )
             }
         }
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 16).fill(.ultraThinMaterial).shadow(radius: 16))
-        .padding(.trailing, 5)
+        .padding(.trailing, 10)
     }
 
     @ViewBuilder

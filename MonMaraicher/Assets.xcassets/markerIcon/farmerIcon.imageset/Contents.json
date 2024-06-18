@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "chapeau-de-fermier.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

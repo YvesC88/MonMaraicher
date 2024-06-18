@@ -143,7 +143,7 @@ private extension FarmerDetailsView {
 
     private var mapSection: some View {
         Map(position: .constant(.automatic), bounds: .init(minimumDistance: 1000)) {
-            Marker(viewModel.title, systemImage: viewModel.markerSystemImageName, coordinate: viewModel.coordinate)
+            Marker(viewModel.title, image: viewModel.markerImage, coordinate: viewModel.coordinate)
                 .tint(.orange)
         }
         .aspectRatio(2, contentMode: .fit)
