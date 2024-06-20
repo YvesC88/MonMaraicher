@@ -147,7 +147,6 @@ final class MapViewModel: ObservableObject {
                 guard let productCategory = allProductsCategories.first(where: { $0.name == category }) else {
                     return false
                 }
-
                 let productsInCategory = productCategory.products
                 return marker.farmer.products.contains { product in
                     productsInCategory.contains { productInCategory in

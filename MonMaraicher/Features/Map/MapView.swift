@@ -23,7 +23,6 @@ struct MapView: View {
         }
         .mapControlVisibility(.hidden)
         .mapStyle(.standard(elevation: .realistic))
-        // FIXME: - method to rework
         .onChange(of: viewModel.hasUserAcceptedLocation) {
             viewModel.reloadingFarmers()
         }
@@ -50,7 +49,7 @@ struct MapView: View {
             if viewModel.isFilterViewVisible {
                 filterProductView
                     .transition(.move(edge: .trailing))
-                    .padding(.top)
+                    .padding(.top, 50)
             }
         }
         .onMapCameraChange(frequency: .onEnd) { mapCameraUpdate in
@@ -98,7 +97,7 @@ extension MapView {
             Image(systemName: "location.fill")
                 .font(.system(size: 20, weight: .bold, design: .rounded))
                 .padding(12)
-                .background(Circle().fill(.ultraThinMaterial))
+                .background(Circle().fill(.regularMaterial))
         }
     }
 
@@ -113,7 +112,7 @@ extension MapView {
                 .scaledToFill()
                 .frame(width: 24, height: 24)
                 .padding(12)
-                .background(Circle().fill(.ultraThinMaterial))
+                .background(Circle().fill(.regularMaterial))
         }
     }
 
@@ -128,16 +127,19 @@ extension MapView {
                             .resizable()
                             .scaledToFill()
                             .frame(width: 28, height: 28)
+                        Text(category.name)
+                            .font(.system(size: 8, weight: .medium, design: .rounded))
                     }
+                    .frame(width: 52, height: 32)
                 }
-                .padding(10)
+                .padding(8)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(.white)
+                        .fill(.regularMaterial)
                         .shadow(radius: 16)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(.accent, lineWidth: 3)
+                                .stroke(.accent, lineWidth: 2)
                                 .opacity(viewModel.selectedCategories.contains(category.name) ? 1 : 0))
                 )
             }

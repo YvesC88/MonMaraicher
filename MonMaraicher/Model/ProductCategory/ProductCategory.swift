@@ -15,11 +15,11 @@ struct ProductCategory {
 
 let allProductsCategories: [ProductCategory] = [
     .init(name: "Légumes", products: [.artichoke, .chicory, .cabbage, .cauliflower, .spinach, .lettuce, .celery, .corn, .eggplant, .zucchini, .pepper, .potatoes, .carrot, .beet, .vegetable], image: .iconLegume),
-    .init(name: "Fruits", products: [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato, .jam], image: .iconFruit),
+    .init(name: "Fruits", products: [.cherry, .strawberry, .raspberry, .grapefruit, .apricot, .grape, .apple, .peach, .pear, .watermelon, .fig, .kiwi, .tomato, .jam, .fruit], image: .iconFruit),
     .init(name: "Miel", products: [.beeswax, .honey, .hive], image: .iconMiel),
     .init(name: "Céréales", products: [.wheat], image: .iconCereal),
     .init(name: "Épices", products: [.thyme, .hemp], image: .iconEpice),
-    .init(name: "Pains", products: [.bread, .rusk, .biscuit, .sandwich, .pastrie, .gingerbread], image: .iconPain),
+    .init(name: "Boulangeries", products: [.bread, .rusk, .biscuit, .sandwich, .pastrie, .gingerbread], image: .iconPain),
     .init(name: "Huiles", products: [.oliveOil, .rawOliveOil, .preserves], image: .iconHuile),
     .init(name: "Viandes", products: [.pig, .meat], image: .iconViande)
 ]
@@ -54,7 +54,7 @@ enum ProductsImages: String, CaseIterable {
     case apricot = "abricot"
     case grape = "raisin"
     case tomato = "tomate"
-    case vegetable = "légumes frais"
+    case vegetable = "légume"
     case apple = "pomme"
     case wheat = "blé"
     case peach = "pêche"
@@ -72,13 +72,14 @@ enum ProductsImages: String, CaseIterable {
     case carrot = "carotte"
     case jam = "confiture"
     case hemp = "chanvre"
-    case aromaticPlants = "épice"
+    case aromaticPlants = "épices"
     case pig = "porc"
     case meat = "viande"
     case fig = "figue"
     case kiwi = "kiwi"
     case beet = "betterave"
     case bread = "pain"
+    case fruit = "fruit"
     case rusk = "biscotte"
     case sandwich = "sandwich"
     case pastrie = "viennoiserie"
