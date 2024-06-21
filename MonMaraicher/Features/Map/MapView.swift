@@ -80,7 +80,7 @@ extension MapView {
             }
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
-                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .font(.custom("ChauPhilomeneOne-Regular", size: 20))
                 .padding(20)
                 .background(Circle().fill(.regularMaterial))
         }
@@ -95,7 +95,7 @@ extension MapView {
             }
         } label: {
             Image(systemName: "location.fill")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
+                .font(.custom("ChauPhilomeneOne-Regular", size: 20))
                 .padding(12)
                 .background(Circle().fill(.regularMaterial))
         }
@@ -110,7 +110,7 @@ extension MapView {
             Image(.filterIcon)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 24, height: 24)
+                .frame(width: 20, height: 20)
                 .padding(12)
                 .background(Circle().fill(.regularMaterial))
         }
@@ -128,7 +128,7 @@ extension MapView {
                             .scaledToFill()
                             .frame(width: 28, height: 28)
                         Text(category.name)
-                            .font(.system(size: 8, weight: .medium, design: .rounded))
+                            .font(.custom("ChauPhilomeneOne-Regular", size: 10))
                     }
                     .frame(width: 52, height: 32)
                 }

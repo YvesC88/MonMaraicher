@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
+		FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */; };
 		FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
 		FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChauPhilomeneOne-Regular.ttf"; sourceTree = "<group>"; };
 		FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAnimationView.swift; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				FB7CAA632B90EB330093540E /* Features */,
 				FB7260502B909708003A1A40 /* Model */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
+				FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
 			);
@@ -276,6 +279,7 @@
 				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
 				FBF882F92BE53196002496E6 /* Farmers.json in Resources */,
+				FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

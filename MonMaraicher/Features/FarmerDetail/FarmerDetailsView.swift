@@ -64,11 +64,11 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.system(size: 30, weight: .bold, design: .rounded))
+                .font(.custom("ChauPhilomeneOne-Regular", size: 30))
                 .foregroundStyle(.accent)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .font(.custom("ChauPhilomeneOne-Regular", size: 15))
             }
         }
         .padding(.trailing)
@@ -79,10 +79,10 @@ private extension FarmerDetailsView {
             RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
             VStack {
                 Text("distance".uppercased())
-                    .font(.system(size: 10))
+                    .font(.custom("ChauPhilomeneOne-Regular", size: 10))
                     .foregroundStyle(.secondary)
                 Text(viewModel.distance)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .font(.custom("ChauPhilomeneOne-Regular", size: 17))
             }
             .frame(maxWidth: .infinity)
         }
@@ -96,8 +96,8 @@ private extension FarmerDetailsView {
                     self.showingProductsList.toggle()
                 } label: {
                     Text("Liste des produits")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                         .foregroundStyle(.white)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 }
                 .sheet(isPresented: $showingProductsList) {
                     ProductsView(products: viewModel.products)
@@ -157,10 +157,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Adresse")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                         .foregroundStyle(.secondary)
-                        .font(.subheadline)
                     Text(viewModel.address)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                 }
                 Spacer()
                 directionButton
@@ -169,10 +169,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Téléphone")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                         .foregroundStyle(.secondary)
-                        .font(.subheadline)
                     Text(viewModel.phoneNumber ?? "Aucun numéro disponible")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                 }
                 Spacer()
                 if viewModel.phoneNumber != nil {
@@ -183,10 +183,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Email")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                         .foregroundStyle(.secondary)
-                        .font(.subheadline)
                     Text(viewModel.email ?? "Aucune adresse email")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                 }
                 Spacer()
                 if viewModel.email != nil {
@@ -196,14 +196,16 @@ private extension FarmerDetailsView {
             Divider()
             VStack(alignment: .leading) {
                 Text("Site Web")
+                    .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                     .foregroundStyle(.secondary)
-                    .font(.subheadline)
                 if !viewModel.websites.isEmpty {
                     ForEach(viewModel.websites, id: \.id) { website in
                         Text(.init(viewModel.formatWebsite(website)))
+                            .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                     }
                 } else {
                     Text("Aucun site web")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                 }
             }
             .font(.system(size: 15, weight: .semibold, design: .rounded))

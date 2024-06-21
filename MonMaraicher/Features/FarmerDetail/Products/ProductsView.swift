@@ -15,7 +15,7 @@ struct ProductsView: View {
         List {
             ForEach(products, id: \.id) { product in
                 Text(product.name)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .font(.custom("ChauPhilomeneOne-Regular", size: 17))
                     .foregroundStyle(.accent)
             }
         }
