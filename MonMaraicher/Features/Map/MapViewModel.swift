@@ -84,9 +84,8 @@ final class MapViewModel: ObservableObject {
             farmersLoadingInProgress = true
             let farmers = try await self.farmerService.searchFarmers(around: location)
             allMarkers = farmers.items.flatMap { farmer in
-                farmer.addresses.map { address in
-                    Marker(farmer: farmer, address: address)
-                }
+                farmer.addresses.filter { !$0.farmerAddressesTypes.contains("Siège social") || $0.farmerAddressesTypes.count >= 2 }
+                    .map { Marker(farmer: farmer, address: $0) }
             }
             filteredMarkers = allMarkers
             farmersLoadingInProgress = false

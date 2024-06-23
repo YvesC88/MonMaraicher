@@ -107,12 +107,23 @@ extension MapView {
                 viewModel.isFilterViewVisible.toggle()
             }
         } label: {
-            Image(.filterIcon)
-                .resizable()
-                .scaledToFill()
-                .frame(width: 20, height: 20)
-                .padding(12)
-                .background(Circle().fill(.regularMaterial))
+            ZStack(alignment: .topTrailing) {
+                Image(.filterIcon)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 20, height: 20)
+                    .padding(12)
+                    .background(Circle().fill(.regularMaterial))
+
+                if viewModel.selectedCategories.count > 0 {
+                    Text("\(viewModel.selectedCategories.count)")
+                        .font(.custom("ChauPhilomeneOne-Regular", size: 10))
+                        .foregroundStyle(.white)
+                        .frame(width: 15, height: 15)
+                        .background(.red)
+                        .clipShape(.circle)
+                }
+            }
         }
     }
 

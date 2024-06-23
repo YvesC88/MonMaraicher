@@ -42,7 +42,12 @@ struct FarmerDetailsView: View {
                 }
                 .padding()
                 .background()
-                .clipShape(.rect(cornerRadius: 32))
+                .clipShape(.rect(cornerRadius: 20))
+                .overlay(alignment: .topTrailing) {
+                    Image(.bio)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                }
                 .shadow(color: .black.opacity(0.3), radius: 16, x: 0, y: -32)
             }
             .ignoresSafeArea()
