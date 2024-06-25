@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import FirebaseAnalytics
 
 struct FarmerDetailsViewModel: Identifiable, Hashable {
     let id: UUID
@@ -29,6 +30,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let emailButtonImageSystemName: String
 
     init(marker: MapViewModel.Marker) {
+        Analytics.logEvent("marker_tapped", parameters: nil)
         self.id = marker.id
         self.title = marker.title
         self.phoneNumber = marker.farmer.businessPhone ?? marker.farmer.personalPhone
@@ -65,6 +67,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     }
 
     func onDirectionButtonTapped() {
+        Analytics.logEvent("get_direction", parameters: nil)
         let placemark = MKPlacemark(coordinate: self.coordinate)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = self.title

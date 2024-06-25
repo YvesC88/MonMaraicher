@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import FirebaseAnalytics
 
 struct MapView: View {
 
@@ -92,6 +93,7 @@ extension MapView {
         Button {
             withAnimation {
                 viewModel.focusUserLocation()
+                Analytics.logEvent("userLocationButton_tapped", parameters: nil)
             }
         } label: {
             Image(systemName: "location.fill")
@@ -120,7 +122,7 @@ extension MapView {
                         .font(.custom("ChauPhilomeneOne-Regular", size: 10))
                         .foregroundStyle(.white)
                         .frame(width: 15, height: 15)
-                        .background(.red)
+                        .background(.accent)
                         .clipShape(.circle)
                 }
             }
@@ -133,7 +135,7 @@ extension MapView {
                 Button {
                     viewModel.onFilterProductsButtonTapped(by: category.name)
                 } label: {
-                    VStack {
+                    VStack(spacing: 0) {
                         Image(category.image.rawValue)
                             .resizable()
                             .scaledToFill()
@@ -141,7 +143,7 @@ extension MapView {
                         Text(category.name)
                             .font(.custom("ChauPhilomeneOne-Regular", size: 10))
                     }
-                    .frame(width: 52, height: 32)
+                    .frame(width: 52, height: 30)
                 }
                 .padding(8)
                 .background(

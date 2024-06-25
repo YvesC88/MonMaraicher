@@ -8,6 +8,7 @@
 import MapKit
 import Combine
 import SwiftUI
+import FirebaseAnalytics
 
 final class MapViewModel: ObservableObject {
 
@@ -109,6 +110,7 @@ final class MapViewModel: ObservableObject {
     }
 
     @MainActor private func whenMapCameraPositionMove(position: CLLocationCoordinate2D) {
+        Analytics.logEvent("scrolling_on_map", parameters: nil)
         displayAnErrorIfNoUserLocation()
         let currentLocation = CLLocation(latitude: position.latitude, longitude: position.longitude)
         Task {
@@ -128,6 +130,7 @@ final class MapViewModel: ObservableObject {
     }
 
     func onFilterProductsButtonTapped(by category: String) {
+        Analytics.logEvent("filterButton_tapped", parameters: ["category": category])
         if selectedCategories.contains(category) {
             selectedCategories.remove(category)
         } else {
@@ -164,6 +167,7 @@ final class MapViewModel: ObservableObject {
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
+        Analytics.logEvent("nearbyButton_tapped", parameters: nil)
         guard let currentUserLocation else {
             isAlertPresented = true
             hasTextField = false

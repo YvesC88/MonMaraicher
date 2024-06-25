@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB151CE52C29AD61002851BB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB151CE42C29AD61002851BB /* FirebaseAnalytics */; };
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
 		FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */; };
 		FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */; };
@@ -26,6 +27,7 @@
 		FBDEB9BE2BF63CBC0024520A /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEB9BD2BF63CBC0024520A /* ProductsView.swift */; };
 		FBF882F92BE53196002496E6 /* Farmers.json in Resources */ = {isa = PBXBuildFile; fileRef = FBF882F82BE53196002496E6 /* Farmers.json */; };
 		FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF882FA2BE532C9002496E6 /* FarmersTests.swift */; };
+		FBFB65DF2C2A23E600821415 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBFB65DE2C2A23E600821415 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,7 @@
 		FBDEB9BD2BF63CBC0024520A /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
 		FBF882F82BE53196002496E6 /* Farmers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Farmers.json; sourceTree = "<group>"; };
 		FBF882FA2BE532C9002496E6 /* FarmersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmersTests.swift; sourceTree = "<group>"; };
+		FBFB65DE2C2A23E600821415 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB151CE52C29AD61002851BB /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +170,7 @@
 				FB7CAA632B90EB330093540E /* Features */,
 				FB7260502B909708003A1A40 /* Model */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
+				FBFB65DE2C2A23E600821415 /* GoogleService-Info.plist */,
 				FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
@@ -207,6 +212,7 @@
 			);
 			name = MonMaraicher;
 			packageProductDependencies = (
+				FB151CE42C29AD61002851BB /* FirebaseAnalytics */,
 			);
 			productName = MonMaraicher;
 			productReference = FB832C592B87540200E60C19 /* MonMaraicher.app */;
@@ -260,6 +266,7 @@
 			);
 			mainGroup = FB832C502B87540200E60C19;
 			packageReferences = (
+				FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = FB832C5A2B87540200E60C19 /* Products */;
 			projectDirPath = "";
@@ -278,6 +285,7 @@
 			files = (
 				FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */,
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
+				FBFB65DF2C2A23E600821415 /* GoogleService-Info.plist in Resources */,
 				FBF882F92BE53196002496E6 /* Farmers.json in Resources */,
 				FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */,
 			);
@@ -492,6 +500,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 8ZV67K9B93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MonMaraicher/Info.plist;
@@ -508,7 +517,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -544,7 +553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = yves.charpentier.MonMaraicher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -631,6 +640,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FB151CE42C29AD61002851BB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FB832C512B87540200E60C19 /* Project object */;
 }

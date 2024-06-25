@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import FirebaseAnalytics
 
 struct FarmerDetailsView: View {
 
@@ -47,6 +48,7 @@ struct FarmerDetailsView: View {
                     Image(.bio)
                         .resizable()
                         .frame(width: 50, height: 50)
+                        .padding(-0.7)
                 }
                 .shadow(color: .black.opacity(0.3), radius: 16, x: 0, y: -32)
             }
@@ -99,6 +101,7 @@ private extension FarmerDetailsView {
             VStack {
                 Button {
                     self.showingProductsList.toggle()
+                    Analytics.logEvent("products_details", parameters: nil)
                 } label: {
                     Text("Liste des produits")
                         .font(.custom("ChauPhilomeneOne-Regular", size: 15))
