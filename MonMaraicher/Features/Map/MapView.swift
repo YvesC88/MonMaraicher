@@ -11,14 +11,15 @@ import FirebaseAnalytics
 
 struct MapView: View {
 
+    @AppStorage("hasSkip") var hasSkip: Bool = false
     @StateObject private var viewModel = MapViewModel(farmerService: FarmerService())
 
     var body: some View {
         Map(position: $viewModel.mapCameraPosition, selection: $viewModel.selectedMarker) {
             ForEach(viewModel.allMarkers, id: \.id) { marker in
-                Marker(marker.title, image: marker.image, coordinate: marker.coordinate)
+                Marker(marker.title, systemImage: marker.image, coordinate: marker.coordinate)
                     .tag(marker)
-                    .tint(.orange)
+                    .tint(.accent)
             }
             UserAnnotation()
         }
@@ -28,7 +29,9 @@ struct MapView: View {
             viewModel.reloadingFarmers()
         }
         .onAppear {
-            viewModel.onViewAppear()
+            if !hasSkip {
+                viewModel.onViewAppear()
+            }
         }
         .overlay(alignment: .bottom) {
             nearbyFarmerButton
@@ -81,7 +84,7 @@ extension MapView {
             }
         } label: {
             Image(systemName: viewModel.imageSystemNameSearchButton)
-                .font(.custom("ChauPhilomeneOne-Regular", size: 20))
+                .font(.system(size: 20, weight: .bold, design: .rounded))
                 .padding(20)
                 .background(Circle().fill(.regularMaterial))
         }
@@ -97,7 +100,7 @@ extension MapView {
             }
         } label: {
             Image(systemName: "location.fill")
-                .font(.custom("ChauPhilomeneOne-Regular", size: 20))
+                .font(.system(size: 20, weight: .bold, design: .rounded))
                 .padding(12)
                 .background(Circle().fill(.regularMaterial))
         }
@@ -110,16 +113,14 @@ extension MapView {
             }
         } label: {
             ZStack(alignment: .topTrailing) {
-                Image(.filterIcon)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 20, height: 20)
+                Image(systemName: "slider.horizontal.3")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
                     .padding(12)
                     .background(Circle().fill(.regularMaterial))
 
                 if viewModel.selectedCategories.count > 0 {
                     Text("\(viewModel.selectedCategories.count)")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 10))
+                        .font(.system(size: 10, weight: .regular, design: .rounded))
                         .foregroundStyle(.white)
                         .frame(width: 15, height: 15)
                         .background(.accent)
@@ -139,11 +140,12 @@ extension MapView {
                         Image(category.image.rawValue)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 28, height: 28)
+                            .frame(width: 24, height: 24)
                         Text(category.name)
-                            .font(.custom("ChauPhilomeneOne-Regular", size: 10))
+                            .foregroundStyle(.accent)
+                            .font(.system(size: 9, weight: .bold, design: .rounded))
                     }
-                    .frame(width: 52, height: 30)
+                    .frame(width: 62, height: 30)
                 }
                 .padding(8)
                 .background(

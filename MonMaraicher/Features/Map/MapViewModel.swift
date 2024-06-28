@@ -111,7 +111,9 @@ final class MapViewModel: ObservableObject {
 
     @MainActor private func whenMapCameraPositionMove(position: CLLocationCoordinate2D) {
         Analytics.logEvent("scrolling_on_map", parameters: nil)
-        displayAnErrorIfNoUserLocation()
+        guard hasUserAcceptedLocation else {
+            return
+        }
         let currentLocation = CLLocation(latitude: position.latitude, longitude: position.longitude)
         Task {
             await loadFarmers(with: currentLocation, errorType: .noFarmerAround)
@@ -228,7 +230,7 @@ extension Farmer {
     }
 
     var imageName: String {
-        return "farmerIcon"
+        return "leaf.fill"
     }
 }
 

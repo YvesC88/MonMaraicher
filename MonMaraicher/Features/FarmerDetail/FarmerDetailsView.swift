@@ -25,7 +25,7 @@ struct FarmerDetailsView: View {
         ZStack(alignment: .top) {
             headerImage
             ScrollView(.vertical, showsIndicators: false) {
-                Spacer(minLength: 180)
+                Spacer(minLength: 260)
                 VStack(alignment: .leading, spacing: 16) {
                     titleSection
                     Divider()
@@ -71,11 +71,11 @@ private extension FarmerDetailsView {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
-                .font(.custom("ChauPhilomeneOne-Regular", size: 30))
+                .font(.system(size: 30, weight: .bold, design: .rounded))
                 .foregroundStyle(.accent)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
-                    .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
             }
         }
         .padding(.trailing)
@@ -86,10 +86,10 @@ private extension FarmerDetailsView {
             RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
             VStack {
                 Text("distance".uppercased())
-                    .font(.custom("ChauPhilomeneOne-Regular", size: 10))
+                    .font(.system(size: 10))
                     .foregroundStyle(.secondary)
                 Text(viewModel.distance)
-                    .font(.custom("ChauPhilomeneOne-Regular", size: 17))
+                    .font(.system(size: 17, weight: .semibold, design: .rounded))
             }
             .frame(maxWidth: .infinity)
         }
@@ -104,7 +104,7 @@ private extension FarmerDetailsView {
                     Analytics.logEvent("products_details", parameters: nil)
                 } label: {
                     Text("Liste des produits")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                         .foregroundStyle(.white)
                 }
                 .sheet(isPresented: $showingProductsList) {
@@ -151,8 +151,8 @@ private extension FarmerDetailsView {
 
     private var mapSection: some View {
         Map(position: .constant(.automatic), bounds: .init(minimumDistance: 1000)) {
-            Marker(viewModel.title, image: viewModel.markerImage, coordinate: viewModel.coordinate)
-                .tint(.orange)
+            Marker(viewModel.title, systemImage: viewModel.markerImage, coordinate: viewModel.coordinate)
+                .tint(.accent)
         }
         .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
@@ -165,10 +165,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Adresse")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Text(viewModel.address)
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 directionButton
@@ -177,10 +177,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Téléphone")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Text(viewModel.phoneNumber ?? "Aucun numéro disponible")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 if viewModel.phoneNumber != nil {
@@ -191,10 +191,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Email")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
                     Text(viewModel.email ?? "Aucune adresse email")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 if viewModel.email != nil {
@@ -204,19 +204,17 @@ private extension FarmerDetailsView {
             Divider()
             VStack(alignment: .leading) {
                 Text("Site Web")
-                    .font(.custom("ChauPhilomeneOne-Regular", size: 15))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
                 if !viewModel.websites.isEmpty {
                     ForEach(viewModel.websites, id: \.id) { website in
                         Text(.init(viewModel.formatWebsite(website)))
-                            .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                     }
                 } else {
                     Text("Aucun site web")
-                        .font(.custom("ChauPhilomeneOne-Regular", size: 15))
                 }
             }
-            .font(.system(size: 15, weight: .semibold, design: .rounded))
+            .font(.system(size: 15, weight: .medium, design: .rounded))
         }
         .padding()
         .background(.regularMaterial)

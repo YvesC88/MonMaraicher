@@ -30,7 +30,7 @@ extension LoaderAnimationView {
             Circle()
                 .trim(from: 0.2, to: trimCircleEnd)
                 .stroke(style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                .fill(LinearGradient(colors: [.red, .white], startPoint: .leading, endPoint: .trailing))
+                .fill(LinearGradient(colors: [.accentColor, .white], startPoint: .leading, endPoint: .trailing))
                 .rotationEffect(rotationDegree)
                 .onAppear {
                     animationLoader()

@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB151CE52C29AD61002851BB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FB151CE42C29AD61002851BB /* FirebaseAnalytics */; };
+		FB01E22E2C2B1A0500CD500A /* OnBoardingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB01E22D2C2B1A0500CD500A /* OnBoardingCardView.swift */; };
+		FB01E2302C2B294B00CD500A /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB01E22F2C2B294B00CD500A /* OnBoardingView.swift */; };
 		FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB31C8C02B87604F00EDCD75 /* MapView.swift */; };
-		FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */; };
 		FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */; };
 		FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7260482B8D6232003A1A40 /* MapViewModel.swift */; };
 		FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */; };
 		FB7407172BE53A2D004111FA /* FarmerDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */; };
 		FB7CAA682B90EB920093540E /* FarmerDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */; };
-		FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5C2B87540200E60C19 /* AppDelegate.swift */; };
-		FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB832C5E2B87540200E60C19 /* SceneDelegate.swift */; };
 		FB832C662B87540600E60C19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB832C652B87540600E60C19 /* Assets.xcassets */; };
 		FB832C692B87540600E60C19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB832C672B87540600E60C19 /* LaunchScreen.storyboard */; };
+		FB846E5A2C2DB96100F8061D /* MonMaraicherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB846E592C2DB96100F8061D /* MonMaraicherApp.swift */; };
 		FB929C1D2C0B171F0065135B /* FarmerServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB929C1C2C0B171F0065135B /* FarmerServiceTests.swift */; };
 		FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA13FF02BC73AEB0025C200 /* Farmers.swift */; };
 		FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */; };
 		FBBEFF852C1CA74A0012D53E /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBEFF842C1CA74A0012D53E /* ProductCategory.swift */; };
 		FBC81EAB2BF6035E006F9EC8 /* FarmerServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBF6A822BEA7878005CCDAA /* FarmerServiceMock.swift */; };
+		FBC8ED942C2EBF2D00ECE2A6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FBC8ED932C2EBF2D00ECE2A6 /* FirebaseAnalytics */; };
 		FBDEB9BE2BF63CBC0024520A /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDEB9BD2BF63CBC0024520A /* ProductsView.swift */; };
 		FBF882F92BE53196002496E6 /* Farmers.json in Resources */ = {isa = PBXBuildFile; fileRef = FBF882F82BE53196002496E6 /* Farmers.json */; };
 		FBF882FB2BE532C9002496E6 /* FarmersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF882FA2BE532C9002496E6 /* FarmersTests.swift */; };
@@ -41,20 +41,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB01E22D2C2B1A0500CD500A /* OnBoardingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingCardView.swift; sourceTree = "<group>"; };
+		FB01E22F2C2B294B00CD500A /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
 		FB31C8C02B87604F00EDCD75 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ChauPhilomeneOne-Regular.ttf"; sourceTree = "<group>"; };
 		FB5FE87D2C060B0D00E8CD13 /* LoaderAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAnimationView.swift; sourceTree = "<group>"; };
 		FB7260482B8D6232003A1A40 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FB72604E2B8DEE60003A1A40 /* FarmerDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsView.swift; sourceTree = "<group>"; };
 		FB7407162BE53A2D004111FA /* FarmerDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModelTests.swift; sourceTree = "<group>"; };
 		FB7CAA672B90EB920093540E /* FarmerDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerDetailsViewModel.swift; sourceTree = "<group>"; };
 		FB832C592B87540200E60C19 /* MonMaraicher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonMaraicher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB832C5C2B87540200E60C19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FB832C5E2B87540200E60C19 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FB832C652B87540600E60C19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB832C682B87540600E60C19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB832C6A2B87540600E60C19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB832C6F2B87540600E60C19 /* MonMaraicherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonMaraicherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB846E592C2DB96100F8061D /* MonMaraicherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonMaraicherApp.swift; sourceTree = "<group>"; };
 		FB929C1C2C0B171F0065135B /* FarmerServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerServiceTests.swift; sourceTree = "<group>"; };
 		FBA13FF02BC73AEB0025C200 /* Farmers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Farmers.swift; sourceTree = "<group>"; };
 		FBB6B8A02BA481E300D9D3F6 /* FarmerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmerService.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB151CE52C29AD61002851BB /* FirebaseAnalytics in Frameworks */,
+				FBC8ED942C2EBF2D00ECE2A6 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +95,15 @@
 			path = Farmer;
 			sourceTree = "<group>";
 		};
+		FB01E22C2C2B197F00CD500A /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				FB01E22D2C2B1A0500CD500A /* OnBoardingCardView.swift */,
+				FB01E22F2C2B294B00CD500A /* OnBoardingView.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		FB5FE87F2C060E2B00E8CD13 /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +124,7 @@
 		FB7CAA632B90EB330093540E /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				FB01E22C2C2B197F00CD500A /* OnBoarding */,
 				FB7CAA642B90EB500093540E /* Map */,
 				FB7CAA652B90EB620093540E /* FarmerDetail */,
 			);
@@ -164,14 +174,12 @@
 		FB832C5B2B87540200E60C19 /* MonMaraicher */ = {
 			isa = PBXGroup;
 			children = (
-				FB832C5C2B87540200E60C19 /* AppDelegate.swift */,
-				FB832C5E2B87540200E60C19 /* SceneDelegate.swift */,
+				FB846E592C2DB96100F8061D /* MonMaraicherApp.swift */,
 				FB5FE87F2C060E2B00E8CD13 /* Animations */,
 				FB7CAA632B90EB330093540E /* Features */,
 				FB7260502B909708003A1A40 /* Model */,
 				FB832C652B87540600E60C19 /* Assets.xcassets */,
 				FBFB65DE2C2A23E600821415 /* GoogleService-Info.plist */,
-				FB3434132C259E0D00DE35B5 /* ChauPhilomeneOne-Regular.ttf */,
 				FB832C672B87540600E60C19 /* LaunchScreen.storyboard */,
 				FB832C6A2B87540600E60C19 /* Info.plist */,
 			);
@@ -212,7 +220,7 @@
 			);
 			name = MonMaraicher;
 			packageProductDependencies = (
-				FB151CE42C29AD61002851BB /* FirebaseAnalytics */,
+				FBC8ED932C2EBF2D00ECE2A6 /* FirebaseAnalytics */,
 			);
 			productName = MonMaraicher;
 			productReference = FB832C592B87540200E60C19 /* MonMaraicher.app */;
@@ -266,7 +274,7 @@
 			);
 			mainGroup = FB832C502B87540200E60C19;
 			packageReferences = (
-				FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FBC8ED922C2EBF2C00ECE2A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = FB832C5A2B87540200E60C19 /* Products */;
 			projectDirPath = "";
@@ -287,7 +295,6 @@
 				FB832C662B87540600E60C19 /* Assets.xcassets in Resources */,
 				FBFB65DF2C2A23E600821415 /* GoogleService-Info.plist in Resources */,
 				FBF882F92BE53196002496E6 /* Farmers.json in Resources */,
-				FB3434142C259E1100DE35B5 /* ChauPhilomeneOne-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,17 +335,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB5FE87E2C060B0D00E8CD13 /* LoaderAnimationView.swift in Sources */,
-				FB832C5D2B87540200E60C19 /* AppDelegate.swift in Sources */,
+				FB01E22E2C2B1A0500CD500A /* OnBoardingCardView.swift in Sources */,
 				FB72604F2B8DEE60003A1A40 /* FarmerDetailsView.swift in Sources */,
 				FBC81EAB2BF6035E006F9EC8 /* FarmerServiceMock.swift in Sources */,
 				FB31C8C12B87604F00EDCD75 /* MapView.swift in Sources */,
 				FBDEB9BE2BF63CBC0024520A /* ProductsView.swift in Sources */,
 				FBB6B8A12BA481E300D9D3F6 /* FarmerService.swift in Sources */,
 				FBBEFF852C1CA74A0012D53E /* ProductCategory.swift in Sources */,
-				FB832C5F2B87540200E60C19 /* SceneDelegate.swift in Sources */,
+				FB01E2302C2B294B00CD500A /* OnBoardingView.swift in Sources */,
 				FBA13FF12BC73AEB0025C200 /* Farmers.swift in Sources */,
 				FB7CAA682B90EB920093540E /* FarmerDetailsViewModel.swift in Sources */,
 				FB7260492B8D6232003A1A40 /* MapViewModel.swift in Sources */,
+				FB846E5A2C2DB96100F8061D /* MonMaraicherApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,20 +650,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		FBC8ED922C2EBF2C00ECE2A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.28.0;
+				minimumVersion = 10.28.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FB151CE42C29AD61002851BB /* FirebaseAnalytics */ = {
+		FBC8ED932C2EBF2D00ECE2A6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FB151CE32C29AD61002851BB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = FBC8ED922C2EBF2C00ECE2A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
