@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ProductsView: View {
 
-    @State var products: [Products]
+    var products: [Products]
 
     var body: some View {
         List {
             ForEach(products, id: \.id) { product in
                 Text(product.name)
-                    .font(.system(size: 17, weight: .semibold, design: .rounded))
+                    .font(.system(size: 17, weight: .regular, design: .rounded))
                     .foregroundStyle(.accent)
             }
         }

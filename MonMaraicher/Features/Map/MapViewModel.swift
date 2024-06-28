@@ -8,12 +8,14 @@
 import MapKit
 import Combine
 import SwiftUI
+import FirebaseAnalytics
 
 final class MapViewModel: ObservableObject {
 
     @Published var farmerDetailsViewModel: FarmerDetailsViewModel?
     @Published var selectedMarker: Marker?
     @Published var allMarkers: [Marker] = []
+    @Published var filteredMarkers: [Marker] = []
     @Published var mapCameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
     @Published var nearbyButtonAlert: NearbyButtonAlert?
@@ -21,6 +23,7 @@ final class MapViewModel: ObservableObject {
     @Published var hasTextField = false
 
     @Published var farmersLoadingInProgress = false
+    @Published var isFilterViewVisible = false
 
     @Published var searchScope = 5.0
 
@@ -34,14 +37,17 @@ final class MapViewModel: ObservableObject {
     }
     var hasUserAcceptedLocation: Bool { return currentUserLocation != nil }
     private let farmerService: FarmerServiceProtocol
+    private var timer = Timer()
 
     let imageSystemNameSearchButton: String
     let imageSystemNameReloadButton: String
+    var selectedCategories: Set<String>
 
     init(farmerService: FarmerServiceProtocol) {
         self.farmerService = farmerService
         self.imageSystemNameSearchButton = "magnifyingglass"
         self.imageSystemNameReloadButton = "arrow.clockwise"
+        self.selectedCategories = []
 
         $nearbyButtonAlert
             .map { alertType in
@@ -64,7 +70,14 @@ final class MapViewModel: ObservableObject {
         guard let currentUserLocation else { return }
         Task {
             await loadFarmers(with: currentUserLocation, errorType: .loadError)
+            DispatchQueue.main.async {
+                self.applyFilter(for: self.selectedCategories)
+            }
         }
+    }
+
+    func deselectAnnotation() {
+        selectedMarker = nil
     }
 
     @MainActor private func loadFarmers(with location: CLLocation, errorType: NearbyButtonAlert) async {
@@ -72,10 +85,10 @@ final class MapViewModel: ObservableObject {
             farmersLoadingInProgress = true
             let farmers = try await self.farmerService.searchFarmers(around: location)
             allMarkers = farmers.items.flatMap { farmer in
-                farmer.addresses.map { address in
-                    Marker(farmer: farmer, address: address)
-                }
+                farmer.addresses.filter { !$0.farmerAddressesTypes.contains("Siège social") || $0.farmerAddressesTypes.count >= 2 }
+                    .map { Marker(farmer: farmer, address: $0) }
             }
+            filteredMarkers = allMarkers
             farmersLoadingInProgress = false
         } catch {
             farmersLoadingInProgress = false
@@ -88,11 +101,7 @@ final class MapViewModel: ObservableObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
-    func onReloadingFarmersButtonTapped() {
-        reloadingFarmers()
-    }
-
-    func displayAnErrorIfNoUserLocation() {
+    private func displayAnErrorIfNoUserLocation() {
         if currentUserLocation == nil {
             isAlertPresented = true
             hasTextField = false
@@ -100,25 +109,67 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    func onSearchAreaButtonTapped() {
-        displayAnErrorIfNoUserLocation()
-        guard let currentMapCameraPosition else { return }
-        let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
+    @MainActor private func whenMapCameraPositionMove(position: CLLocationCoordinate2D) {
+        Analytics.logEvent("scrolling_on_map", parameters: nil)
+        guard hasUserAcceptedLocation else {
+            return
+        }
+        let currentLocation = CLLocation(latitude: position.latitude, longitude: position.longitude)
         Task {
             await loadFarmers(with: currentLocation, errorType: .noFarmerAround)
+            applyFilter(for: self.selectedCategories)
         }
     }
 
     func reloadingFarmers() {
         displayAnErrorIfNoUserLocation()
-        guard let currentUserLocation else { return }
+        guard let currentMapCameraPosition else { return }
+        let currentLocation = CLLocation(latitude: currentMapCameraPosition.latitude, longitude: currentMapCameraPosition.longitude)
         Task {
-            await loadFarmers(with: currentUserLocation, errorType: .loadError)
+            await loadFarmers(with: currentLocation, errorType: .loadError)
+            applyFilter(for: self.selectedCategories)
         }
+    }
+
+    func onFilterProductsButtonTapped(by category: String) {
+        Analytics.logEvent("filterButton_tapped", parameters: ["category": category])
+        if selectedCategories.contains(category) {
+            selectedCategories.remove(category)
+        } else {
+            selectedCategories.insert(category)
+        }
+        applyFilter(for: selectedCategories)
+    }
+
+    private func applyFilter(for categories: Set<String>) {
+        guard !categories.isEmpty else {
+            allMarkers = filteredMarkers
+            return
+        }
+        allMarkers = filteredMarkers.filter { marker in
+            categories.allSatisfy { category in
+                guard let productCategory = allProductsCategories.first(where: { $0.name == category }) else {
+                    return false
+                }
+                let productsInCategory = productCategory.products
+                return marker.farmer.products.contains { product in
+                    productsInCategory.contains { productInCategory in
+                        product.name.localizedCaseInsensitiveContains(productInCategory.rawValue)
+                    }
+                }
+            }
+        }
+    }
+
+    func focusUserLocation() {
+        displayAnErrorIfNoUserLocation()
+        guard let currentUserLocation else { return }
+        mapCameraPosition = .region(MKCoordinateRegion(center: currentUserLocation.coordinate, span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)))
     }
 
     // TODO: Write unit tests for this method
     func onNearbyFarmerButtonTapped() {
+        Analytics.logEvent("nearbyButton_tapped", parameters: nil)
         guard let currentUserLocation else {
             isAlertPresented = true
             hasTextField = false
@@ -131,7 +182,7 @@ final class MapViewModel: ObservableObject {
             nearbyButtonAlert = .noFarmer(formattedDistance)
             return
         }
-        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let nearbyFarmerRegion = MKCoordinateRegion(center: nearbyLocation.coordinate, span: .init(latitudeDelta: 0.02, longitudeDelta: 0.02))
         mapCameraPosition = .region(nearbyFarmerRegion)
     }
 
@@ -153,6 +204,16 @@ final class MapViewModel: ObservableObject {
         }
         return nearbyLocation
     }
+
+    func onMapCameraChange(currentMapCameraPosition: CLLocationCoordinate2D) {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            Task {
+                await self.whenMapCameraPositionMove(position: currentMapCameraPosition)
+            }
+        }
+    }
 }
 
 extension Double {
@@ -168,8 +229,8 @@ extension Farmer {
         return businessName.capitalized
     }
 
-    var systemImageName: String {
-        return "laurel.leading"
+    var imageName: String {
+        return "leaf.fill"
     }
 }
 
@@ -255,7 +316,7 @@ extension MapViewModel {
         let id: UUID
         let title: String
         let coordinate: CLLocationCoordinate2D
-        let systemImage: String
+        let image: String
         let address: Address
         let farmer: Farmer
 
@@ -263,7 +324,7 @@ extension MapViewModel {
             self.id = UUID()
             self.title = farmer.title
             self.coordinate = .init(latitude: address.latitude, longitude: address.longitude)
-            self.systemImage = farmer.systemImageName
+            self.image = farmer.imageName
             self.address = address
             self.farmer = farmer
         }

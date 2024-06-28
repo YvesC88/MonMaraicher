@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "chou-rouge.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

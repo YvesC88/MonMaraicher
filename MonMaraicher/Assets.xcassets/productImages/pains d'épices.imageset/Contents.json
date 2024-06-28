@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "bonhomme-en-pain-depice.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
