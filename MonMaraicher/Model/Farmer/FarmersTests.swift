@@ -13,7 +13,7 @@ final class FarmersTests: XCTestCase {
     func testTitleShouldReturnFarmerNameCapitalized() {
 
         // Given
-        let farmer = Farmer.makeMock(name: "L'Abeille du Pic")
+        let farmer = Farmer.makeMock(name: "l'abeille du pic")
 
         // When
         let expectedTitle = "L'abeille Du Pic"

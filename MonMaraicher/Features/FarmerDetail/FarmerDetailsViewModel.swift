@@ -7,6 +7,7 @@
 
 import MapKit
 import SwiftUI
+import FirebaseAnalytics
 
 struct FarmerDetailsViewModel: Identifiable, Hashable {
     let id: UUID
@@ -23,12 +24,13 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     let farmerAddressesTypes: [String]
     let city: String
 
-    let markerSystemImageName: String
+    let markerImage: String
     let directionButtonImageSystemName: String
     let phoneButtonImageSystemName: String
     let emailButtonImageSystemName: String
 
     init(marker: MapViewModel.Marker) {
+        Analytics.logEvent("marker_tapped", parameters: nil)
         self.id = marker.id
         self.title = marker.title
         self.phoneNumber = marker.farmer.businessPhone ?? marker.farmer.personalPhone
@@ -42,7 +44,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
         self.address = "\(marker.address.place.capitalized)\n\(marker.address.zipCode) \(marker.address.city.capitalized)"
         self.farmerAddressesTypes = marker.address.farmerAddressesTypes
         self.city = marker.address.city.capitalized
-        self.markerSystemImageName = "laurel.leading"
+        self.markerImage = marker.image
         self.directionButtonImageSystemName = "map.fill"
         self.phoneButtonImageSystemName = "phone.fill"
         self.emailButtonImageSystemName = "envelope.fill"
@@ -65,13 +67,14 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
     }
 
     func onDirectionButtonTapped() {
+        Analytics.logEvent("get_direction", parameters: nil)
         let placemark = MKPlacemark(coordinate: self.coordinate)
         let mapItem = MKMapItem(placemark: placemark)
         mapItem.name = self.title
         mapItem.openInMaps()
     }
 
-    func getProductsImagesNames() -> [String] {
+    func getProductsImagesNames(products: [Products]) -> [String] {
         var imagesNames: Set<String> = []
         let sortedImages = ProductsImages.allCases.sorted { $0.rawValue.count > $1.rawValue.count }
         for product in products {
@@ -80,7 +83,7 @@ struct FarmerDetailsViewModel: Identifiable, Hashable {
                 break
             }
         }
-        return Array(imagesNames)
+        return Array(imagesNames).sorted()
     }
 
     func getScale(proxy: GeometryProxy) -> CGFloat {

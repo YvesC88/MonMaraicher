@@ -14,10 +14,9 @@ protocol FarmerServiceProtocol {
 
 final class FarmerService: FarmerServiceProtocol {
 
-    // TODO: Write unit tests for this method
     func searchFarmers(around location: CLLocation) async throws -> Farmers {
         do {
-            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?activite=Production&filtrerVenteDetail=1&lat=\(location.coordinate.latitude)&lng=\(location.coordinate.longitude)"
+            let endPoint = "https://opendata.agencebio.org/api/gouv/operateurs/?filtrerVenteDetail=1&lat=\(location.coordinate.latitude)&lng=\(location.coordinate.longitude)"
             guard let url = URL(string: endPoint) else {
                 throw Error.badUrl
             }

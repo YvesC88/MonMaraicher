@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import FirebaseAnalytics
 
 struct FarmerDetailsView: View {
 
@@ -21,38 +22,60 @@ struct FarmerDetailsView: View {
     @State var showingProductsList = false
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                titleSection
-                Divider()
-                HStack {
-                    distanceSection
+        ZStack(alignment: .top) {
+            headerImage
+            ScrollView(.vertical, showsIndicators: false) {
+                Spacer(minLength: 260)
+                VStack(alignment: .leading, spacing: 16) {
+                    titleSection
                     Divider()
-                    productsSection
+                    HStack {
+                        distanceSection
+                        Divider()
+                        productsSection
+                    }
+                    Divider()
+                    productsScrollingSection
+                    Divider()
+                    mapSection
+                    Divider()
+                    contactSection
                 }
-                Divider()
-                productsScrollingSection
-                Divider()
-                mapSection
-                Divider()
-                contactSection
+                .padding()
+                .background()
+                .clipShape(.rect(cornerRadius: 20))
+                .overlay(alignment: .topTrailing) {
+                    Image(.bio)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .padding(-0.7)
+                }
+                .shadow(color: .black.opacity(0.3), radius: 16, x: 0, y: -32)
             }
-            .padding()
+            .ignoresSafeArea()
+            .overlay(closeButton, alignment: .topTrailing)
         }
-        .overlay(closeButton, alignment: .topTrailing)
     }
 }
 
 private extension FarmerDetailsView {
 
+    private var headerImage: some View {
+        Image(.topBackground)
+            .resizable()
+            .scaledToFit()
+            .clipShape(.rect(cornerRadius: 8))
+            .ignoresSafeArea()
+    }
+
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(viewModel.title)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
-                .foregroundStyle(.blue.gradient)
+                .foregroundStyle(.accent)
             ForEach(viewModel.farmerAddressesTypes, id: \.self) { addressType in
                 Text(addressType)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .font(.system(size: 15, weight: .regular, design: .rounded))
             }
         }
         .padding(.trailing)
@@ -60,7 +83,7 @@ private extension FarmerDetailsView {
 
     private var distanceSection: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20).foregroundStyle(.regularMaterial)
+            RoundedRectangle(cornerRadius: 20).fill(.ultraThinMaterial)
             VStack {
                 Text("distance".uppercased())
                     .font(.system(size: 10))
@@ -78,10 +101,11 @@ private extension FarmerDetailsView {
             VStack {
                 Button {
                     self.showingProductsList.toggle()
+                    Analytics.logEvent("products_details", parameters: nil)
                 } label: {
                     Text("Liste des produits")
-                        .foregroundStyle(.white)
                         .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white)
                 }
                 .sheet(isPresented: $showingProductsList) {
                     ProductsView(products: viewModel.products)
@@ -89,14 +113,14 @@ private extension FarmerDetailsView {
                 }
             }
         }
-        .foregroundStyle(.blue.gradient)
+        .foregroundStyle(.accent.gradient)
         .frame(height: 60)
     }
 
     private var productsScrollingSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 25) {
-                ForEach(viewModel.getProductsImagesNames(), id: \.self) { image in
+                ForEach(viewModel.getProductsImagesNames(products: viewModel.products), id: \.self) { image in
                     GeometryReader { proxy in
                         let scale = viewModel.getScale(proxy: proxy)
                         Image(image)
@@ -120,14 +144,15 @@ private extension FarmerDetailsView {
             Image(systemName: "xmark")
                 .padding(8)
                 .background(Circle().fill(.regularMaterial))
+                .shadow(radius: 16)
                 .padding()
         }
     }
 
     private var mapSection: some View {
         Map(position: .constant(.automatic), bounds: .init(minimumDistance: 1000)) {
-            Marker(viewModel.title, systemImage: viewModel.markerSystemImageName, coordinate: viewModel.coordinate)
-                .tint(.orange)
+            Marker(viewModel.title, systemImage: viewModel.markerImage, coordinate: viewModel.coordinate)
+                .tint(.accent)
         }
         .aspectRatio(2, contentMode: .fit)
         .clipShape(.rect(cornerRadius: 16))
@@ -140,10 +165,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Adresse")
-                        .foregroundStyle(.secondary)
                         .font(.subheadline)
+                        .foregroundStyle(.secondary)
                     Text(viewModel.address)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 directionButton
@@ -152,10 +177,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Téléphone")
-                        .foregroundStyle(.secondary)
                         .font(.subheadline)
+                        .foregroundStyle(.secondary)
                     Text(viewModel.phoneNumber ?? "Aucun numéro disponible")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 if viewModel.phoneNumber != nil {
@@ -166,10 +191,10 @@ private extension FarmerDetailsView {
             HStack {
                 VStack(alignment: .leading) {
                     Text("Email")
-                        .foregroundStyle(.secondary)
                         .font(.subheadline)
+                        .foregroundStyle(.secondary)
                     Text(viewModel.email ?? "Aucune adresse email")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 Spacer()
                 if viewModel.email != nil {
@@ -179,8 +204,8 @@ private extension FarmerDetailsView {
             Divider()
             VStack(alignment: .leading) {
                 Text("Site Web")
-                    .foregroundStyle(.secondary)
                     .font(.subheadline)
+                    .foregroundStyle(.secondary)
                 if !viewModel.websites.isEmpty {
                     ForEach(viewModel.websites, id: \.id) { website in
                         Text(.init(viewModel.formatWebsite(website)))
@@ -189,7 +214,7 @@ private extension FarmerDetailsView {
                     Text("Aucun site web")
                 }
             }
-            .font(.system(size: 15, weight: .semibold, design: .rounded))
+            .font(.system(size: 15, weight: .medium, design: .rounded))
         }
         .padding()
         .background(.regularMaterial)
@@ -202,7 +227,7 @@ private extension FarmerDetailsView {
         } label: {
             Image(systemName: viewModel.directionButtonImageSystemName).foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .background(RoundedRectangle(cornerRadius: 20).fill(.accent.gradient))
                 .padding()
         }
     }
@@ -226,7 +251,7 @@ private extension FarmerDetailsView {
             Image(systemName: image)
                 .foregroundStyle(.white.gradient)
                 .frame(width: 80, height: 40)
-                .background(RoundedRectangle(cornerRadius: 20).fill(.blue.gradient))
+                .background(RoundedRectangle(cornerRadius: 20).fill(.accent.gradient))
                 .padding()
         }
     }
